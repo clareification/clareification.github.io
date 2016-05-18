@@ -7,15 +7,15 @@ Well, this is it. After handing in the final draft of my research project's repo
 
 There were still some pretty nifty proofs that turned up this year though, so I thought I'd share a couple of them here.
 
-The proof that the rationals have the same cardinality as the natural numbers
+<a href="https://www.youtube.com/watch?v=elvOZm0d4H0">The proof that the rationals have the same cardinality as the natural numbers</a>
 
-How RSA encryption works
+<a href="http://www.ams.org/samplings/math-awareness-month/06-Kaliski.pdf">How RSA encryption works</a>
 
-The dual of the dual of a vector space is isomorphic to that vector space
+<a href="https://www.dpmms.cam.ac.uk/~wtg10/meta.doubledual.html">The dual of the dual of a vector space is isomorphic to that vector space</a>
 
 The weak law of large numbers and the central limit theorem
 
-There exists no translational-invariant measure that can be defined on all subsets of R
+There exists no translational-invariant measure that can be defined on all subsets of \\mathbb{R}
 
 The Lebesque criterion for Riemann integrability
 
