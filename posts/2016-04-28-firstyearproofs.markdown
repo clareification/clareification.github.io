@@ -19,6 +19,4 @@ There exists no translational-invariant measure that can be defined on all subse
 
 The Lebesque criterion for Riemann integrability
 
-\\[ \\ln x = \\int_{-\\infty}^x \\frac 1 y \\, dy . \\]
-
 For the moment the curious reader can google these, but I'm planning on adding a blog post for each of these proofs later. Till then, happy summer!
