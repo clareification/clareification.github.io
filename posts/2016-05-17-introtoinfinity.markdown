@@ -1,6 +1,7 @@
 --------------------------------------------
 title: A gentle introduction to infinities
 author: Clare
+slug: Yes, plural.
 --------------------------------------------
 
 When I was five years old, I learned how to tie my shoes. With a bit of practice, I could get the rabbit around the tree and through the hole with my eyes closed. Heck, I even perfected the coveted *double bow*. Despite this apparent mastery of the art of shoe-tying, if you'd asked me at that age why that particular set of movements resulted in a structure that could both look pretty and keep my shoes from falling off, I wouldn't have had the faintest clue of how to answer you. It was only a decade later, armed with an understanding of high school physics and geometry, that I finally grasped the properties of the universe that I'd made use of for so many years.

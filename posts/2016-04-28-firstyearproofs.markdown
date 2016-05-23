@@ -1,6 +1,7 @@
 ---
 title: A round-up of my favourite proofs from introductory math courses
 author: Clare
+slug: I spent a lot of time proving things this year.
 ---
 
 Well, this is it. After handing in the final draft of my research project's report, I've officially finished my second year of university. At McGill, science students spend their first year fulfilling freshman requirements: the standard set of chemistry, physics, and calculus. Your first year (or U0 as we call it here) is where you try out several subjects and see which strikes your fancy. Second year is when you start to specialize. It's in second year that math students are treated to their first real proof-based courses: some mix of analysis, algebra, advanced calculus and probability theory. The content of these courses isn't in itself particularly sophisticated; rather, the function of 200-level classes is introduce the student to fundamental concepts of mathematical rigor and the structure of arguments while also laying the foundations of the subjects for later study. 
