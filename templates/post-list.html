@@ -1,7 +1,24 @@
-<ul>
-    $for(posts)$
-        <li>
-            <a href="$url$">$title$</a> - $date$
-        </li>
-    $endfor$
-</ul>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        $for(posts)$
+            <div class="post-preview">
+                <a href="$url$">
+                    <h2 class="post-title">
+                        $title$
+                    </h2>
+                    <h3 class="post-subtitle">
+                        Subtitle to be added
+                    </h3>
+                </a>
+                <p class="post-meta">Posted by <a href="#">Clare</a> on $date$</p>
+            </div>
+        $endfor$    
+            <ul class="pager">
+                <li class="next">
+                    <a href="archive.html">Older Posts &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

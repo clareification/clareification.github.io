@@ -3,10 +3,19 @@
 import           Data.Monoid (mappend)
 import           Hakyll
 
-
+import qualified Data.Set as S
+import           Text.Pandoc.Options		
 --------------------------------------------------------------------------------
 main :: IO ()
 main = hakyll $ do
+    match "CNAME" $ do
+	--route idRoute
+	compile copyFileCompiler
+
+    match "js/*" $ do
+	route idRoute
+	compile copyFileCompiler
+
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -48,7 +57,7 @@ main = hakyll $ do
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
+                  listField "posts" postCtx (return posts) `mappend`
                     constField "title" "Home"                `mappend`
                     defaultContext
 
@@ -59,8 +68,7 @@ main = hakyll $ do
 
     match "templates/*" $ compile templateCompiler
 
-
---------------------------------------------------------------------------------
+------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
