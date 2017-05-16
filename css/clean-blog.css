@@ -207,7 +207,7 @@ hr.small {
     font-size: 55px;
   }
   .intro-header .post-heading .subheading {
-    font-size: 30px;
+    font-size: 20px;
   }
 }
 .post-preview > a {
@@ -219,8 +219,8 @@ hr.small {
   color: #0085a1;
 }
 .post-preview > a > .post-title {
-  font-size: 30px;
-  margin-top: 30px;
+  font-size: 20px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 .post-preview > a > .post-subtitle {
@@ -245,7 +245,7 @@ hr.small {
 }
 @media only screen and (min-width: 768px) {
   .post-preview > a > .post-title {
-    font-size: 36px;
+    font-size: 20px;
   }
 }
 .section-heading {
