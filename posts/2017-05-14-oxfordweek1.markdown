@@ -1,7 +1,7 @@
 ---
 title: Week 1 in Oxford
 author: Clare
-slug: 
+slug: I'm in Oxford!
 ---
 
 After having spent a week in England, I'm due for a blog post. This is going to be mostly a summary of my attempt to adjust to the UK, and I'll hopefully post more about my insights into the future of humanity at a later date.

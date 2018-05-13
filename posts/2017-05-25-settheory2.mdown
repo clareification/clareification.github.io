@@ -1,0 +1,25 @@
+---
+title: A semi-coherent summary of set theory pt 2
+author: Clare
+slug: Or how set theorists are bad at naming things
+---
+
+Now that we've figured out what a set is, we get to start using them to think about things. What kind of things? Things that are so abstract that even most normal mathematicians tend to think they're a load of abstract nonsense. Sounds cool, right? So let's get started. I'm going to treat you to a very quick overview of some of the key ideas that we covered in my set theory course last semester. 
+
+<h2>The continuum hypothesis</h2>
+We're going to need to start off with a few definitions. A set $S$ is transitive if any element of $S$ is also a subset of $S$. For example $\emptyset$ is trivially transitive. Also, $\{\emptyset \}$ and $\{ \{ \emptyset \}, \emptyset \}$ are transitive. It's well-ordered if it is linearly ordered (every element is bigger or smaller than any other element) and has a least element. We call a set an ordinal if it is transitive and well-ordered. We can think of ordinals as generalizing the notion of numbers. For example, we can think of $\emptyset$ as 0, $\{\emptyset \}$ as 1, and so on by saying $n+1 = n \cup \{n\}$. In fact, ordinals are better than natural numbers because we can also have infinite ordinals. The first infinite ordinal, $\omega$, is defined as $\cup_{n \in \mathbb{N}} \bar{n}$ (with $\bar{n}$ denoting the ordinal corresponding to $n$). We can get infinite ordinals that are enormously bigger than $\omega$, although it's difficult to intuitively think of what it means for one infinity be 'a lot bigger' than another infinity.
+
+We can now define a cardinal. While people in quantitative fields sometimes like to talk about the 'cardinality' of a set of things, they generally don't realize that they're referring to a very powerful mathematical notion (although usually the cardinalities they talk about are the boring ones). A cardinal is an ordinal that is not equinumerous with any smaller ordinal. Finite numbers are all cardinals, because there is no way of constructing a bijetion between, for example, five and seventy-two. Similarly, any ordinal smaller than $\omega$ is finite, and finite numbers are smaller than infinity so we can't construct a bijection. There is, however, a way of constructing a bijection between $\omega$ and $\omega + 1$. So $\omega + 1$ is not a cardinal. There are a few helpful theorems that I'll quickly cover.
+
+1. Let $P(X)$ denote the powerset of a set $X$. If $\kappa$ is a cardinal, then $P(\kappa)$ is also a cardinal, and $P(\kappa) > \kappa$.
+
+2. If $\kappa$ is a cardinal, then there exists another cardinal $\kappa'$ with $\kappa' > \kappa$.
+
+As a result, even if we have a really big cardinal, we can still find an even bigger one. This gives rise to terribly unimaginative names like "large cardinals" and "very large cardinals" and "stupidly large cardinals" (ok the last one was just me, but the first two were literally chapter titles in Jech). 
+
+Now, it can be hard (pretty much impossible actually, as we're about to see) to constructively write down all of the cardinals in a given interval once we stop dealing with finite ordinals. To make this easier to talk about, we can define the sequence $\aleph_\alpha$ (pronounced aleph), which is basically a way of enumerating cardinals. We say that $\aleph_0 = \omega$, and $\aleph_1$ is the next biggest cardinal after $\omega$. But what exactly is $\aleph_1$? Actually, we can't really say. It's definitely not bigger than the real numbers, since $2^\omega > \omega$, but there's nothing a priori stopping it from being smaller than the reals.
+
+The <b> continuum hypothesis </b> is the claim that $\aleph_1 = 2^\omega$. 
+
+Is it true? Is it false? Neither. And both. There are some models of set theory where it's true, and some where it's false, so its validity depends on what universe you're in. I'll try to write up the details of how to show this sometime in the near future, but if you're really anxious to read more you can google godel's constructible universe and forcing.
+

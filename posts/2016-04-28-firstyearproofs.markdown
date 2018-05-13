@@ -16,7 +16,7 @@ There were still some pretty nifty proofs that turned up this year though, so I 
 
 The weak law of large numbers and the central limit theorem
 
-There exists no translational-invariant measure that can be defined on all subsets of \\mathbb{R}
+There exists no translational-invariant measure that can be defined on all subsets of $\mathbb{R}$.
 
 The Lebesque criterion for Riemann integrability
 

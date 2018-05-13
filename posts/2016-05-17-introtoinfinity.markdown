@@ -13,12 +13,13 @@ Although there is much to be said about the complexity of shoe-tying, I would ar
 Computer scientists frequently find themselves dealing with unfathomably large numbers. Many concepts in theoretical computer science -- in particular, the analysis of algorithmic complexity -- rely on taking limits as the size of the input to a problem becomes 'infinitely' large. Yet too often the subject of size is approached in a hand-wavey fashion that leaves a slight distaste in the mouth of a student in mathematics. Computer science students, it seems, often find themselves forging ahead without first checking whether their mathematical shoes are securely fastened. In this post, I'll attempt to make some small effort at remedying this worrying trend, and try to explain one small facet of the concept of infinity.
 
 I'll start with FizzBuzz, the classic programming interview question, which goes as follows. Loop through a set of numbers. If a number is divisible by 3, print "Fizz". If it's divisible by 5, print "Buzz". In python, this would look like:
+
+
 ```python
-for i in range(1,n):
-    if i%3==0:
-	print "fizz"
-    if i % 5 == 0:
-	print "buzz"
+a = [1,2,3]
+a[2] = a
+print(a)
+>>> [1,2,[...]]
 ```
 Now, one question we might ask about this program is "How many times will it print fizz in a given input?", and we'd find that the answer is $\rfloor \frac{n}{3} \lfloor$ ( $\rfloor 3.2 \lfloor = 3$, as an example). Similarly, we'll print "buzz" $\rfloor \frac{n}{5} \lfloor$ times.
 
