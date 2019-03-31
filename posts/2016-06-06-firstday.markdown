@@ -1,0 +1,13 @@
+---
+title: First Week at Microsoft
+author: Clare
+slug: Or how I installed more microsoft products in two days than I had in the last two years.
+---
+
+Having now spent a week at my internship at Microsoft, I finally feel qualified to offer my first impressions of the place. NEO (New Employee Orientation) took up most of my very first day, during which I received copious quantities of presentations about how great Microsoft is and free Microsoft-branded items. After grabbing lunch and some discount cards for Seattle attractions and transportation(I suspect that free stuff is going to be a trend for the summer), I took a shuttle to my new office.
+
+My office is huge -- the size of 2-3 conference rooms. There are classroom-sized whiteboards and a cold brew coffee machine. Granted, I have to share it with all of the other office 365 interns (there are around 30 of us I think), and I'm somewhat monitor deprived, having only one rather than the battle station setup I've seen on some devs' desks. 
+
+My project itself is pretty broad, and without going into gory detail involves using machine learning to help support agents respond to user feedback. I've spent most of my first week setting up my dev environment and going through some tutorials on visual studio and azure, as well as talking to people and exploring the problem space. I think technically I'm PMing right now, but I spent most of today getting a naive bayes classifier to run on text data (and make somewhat accurate predictions). 
+
+Microsoft also has a rather large array of training videos that one is expected to go through to learn about how to act with integrity, overcome unconscious bias, and not accidentally incorporate open source software that will harm Microsoft's ability to monetize its products, so I've had to spend a few hours going through those. Overall I've done much less coding than I'd thought I would, but it's still early in the summer and I'm confident that things will pick up quite quickly.
