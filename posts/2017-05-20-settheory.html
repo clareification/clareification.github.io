@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on May 20, 2017
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>A semi-coherent summary of set theory</h1>
+<p>Math is a bit like day dreaming. One asks “what if?” and then goes from there, following a path of reasoning that often passes through surreal and sometimes seemingly nonsensical territory to (hopefully) arrive at some deep theorem or insight into the nature of an object.</p>
+<p>Many people have a peculiar notion that mathematics is meant to describe the real world, but this couldn’t be further from the truth. Yes, some parts of mathematics allow us to describe and model natural phenomena, but this is hardly due to the nature of math. It’s not what math is <em>meant</em> to do. Rather, mathematics is about finding relationships between things and pushing ideas to their theoretical limits, and every once and a while it just so happens that the things you discover happen to describe something in physics, or biology or chemistry or economics or some other field that would at first glance appear to be far flung from the rigor of math. </p>
+<p>This blog post is not about that kind of math. This blog post is about the kind of math that even pure mathematicians sometimes criticize as being too abstract to ever be useful. This is a post about set theory.</p>
+<p>Sets, or collections of things, are a cornerstone of life. Just now, I’m drinking a collection of atoms (mostly hydrogen and oxygen) from a cup-shaped object on my table. Now suppose I want to think about sets a bit more formally. Then I’ll want to lay down some rules that these things should follow.</p>
+<p>Hold up a second, why do I need rules? Why can’t we just say “A set is a collection of objects” and be done with it?</p>
+<p>Well, we could. But as Bertrand Russel pointed out, we’d end up with a nasty paradox, and mathematicians tend to dislike those.</p>
+<p>Russell’s paradox goes as follows: we say that sets are just things that contain other things. So then a set is a thing, which means sets can contain other sets. Furthermore, under this definition there’s nothing stopping a set from containing itself. This might seem a bit unintuitive at first, but we can define things that contain themselves all the time in programming languages. For example, consider the following python code:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">a <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="op">;</span>
+
+a[<span class="dv">2</span>] <span class="op">=</span> a<span class="op">;</span>
+
+<span class="bu">print</span>(a)<span class="op">;</span>
+
+<span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>,<span class="dv">2</span>,[...]]</code></pre></div>
+<p>a is an array that contains the elements 1, 2, and a. This is perfectly valid computer code. So why do we run into an issue with sets?</p>
+<p>To see where the issue arises, try to define “the collection of all sets that don’t contain themselves”. OK, this is a collection of things so it’s a set. But does it belong to itself? I’ll let you work that out.</p>
+<p>So to avoid that messiness, we really will need a few axioms to specify when a collection of objects is a ‘set’. For starters, we won’t let sets be members of themselves. We also want to be able to say whether two sets are equal, so we’ll use the obvious definition that two sets are equal if and only if any member of one set is a member of the other set. Now, we also want to be able to pair sets together, to take unions, and to take power sets (the powerset of a set A is the set whose elements are all the subsets of A). We’ll also need the following;</p>
+<p>Comprehension: given a set A and a logical formula <span class="math inline">\(\phi\)</span>, there exists a set B whose elements are all of the elements of A which satisfy <span class="math inline">\(\phi\)</span>. For example, if I have a collection of cups and I pick all of the red ones, then the collection of red cups should also be a set.</p>
+<p>Replacement: if I have a set A and function whose domain contains A and maps A to a set B, then there exists a set whose elements are the images of the elements of A.</p>
+<p>Infinity: infinite sets exist (this isn’t the formal definition but it’ll do for now)</p>
+<p>Now, if I have a set M whose elements satisfy all of these rules, then I’ll call M a model of ZF set theory. Because of Godel’s miscellaneous (in)consistency results, we can’t actually prove from the ZF axioms alone that ZF has a model. We’ll assume from here on out that a model exists, because otherwise I wouldn’t have anything to talk about for the rest of the blog post.</p>
+<p>OK, so we’ve formalized the idea of what it means to be a set. My since I’ve already sort of covered cardinalities in a previous blog post (and if that explanation isn’t satisfying there are lots of other resources on the internet that will happily explain it to you), my next set theory post will cover large cardinals, very large cardinals, and the continuum hypothesis.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

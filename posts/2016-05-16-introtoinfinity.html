@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on May 16, 2016
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>A gentle introduction to infinities</h1>
+<p>As children, we learn about infinity in much the same way we learn to tie our shoes. First, we are taught an complicated sequence of motions and symbols, with little explanation of why the rabbit has to go around the tree before it jumps into the hole. It is only later after learning an appreciable amount of physics and geometry that the reason one’s shoes do not fall off becomes clear. One spends the majority of grade school mathematics classes shunting symbols about a page, with little appreciation for the meaning of the odd sideways eight.</p>
+<p><img src="../images/infty.jpg" title="See: cool sideways 8" style="float:right; width:300px; max-width:100%" ; /></p>
+<p>Although there is much to be said about the complexity of shoe-tying, I would argue that the notion of infinity is slightly more difficult to comperhend. As a child, I used the word infinity to mean something “really really really big” when I was too lazy to say the word “really” that many times. Occasionally I simply threw the word about because I thought it made me sound precocious. Of late, however, coursework has required me to give the subject deeper thought.</p>
+<p>Computer scientists frequently find themselves dealing with unfathomably large numbers. Many concepts in theoretical computer science – in particular, the analysis of algorithmic complexity – rely on taking limits as the size of the input to a problem becomes ‘infinitely’ large. Yet too often the subject of size is approached in a hand-wavey fashion that leaves a slight distaste in the mouth of a student in mathematics. Computer science students, it seems, often find themselves forging ahead without first checking whether their mathematical shoes are securely fastened. In this post, I’ll attempt to make some small effort at remedying this worrying trend, and try to explain one small facet of the concept of infinity.</p>
+<p>I’ll start with FizzBuzz, the classic programming interview question, which goes as follows. Loop through a set of numbers. If a number is divisible by 3, print “Fizz”. If it’s divisible by 5, print “Buzz”. In python, this would look like:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">a <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
+a[<span class="dv">2</span>] <span class="op">=</span> a
+<span class="bu">print</span>(a)
+<span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>,<span class="dv">2</span>,[...]]</code></pre></div>
+<p>Now, one question we might ask about this program is “How many times will it print fizz in a given input?”, and we’d find that the answer is <span class="math inline">\(\rfloor \frac{n}{3} \lfloor\)</span> ( <span class="math inline">\(\rfloor 3.2 \lfloor = 3\)</span>, as an example). Similarly, we’ll print “buzz” <span class="math inline">\(\rfloor \frac{n}{5} \lfloor\)</span> times.</p>
+<p>Now, imagine we had a computer that could store arbitrarily large numbers and had it run the following, slightly modified version of the fizzbuzz solution:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">i <span class="op">=</span> <span class="dv">1</span>
+    <span class="cf">while</span> i <span class="op">&gt;</span><span class="dv">0</span>:
+    <span class="cf">if</span> i<span class="op">%</span><span class="dv">3</span><span class="op">==</span><span class="dv">0</span>:
+	<span class="bu">print</span> <span class="st">&quot;fizz&quot;</span>
+    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:
+	<span class="bu">print</span> <span class="st">&quot;buzz&quot;</span>
+    i<span class="op">++;</span></code></pre></div>
+<p>It doesn’t take much contemplation to recognize that this program won’t terminate any time soon (barring the heat death of the universe). So if the universe doesn’t end, and our program runs forever, will we have printed the word “fizz” more times, or the word “buzz”?</p>
+<p>The answer is subtle. If we stop the computer at any point, the answer will be that we printed “fizz” more often, since there are more numbers that are divisible by 3 than by 5 in the interval (1, n) for any value of n. Intuitively, we might then look at this output and say that since the ratio of fizz to buzz favours fizz, there are more whole numbers divisible by 3 than by 5.</p>
+<p>As appealing as this explanation is, it doesn’t hold water since our program <em>doesn’t</em> terminate. The number of fizzes is <span class="math inline">\((3)( \infty) \leq (5) (\infty)\)</span> (the number of “buzz”es), but since <span class="math inline">\((3 )(\infty) = \infty\)</span> and <span class="math inline">\((5) (\infty) = \infty\)</span>, we’re left with <span class="math inline">\(\infty &lt; \infty\)</span>, which is just silly.</p>
+<p>Instead, I’m going to propose that we use a different way of comparing the two numbers. When we compare two sets of objects, we can either count one set then count the other and compare our final totals for each, or we can pair off elements from the two sets and see what’s left over.</p>
+<p>Now the question becomes “how do we pair off elements of infinitely big sets?”. The smallest number in each set (we can use the ever-useful <em>well-ordering property</em> for natural numbers) seems like a good candidate. That would be the pair 3, 5. Then we pair off 6, 10, then 9, 15, and so on. If you see the pattern already, great, otherwise stare at the numbers for a little while until it dawns on you (or read on if you’re feeling lazy).</p>
+<p>The pattern for pairs (x,y) can be easily written as the function <span class="math inline">\(y = \frac{5x}{3}\)</span>. Furthermore, when we use this approach for pairing, each “fizz” gets paired off with a “buzz”, and each “buzz” is paired with a “fizz”. So if we continued to pair them off like so forever, we wouldn’t have any “buzz”es left over.</p>
+<p>If you’re not convinced of this fact, consider what would happen if we did have a buzz left over. Then this buzz would be associated with some number n from when we ran the program. Since <span class="math inline">\(n\)</span> is a finite multiple of 5, then <span class="math inline">\(\frac{3n}{5}\)</span> is also a finite whole number. But this is exactly the number that we were supposed to pair <span class="math inline">\(n\)</span> off with! So <span class="math inline">\(n\)</span> can’t be left over, and this means that the set of all positive integers that are divisible by 5 is the same size as the set of all positive integers divisible by 3.</p>
+<p>This example may seem a bit contrived, but I hope it gave some insight into how infinities work differently from regular numbers.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

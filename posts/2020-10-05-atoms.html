@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on October  5, 2020
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>Why I'm Learning Biology</h1>
+<p><strong>The Miracle of Life</strong></p>
+<p>When I was a wide-eyed undergrad, I took my first (and only – sorry Prof Langer) systems course in my computer science curriculum. In that course, we built an ALU (Arithmetic Logic Unit – the part of your computer that does math) out of Boolean gates. We then gradually built up the complexity and levels of abstraction we were considering, going from logic gates up to assembly programming up to file systems, until I felt like I kind of understood how the high-level instructions I was typing into my interpreter were translated into the passage of electrical current through transistors in my CPU.</p>
+<p>The wonderful thing about computer programming is that, at the fundamental level, we understand how the instructions we type translate into behaviour. When things don’t work the way you expect, it’s always theoretically possible to figure out why. We call the field ‘computer science’, but most disciplines are a world away from the messy experimental sciences like biology and chemistry, where the behaviour is often infuriatingly unpredictable.</p>
+<p>Partly as a character-building exercise, and partly out of curiosity, I’ve decided to spend the next few months really digging into a real scientific field. My goal is to develop a logic-gate-to-GUI type understanding of how the chemical reactions in cells lead to system-level phenomena in humans. Part of my motivation for this is that I hope by understanding what the gaping holes and open problems in this area are, I’ll be able to guide my currently-nascent research agenda towards solving the types of problems in computer science that would produce tools that could help biologists fill these holes.</p>
+<p>This will be the first in a series of cliffs-notes style posts on various aspects of biology. My plan is to start with the basics (cells, genes, signalling, and why we don’t live to be 5000 years old like some trees do), and then move on to summarizing some papers that have applied machine learning to chemical reaction networks and drug discovery.</p>
+<p><strong>Prelude: The Atom</strong></p>
+<p>I’m in the midst of reading The Making of the Atomic Bomb, a lighthearted romp depicting the final years in which humanity didn’t have the capacity to cause a mass extinction event at the press of a button. Crucial to both building atomic bombs and understanding the basic mechanisms of life is understanding the atom. The first thing you should know about the atom is that for such a tiny object, it’s shockingly confusing. And as Richard Rhodes describes, it befuddled several generations of scientists who naively tried to understand it before the scientific community finally accepted that sometimes weird things are just weird and you can’t try to explain away the weirdness.</p>
+<p>We learn in school that the atom has a small, dense nucleus consisting of protons and neutrons, surrounded by shells of electrons spinning around it. This model is what most people picture when they think of atoms: one small ball surrounded by rings of electron orbits. If your chemistry teacher is any good, you also learn that, although photogenic, this model isn’t entirely accurate and electrons should rather be thought of as inhabiting ‘shells’. Except the electrons can’t be really thought of as being in any one place at a given time. And the shells have really weird, specific shapes.</p>
+<p>So basically, in the 19th century scientists figured out that atoms have positive bits and negative bits, and sometimes the negative bits, which are much smaller than the positive bits, can get transferred from one atom to another. JJ Thompson suggested the ‘plum pudding model’ to describe this, where the electrons were basically floating in an atom soup. Ernest Rutherford, a hotshot New Zealander, started working with JJ at Cambridge and eventually, after holing up in Montreal (three cheers for McGill) and shooting helium ions at gold foil for a few years eventually realized that because of the way the positively charged helium ions were mostly able to pass right through the gold but occasionally bounced directly back at the emitter, realized that the positively charged part of the atom had to be super dense and somewhere in the middle, with the negative bit chilling on the outside. This didn’t really jibe with other things that people knew about positive and negative charges, since the electron should have either spiralled out or collapsed into the center of the atom, but the evidence was pretty clear. This was also back in the day when you could do cutting edge physics with a bit of gold foil and some radium, so people could see for themselves that you really could shoot positive particles straight through solid gold.</p>
+<p>Rutherford was still stumped on how to make his nuclear model agree with basic mechanics when up-and-coming Danish physicist Niels Bohr swung by his lab in England in the early 20th century. After some thinking, Bohr (with quite a bit of nurturing by Rutherford) proposed that the behaviour physicists were observing in their experiments was consistent with an atom where electrons lived in a discrete set of permissible ‘shells’, and electrons moved up and down the shell hierarchy when they gained and lost energy. This model doesn’t exactly explain <em>why</em> electrons inhabit these shells (in reality they don’t – the shells proposed by Bohr’s model correspond to the majority of the mass of the electron’s wave function at a given energy level, by the same reason that multidimensional gaussians place most of their mass at a narrow radius around the origin), but it has sufficient predictive power that chemists still use it to describe chemical reactions.</p>
+<p>Alright, with that basic understanding of how atoms work, we’re ready to start learning chemistry and biology. Stay tuned as we begin our biological journey.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

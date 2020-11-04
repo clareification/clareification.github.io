@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on October 30, 2020
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>A Bayesian Perspective</h1>
+<h1 id="introduction">Introduction</h1>
+<p>Suppose that you’re trying to build a hotdog classifier, and you have a choice between two neural networks: network A has a cross-entropy loss of 0.01 on the training set, and it reached that loss extremely quickly. Network B obtains a cross-entropy loss of 0.0001 on the training set, but it took a lot longer to get below 0.01 than Network A. You want to use the model that will be the most accurate on new, unseen possible-hotdogs: which do you pick?</p>
+<p>If you held out some training data for a validation set, then you can pick the one with better performance on the unseen data and be done. But suppose you don’t have access to a validation set. Is there still a way of justifying the intuition that the model that got a pretty low loss quickly is less likely to have overfit than the model that got an extremely low loss slowly? It turns out the answer is yes – if you’re willing to be Bayesian.</p>
+<h3 id="model-selection-in-neural-networks-is-hard.">Model selection in neural networks is hard.</h3>
+<p>Before digging into the Bayesian perspective, we’re going to give some context for the model selection problem in deep learning. In most machine learning applications, our goal is to produce some function approximator that fits a target function on some unknown data-generating distribution, from which we have samples in the form of a training set. In most practical applications, some of the training data is not seen during training, and an estimate of the model’s expected risk (its average error on the data generating distribution), aka its validation loss, is obtained using this held-out data. The model with the lowest validation loss is assumed to also have the lowest expected risk. While the validation loss is great as an estimator of empirical risk, it’s not ideal for hyperparameter tuning because a) it’s expensive to compute gradients for and b) it doesn’t explain <em>why</em> a model will generalize well.</p>
+<p>Generalization bounds can be used to address both of these issues. A generalization bound gives a high-probability guarantee that the test set error will not exceed a certain value, and can typically be decomposed into an empirical risk estimate (i.e. the training loss) and a model complexity penalty. The model complexity penalty can be interpreted as giving a causal hypothesis for what makes a model generalize well, addressing point a) above. When both of these terms are differentiable, the bound can be optimized directly, addressing point b) above. While generalization bounds can get non-vacuous values on neural networks, they’re generally not tight enough to be useful for model selection. We conjecture that part of the reason these bounds might struggle so much in the deep learning regime is that the model complexity term used typically only depends on the final value of the model’s parameters after training, rather than taking into account properties of the training scheme.[^1]</p>
+<p>The idea that models which train faster should generalize better is not a new one: generalization bounds based on the <em>stability</em> of gradient descent have existed for years. These bounds explicitly depend on the number of training steps taken to reach a minimum. However, they also require some assumptions that aren’t obvious to show in the generic deep learning setting. There have also been some more oblique connections in the literature. For example, Arora et al. propose a generalization bound with a data complexity term that can be related to an upper bound on the convergence rate of gradient descent on a convex function.</p>
+<p>Instead of trying to directly solve the model selection problem for neural networks, we’re going to take a digression into an easier setting, Bayesian models, and develop some theoretically grounded intuition on the model selection there. Don’t forget about this section though – we’ll come back to it in a bit.</p>
+<h3 id="bayesian-inference-in-2-minutes">Bayesian Inference in 2 Minutes</h3>
+<p>Being a Bayesian is all about using Bayes’ rule to update prior beliefs based on evidence.</p>
+<p><span class="math display">\[P(A|B) = \frac{P(B|A)P(A)}{P(B)}\]</span></p>
+<p>To quantify terms like ‘evidence’ and ‘prior belief’, we translate some standard quantities from the standard machine learning risk minimization framework into probabilistic analogues. Instead of having a single deterministic function whose parameters we are optimizing, we have a model <span class="math inline">\(\mathcal{M}\)</span> which defines a probability distribution over the data <span class="math inline">\(P(\mathcal{D}|\theta)\)</span> given some parameters <span class="math inline">\(\theta \in \Theta\)</span>, along with a probability distribution over the parameters <span class="math inline">\(P(\theta)\)</span>.</p>
+<p>One quantity of interest is to Bayesians is the posterior distribution over parameters <span class="math inline">\(P(\theta|\mathcal{D})\)</span>: finding this distribution is known as parameter inference. While this computation is straightforward in some models like Gaussian Processes, it’s often not tractable to compute exactly for complex models like Bayesian neural networks. There’s a long line of work looking at how various approaches to deep learning can be viewed as approximate posterior inference. One approach that will be relevant to us is to randomly draw a number of parameter samples from the prior, and then optimize each parameter sample independently. This approach is known as an ensemble method.</p>
+<p>The quantity that we will be particularly interested in is the <em>marginal likelihood</em> <span class="math inline">\(P(\mathcal{D})\)</span> (we’ll abbreviate this as ML from here on out). This tells us how likely the data is under the model, and can be written as follows.</p>
+<p><span class="math display">\[P(\mathcal{D}) = \int_{\theta} P(\mathcal{D}|\theta) P(\theta) d\theta \]</span></p>
+<p>If we have a collection of models, picking the one with the highest marginal likelihood is what MacKay calls Type II maximum likelihood estimation and is a popular approach to Bayesian model selection. Maximizing the marginal likelihood is less prone to overfitting than maximum likelihood estimation at the parameter level, as the marginal likelihood can be viewed as having a built-in model complexity term that helps to prevent overfitting.</p>
+<h1 id="estimating-the-marginal-likelihood">Estimating the Marginal Likelihood</h1>
+<p>OK, so if we want to perform model selection by maximizing the marginal likelihood, we’ll need to compute the marginal likelihood first. Observe that we can write the (log) ML as follows.</p>
+<p><span class="math display">\[\log P(\mathcal{D}) = \sum \log P(\mathcal{D}_i|\mathcal{D}_{&lt;i}) \]</span></p>
+<p>Making the dependence of the conditional <span class="math inline">\(P(D_i|D_{&lt;i})\)</span> on the parameters <span class="math inline">\(\theta\)</span> more explicit, we get</p>
+<p><span class="math display">\[\log P(\mathcal{D}) = \sum \log \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[P(\mathcal{D}_i | \theta)] \]</span></p>
+<p>In other words: the marginal likelihood measures how well a posterior update based on one subset of the data <span class="math inline">\(\mathcal{D}_{&lt;i}\)</span> is able to predict the next data point <span class="math inline">\(\mathcal{D}_i\)</span>. We can visualize the log ML as computing the ‘area under the curve’ of posterior predictive probabilities.</p>
+<p><img src="../images/ml-figure.png" width="80%" /></p>
+<p>The value <span class="math inline">\(\log \mathbb{E}[P(\mathcal{D}_i|\theta)]\)</span> isn’t always possible to compute exactly. However, given parameter samples from the posterior, it’s straightforward to estimate a lower bound.</p>
+<p><span class="math display">\[\log P(\mathcal{D}) = \sum \log \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[P(\mathcal{D}_i | \theta)]  \ge \sum \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[  \log P(\mathcal{D}_i | \theta)]  = L(D)\]</span></p>
+<p>Where the inequality follows from Jensen’s inequality. We can make this inequality tighter by averaging over multiple parameter samples before applying the logarithm to get another estimator that we’ll call <span class="math inline">\(L_k\)</span>.</p>
+<p><span class="math display">\[ \log P(\mathcal{D}) =  \sum \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[  \log \sum_{j=1}^k P(\mathcal{D}_i | \theta_j)]   = L_k(D)\]</span></p>
+<p>Finally, if we have samples from the posterior <em>predictive</em> distribution <span class="math inline">\(P(\hat{D_i} | D_{&lt;i})\)</span> and this distribution is a Gaussian, then we can use our posterior samples to estimate the parameters <span class="math inline">\(\mu, \sigma^2\)</span> of <span class="math inline">\(P(\cdot | D_{&lt;i})\)</span> and then use those estimated parameters in the log likelihood term to obtain yet another estimator <span class="math inline">\(L_S\)</span>.</p>
+<p><span class="math display">\[ \log P(\mathcal{D}) = \sum_{i=1}^n \mathbb{E}[\log P(\mathcal{D}_i|\hat{\mu}_i, \widehat{\sigma^2_i})]  = L_S(D)\]</span></p>
+<div style="width:50%; float:right;">
+<img width="90%" style="float:right;" src="../images/estimator_comparison_dims.pdf" />
+</div>
+<p>Each of these estimators has its own pros and cons: <span class="math inline">\(L\)</span> has an intriguing interpretation from the minimum description length framework, but can have a large bias term when used to estimate the ML. <span class="math inline">\(L_k\)</span> reduces this bias term, but both <span class="math inline">\(L_k\)</span> and <span class="math inline">\(L\)</span> can’t be applied to models whose likelihood is a dirac delta distribution (i.e. models with zero observation noise). <span class="math inline">\(L_S\)</span> works even for models with zero observation noise, but only yields an unbiased estimate of a lower bound when the posterior predictive is Gaussian (otherwise this may no longer be a lower bound).</p>
+<p>We compared all three estimators on a feature selection task and found that they provided a similar model ranking to that given by the log ML. This is a nice existence proof that the lower bounds give sensible model rankings, and we provide a few more example problems in the paper.</p>
+<h3 id="estimating-the-ml-via-gradient-descent">Estimating the ML via Gradient Descent</h3>
+<p>In linear models, we can get the posterior samples that these estimators need by the ensemble methods described previously. Specifically: in Bayesian linear regression with noiseless Gaussian likelihoods, we can sample parameters from the prior and then optimize the <span class="math inline">\(\ell_2\)</span> regression loss. The minimum of this optimization problem will correspond to a sample from the posterior of the model conditioned on the data used for optimization. This gives us an intuitive way of translating Bayesian updating to gradient optimization with ensembles:</p>
+<div style="width:50%; float:right;">
+<img width="90%" style="float:right;" src="../images/gaussian.png" /> <br /> Optimizing a linear regression objective turns the prior into the posterior.
+</div>
+<ul>
+<li>
+randomly initialize some collection of parameters <span class="math inline">\((\theta_0^k)\)</span>
+</li>
+<li>
+for each <span class="math inline">\(D_i \in D\)</span>, run GD on <span class="math inline">\(D_{&lt;i}\)</span> to convergence for each parameter <span class="math inline">\(\theta^k_{i-1}\)</span>
+</li>
+<li>
+take this parameter <span class="math inline">\(\theta^k_i \sim p(\theta|D_{&lt;i})\)</span> as a posterior sample to estimate <span class="math inline">\(P(D_i|D_{&lt;i})\)</span>
+</li>
+<li>
+and then add this estimate to a running sum.
+</li>
+</ul>
+<p>In models with high marginal likelihood, the optimal parameters for <span class="math inline">\(D_{\le i}\)</span> should be similar to those for <span class="math inline">\(D_{&lt;i}\)</span>, so even though we have to run gradient descent to convergence for each data point, this process shouldn’t take too long once <span class="math inline">\(P(D_i|D_{&lt;i})\)</span> is reasonably high. We can adapt this procedure to models with noisy likelihoods (assuming we know the ground-truth targets) by adding noise to the targets and optimizing a penalized regression loss which encourages parameters to stay close to their initialized values.</p>
+<h3 id="concurrent-optimization-and-ld">Concurrent Optimization and <span class="math inline">\(L(D)\)</span></h3>
+<p>We can use gradient descent to estimate <span class="math inline">\(L(D)\)</span>, but it also turns out that <span class="math inline">\(L(D)\)</span> can tell us something about why gradient descent might prefer models with a high marginal likelihood. We’ll focus on the setting where we train linear combinations of models while these models are themselves performing Bayesian updating, in a loose sense mimicking what happens when we optimize a hierarchical model like a neural network (we’ll explore the connection to NNs later).</p>
+<p>We’ll start by formalizing this setting. We’ll assume some collection of Bayesian linear regression models <span class="math inline">\(M_1, \dots, M_k\)</span> and a regression data set of the form <span class="math inline">\(D = (X_i, Y_i)_{i=1}^N\)</span>; each of these models <span class="math inline">\(M_j\)</span> will output predictions <span class="math inline">\(\hat{Y^j_i}\)</span> sampled from its posterior <span class="math inline">\(P(Y_i|D_{&lt;i}, X_i)\)</span>. On top of these models we are training a linear predictor <span class="math inline">\(w\)</span> to minimize the objective <span class="math inline">\(\|w^\top(\hat{Y}_i) - Y_i\|^2\)</span>. We’ll assume that these models make predictions of a similar scale (i.e. there isn’t a model that consistently outputs <span class="math inline">\(0.0000001 \times Y_i\)</span> whose optimal weight is then 10000000, while another model which consistently outputs <span class="math inline">\(Y_i\)</span> would get weight 1), and that they don’t have complementary errors (i.e. it’s not the case that model 1 consistently underestimates the target <span class="math inline">\(Y\)</span> while model 2 consistently overestimates it in such a way that the optimal solution is to assign a high weight to both so that they cancel each other out). Under these two assumptions, we can show that under the following optimization problem</p>
+<p><span class="math display">\[ w^* = \text{arg min}_w  \sum \mathbb{E}_{\hat{Y}_i \sim P(\cdot | D_{&lt;i})} \bigg [  \|w^\top \hat{Y}_i - Y_i\|^2 \bigg ]\]</span></p>
+<p>the optimal solution <span class="math inline">\(w^*\)</span> will assign the highest weight to the model with the highest <span class="math inline">\(\mathcal{L}(D)\)</span>. In other words, running this concurrent optimization procedure and then doing magnitude pruning on the linear combination is going to be equivalent (in expectation) to picking the model with the highest lower bound on its marginal likelihood.</p>
+<p>[TODO: add empirical eval]</p>
+<div style="width:90%; margin-bottom: 20px; float:right;">
+<img width="50%" style="float:right;" src="../images/feature_selection.png" /> <img width="50%" style="float:right;" src="../images/prior_variance_selection.png" /> <br /> Running gradient descent on a sample from the prior using a linear regression objective gives a sample from the posterior (for linear models).
+</div>
+<h1 id="connection-to-deep-learning">Connection to Deep Learning</h1>
+<p>Recall that the ML measures how well updates from one subset of the data generalize to unseen data points. This gives us an analogy between training speed, as measured by the sum of log predictive posterior likelihoods, and Bayesian model selection. Training speed in a Bayesian updating procedure is defined with respect to the number of data points needed to assign high likelihood to the rest of the training data. However, in many settings where we might want to do model selection, we don’t necessarily have exact posterior samples from a Bayesian model conditioned on increasing subsets of the data. Standard gradient-based optimization of DNNs involves iterating through the entire dataset repeatedly for several epochs, so we’ll need to consider training speed with respect to the number of gradient steps taken, rather than the number of data points seen. In this section, we’re going to take a first stab at the following question:</p>
+<p><em>Does there exist a connection between a notion of training speed that captures within-training-set generalization in DNNs, and their test set generalization performance?</em></p>
+<p>To apply the Bayesian intuition to neural networks requires us to map some of the concepts discussed earlier in the Bayesian setting to the risk minimization setting. First, we map the idea of a Bayesian model, which computes a probability distribution, to a function approximator, which provides a point estimate of a classifier. Rather than considering a Bayesian updating procedure, we’re interested in models trained with minibatch SGD to minimize some cost function. Instead of summing over predictive posterior likelihoods to estimate the log marginal likelihood, we will be summing over minibatch training losses. Finally, our metric of which model is `best’ won’t be the marginal likelihood – instead we’re interested in the model with the lowest test set error.</p>
+<p>While there are many interesting lines of work framing stochastic gradient optimization as performing posterior sampling, in the analysis that follows we won’t be using this interpretation. Nor will we try to cast classifiers as computing unnormalized probability distributions. Instead, we’re going to focus on using minibatch SGD to measure how well model updates based on one subset of the data generalize to other subsets.</p>
+<p>How quickly a model’s training loss decreases while training depends on a number of factors including the optimizer, hyperparameters, model architecture, and dataset. However, all else being equal, a model’s loss will decrease faster if the gradient update based on minibatch <span class="math inline">\(i\)</span> of the dataset also decreases the loss on minibatch <span class="math inline">\(i+1\)</span>. This relates to the notion of stiffness discussed by Fort et al., who argue that models for which gradients from minibatches all look similar should generalize better than those whose minibatch updates are orthogonal. Summing over the minibatch training losses then gives us a straightforward way to measure how well the gradients are generalizing. Models which attain a low loss with fewer training steps will have a lower sum over training losses (SOTL).</p>
+<p>To illustrate how SOTL might measure within-minibatch gradient generalization, consider a first-order Taylor approximation of the training loss. The change in loss for minibatch <span class="math inline">\(i\)</span> after taking a gradient step computed on that minibatch looks as follows</p>
+<p><span class="math display">\[\begin{align} \ell(D_i ; \theta_{t+1}) - \alpha g_{t}) &amp;\approx \ell(D_i; \theta_{t}) - \alpha \nabla_\theta \ell (D_i; \theta_{t}) ^\top g_{t}\\
+&amp; = \ell(D_i; \theta_{t_i}) - \alpha \|g_{t}\|^2 
+\end{align}\]</span></p>
+<p>Meanwhile, the change due to gradients tep <span class="math inline">\(g_{t_i}\)</span> on a disjoint minibatch <span class="math inline">\(D_j\)</span> can be written <span class="math display">\[\begin{align}
+\ell(D_j; \theta_{t+1}) = \ell(D_j; \theta_t - \alpha g_{t}) &amp;\approx  \ell(D_j; \theta_t) - \nabla_\theta \ell (D_j; \theta)^\top g_t \\
+&amp;=  \ell(D_j; \theta_t) - \nabla_\theta \ell (D_j; \theta)^\top \nabla_\theta \ell(D_i; \theta)
+\end{align}\]</span></p>
+<div style="width:40%; margin:2px; float:right;">
+<img width="90%" src="../images/SOTLvsXEParallel.png" /> <br /> <br /> Models which train faster (as measured by their sum over training losses) generalize better.
+</div>
+<p>This dot product term measures how correlated gradients based on disjoint minibatches are. For the first epoch of training, this gives an unbiased estimate of the improvement to the expected risk obtained by the gradient step. After the first epoch, because the parameters will depend on all data points in the training dataset, we can’t get nice guarantees on this being a good estimate of the change in the test set loss. Nonetheless, for a large training set we can argue that because the parameters depend minimally on any particular minibatch, we should still get a pretty good estimate of the change in the test set error.</p>
+<p>Concretely, we hypothesize that under fixed-stepsize SGD, models that obtain a lower sum over training losses should get the best test set performance. We evaluated a handful of different neural network architectures trained on image datasets and found that this correlation was fairly consistent. A more in-depth empirical analysis in the setting of neural architecture serach was performed by [Ru et al.].</p>
+We can go a step further to ask whether the connection between <span class="math inline">\(\mathcal{L}(\mathcal{D})\)</span> and the weight assigned to a model in a linear model combination might also apply in some form to the deep learning setting. The lemma doing the heavy lifting in the proof of this result basically says that the weight assigned to a feature in a linear regression problem depending to some extent on that feature being fairly predictive of the target (modulo a bunch of assumptions). We make a similar conjecture for the weight assigned to activations in the penultimate layer of a neural network: features which are more predictive of the targets will be assigned higher weight. Because the final-layer weights and activations are trained concurrently, we expect that the notion of how predictive a node is will be more closely aligned with the SOTL definition rather than its final ‘training loss’.
+<div style="width:100%; margin:2px; padding:2px; float:left;">
+<img align="center" width="90%" src="../images/submodel_perf.png" /> <br /> <br />Layer activations which train faster (as measured by their sum over ‘information losses’) are assigned higher weight by the final layer of a neural network.
+</div>
+<p>To investigate this claim, we train a linear combination of models, and see whether the test loss correlates with the assigned model weight. We observe that SGD tends to upweight models that generalize better. This suggests that SGD may implicitly perform model selection. Interestingly, we see that this phenomenon also holds for subnetworks within a network. Figure X shows that SGD upweights sub-networks with lower SOTL. These results are far from the final word on the topic, and we believe present an interesting direction for future work.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>The goal of this paper was to analyze the connection between Bayesian model selection and training speed in order to gain insight into how models generalize. We proposed a family of estimators of the marginal likelihood that measure a notion of training speed, and which depend only on samples from the posteriors of Bayesian models. We further showed that this quantity is equivalent to measuring how well updates based on one subset of the data generalize to other subsets, and that an analogous measure on deep neural networks also appears to empirically correlate with generalization error. Our results thus point both to a way of doing principled Bayesian model selection on families of models from which we can obtain posterior samples, and also to a direction of inquiry towards understanding generalization in complex function approximators based on optimization trajectories rather than only post-training quantities.</p>
+<p>[^1] Cite Negrea et al. for an example of a trajectory-based bound.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

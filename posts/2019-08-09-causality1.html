@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on August  9, 2019
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>Causality</h1>
+<p>Mathematicians have a habit of taking an intuitive concept, formalizing it into a rigorous framework, and then slapping the formalization with the same name as the intuition that inspired it. This is often a net win, since the mathematicians can write papers without spell-checkers dinging them every time they use a technical word, and normal people feeling like they can get an idea of what mathematicians are talking about because the words are familiar. Sometimes, several mathematicians will do this with subtly different intuitive concepts, which leads to radically different mathematical definitions with the same name. For example, ‘normal’ can mean perpendicular, refer to a Gaussian distribution, describe a particular type of subgroup, or characterize a matrix. Today I’m going to explore different mathematical frameworks for causality.</p>
+<h1 id="what-is-causality-english-version">What is causality? (English version)</h1>
+<p>We all have a fuzzy idea of what causality means.</p>
+<p><em>Causality (OED):</em> A person or thing that gives rise to an action, phenomenon, or condition.</p>
+<p>If we look up ‘give rise to’ we get ‘causes to happen’, so I’d say this definition is about as helpful as a category theorist defining a group as a groupoid with a single object. Instead, let’s think about the conditions under which we as english speakers (or, keeping an open mind on successes in automatic translation of obscure blog posts, non-english-speakers) would say “X caused Y”.</p>
+<p><em>Temporality.</em> Well, we’d generally agree that X had to come before Y. If it starts raining and then I open my umbrella, I can be pretty sure that opening my umbrella didn’t cause it to start raining.</p>
+<p><em>Necessity/Sufficiency.</em> We’d also agree that if X (possibly in conjunction with other conditions) had not happened, then Y would not have happened. Suppose I leave a ceramic mug precariously placed on a coffee table within reach of a puppy, and the puppy jumps on the table, knocking the mug off and breaking it. If I’m feeling irritable, I yell at my dog for breaking the mug. But if I’m feeling introspective, I’ll mutter at myself for leaving the mug in reach of the puppy. I’m justified in blaming either action, or both, for the result. We might also say that X caused Y if X was sufficient for Y to happen. For example, if Tania is super smart and works super hard, but only one of these is necessary to get an A, then we could say “Tania got an A because she’s super smart” or “Tania got an A because she works super hard”.</p>
+<p><em>Probabilistic relations.</em> A third tricky aspect of causality is that it’s only sometimes deterministic. We often say that X causes Y if X makes Y more likely, not if it guarantees it. Smoking causes cancer. But if you take any particular person and make them smoke for 10 years, they may or may not develop lung cancer.</p>
+<p><em>Mechanisms.</em> This is a less critical point than the other three, but we typically expect there to be some sort of mechanism or chain of events that connect X directly to Y. If I smoke, tar collects in my lungs. Tar causes inflammation, inflammation leads to cellular damage, and cellular damage can result in cancer. In contrast, we generally say that <em>spurious correlations</em> occur when two events co-occur without there being a mechanism connecting them.</p>
+<p>The attempts at mathematization of causality try to capture these notions in various ways. Many of these approaches are complementary – one can write down a graphical model that captures dependence relations, and also explicitly model what those relations are using an equation model – but they each make certain types of reasoning easy and others more difficult.</p>
+<h1 id="causal-graphical-models">Causal Graphical Models</h1>
+<p>
+Causal graphical models are the easiest notion of causality to visualize. They take the conventions of a Bayes net (a graph where the nodes are random variables and the edges indicate dependencies) and endow them with additional semantics. If we see an arrow from X to Y in a causal graphical model, this means that we think that X is a cause of Y.
+</p>
+<p><img src="../images/causalmodel.png" float="left" caption="A causal graphical model" /></p>
+<p>These models are cool because they combine intuitive notions of causality with graphical structures that are easy to write algorithms for. Causal dependences can be tested as properties of a graph, and computer science has a massive repertoire of algorithms to check properties of graphs, so causal graphical models are generally easy to do computations with.</p>
+<h1 id="structural-equation-models">Structural Equation Models</h1>
+<p>Structural equation models describe causal structures by giving equations that define the relationships between variables. In a causal interpretation of these models, we could say that the left hand side of the equation is causally dependent on the right hand side. For example, if I’m describing a linear relationship between variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, then the equation</p>
+<p><span class="math display">\[ X = 2Y + \epsilon_X \]</span> where <span class="math inline">\(\epsilon_X\)</span> is some noise term, has a different semantic interpretation than the equation</p>
+<p><span class="math display">\[Y = \frac{1}{2} X + \epsilon_Y\]</span></p>
+<p>even though in principle they can both describe the same probability distribution. Using structural equation models makes sense when you’re an economist who already knows what the causal structure of the problem is and what the variables are, and just want to understand how changing one variable affects another by plugging in your equations.</p>
+<h1 id="potential-outcomes">Potential Outcomes</h1>
+<p>“Theoretical infatuation”</p>
+<p>“nonscientific ad hockery”</p>
+<p>“bad practical advice” -Rubin, 2009</p>
+<p>Some statisticians take moral offense to the causal modeling approaches described above. SEMs assume that the modeler knows the causal relationships between variables in advance, and there’s some debate over whether the parameters learned by SEMs can really be interpreted as ‘causal’ given that they depend on the modeler’s assumptions about the system. They propose instead the Potential Outcomes framework. Instead of interpreting causality as arrows <span class="math inline">\(X \rightarrow Y\)</span>, PO treats causal effects as changes to a set of counterfactual distribution on <span class="math inline">\(Y\)</span>, <span class="math inline">\(Y_x\)</span>, indexed by possible values of <span class="math inline">\(X=x\)</span>. If <span class="math inline">\(Y\)</span> is independent of <span class="math inline">\(X\)</span>, then the law of <span class="math inline">\(Y_x\)</span> is the law of <span class="math inline">\(Y\)</span>. Judea Pearl claims that PO and SEMs are logically equivalent – any statement made in the language of potential outcomes can be reformulated into a structural equation model and vice versa – but I haven’t read the paper that verifies this.</p>
+<h1 id="invariant-causal-predictors">Invariant Causal Predictors</h1>
+<p>An approach to capturing notions of causality from data is to take the assumption that causal mechanisms are invariant, and leverage it in the regression setting to determine causal variables. This idea is explained in great detail in a <a href="https://arxiv.org/abs/1812.08233">tutorial by Peter Buhlmann</a> and also in a recent paper by <a href="https://arxiv.org/abs/1907.02893">Martin Arjovsky</a>.</p>
+<p>The invariance-as-causality camp tackles the problem of finding causal relationships between inputs <span class="math inline">\(X\)</span> and a particular quantity of interest <span class="math inline">\(Y\)</span>. We assume that <span class="math inline">\(Y\)</span> is some function of <span class="math inline">\(X\)</span>, and we further assume that we’ve been able to collect data in many different settings, called environments <span class="math inline">\(\mathcal{E}\)</span>, so that we can partition <span class="math inline">\(X\)</span> into <span class="math inline">\(\cup_{e \in \mathcal{E}} X^e\)</span>. It is implicitly assumed that some manipulation has occurred in each of these environments, so that <span class="math inline">\(P(Y|X^e) \neq P(Y|X^{e'})\)</span>. However, the claim is that any function <span class="math inline">\(f\)</span> of <span class="math inline">\(X\)</span> satisfying <span class="math inline">\(P(Y|f(X^e)) = P(Y|f(X^{e'}))\)</span> is capturing some causal property of the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>This approach has some drawbacks in its reliance on having an informative set of environments and also not being able to provide any guarantees that the invariant predictors across <span class="math inline">\(\mathcal{E}\)</span> are actually causal predictors unless the environments satisfy certain assumptions. However it’s an interesting take on causality that lends itself well to the machine learning setting.</p>
+<h1 id="conclusions">Conclusions</h1>
+<p>As we’ve seen, causality is a messy concept and there are many ways to go about mathematizing it. If you want to learn more there are two fairly decisive textbooks on the topic: Causality by Judea Pearl, and Elements of Causal Inference by Jonas Peters, Dominik Janzing, and Bernhard Schölkopf. I found Elements of Causal Inference to be a more engaging pedagogical introduction because it has more exercises to try out, but I recommend giving both a look because they take very different perspectives on causality. I might write some more blog posts going into more technical detail on causal inference later, but given my blogging frequency the curious reader should probably give the other resources a read first.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on April  9, 2019
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>An imPACtful, BAYESic result</h1>
+<p>The applications of probably approximately correct (PAC) learning results to deep networks have historically been about as interesting as they sound. For neural networks of the scale used in practical applications, bounds involving concepts like VC dimension conclude that the algorithm will have no more than a certain error rate on the test set with probability at least zero. Recently, some work by <a href="https://arxiv.org/abs/1703.11008?context=cs">Dziugaite and Roy</a>, along with some <a href="https://arxiv.org/pdf/1804.05862.pdf">folks from Columbia</a> has managed to obtain non-vacuous generalization bounds for more realistic problems using a concept introduced by McAllester <a href="https://dl.acm.org/citation.cfm?id=307435">(1999)</a> called PAC Bayes bounds.</p>
+<h1 id="the-deterministic-case">The deterministic case</h1>
+<p>I’ll recall quickly the setup for a PAC bound. We assume we have some hypothesis space <span class="math inline">\(\mathcal{H}\)</span>, data <span class="math inline">\(\mathcal{D}\)</span>, and algorithm <span class="math inline">\(\mathcal{A} : \mathcal{P}(\mathcal{D}) \rightarrow \mathcal{H}\)</span> which takes as input some subset of our training data and outputs a hypothesis function. We then want to say that, given a sufficient number of training samples, a hypothesis that matches the training data will with high probability attain low error on the data it hasn’t seen yet. The error on the data the algorithm sees is called the empirical risk and is denoted <span class="math inline">\(\hat{r}_S(h).\)</span> The true risk is the expected error over the entire dataset, and is denoted <span class="math inline">\(r(h)\)</span>. This setup can be formalized in a number of ways (e.g. depending on whether the hypothesis is assumed to attain zero training loss), but they typically look something like this: given error parameters, <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\delta\)</span>, along with sample size <span class="math inline">\(|S| &gt; m(\delta, \epsilon)\)</span>, then with probability <span class="math inline">\(1 - \delta\)</span>:</p>
+<p><span class="math inline">\(\forall h \quad |r(h) - \hat{r}_S(h)| \leq \epsilon\)</span></p>
+<p>A simple example of a bound that looks like this is called the Occam bound. This bound assumes we have some prefix coding of our countable set of hypotheses. We use the notation <span class="math inline">\(|h|\)</span> to describe the length of the encoding for the hypothesis <span class="math inline">\(h\)</span>. We assume that our loss function is the zero-one loss function <span class="math inline">\(L_{01}\)</span>, defined as follows.</p>
+<p><span class="math inline">\(L_{01}(h) \equiv P_{x,y \sim \mathcal{D}}[h(x) \neq y]\)</span>.</p>
+<p>We then get the bound that given <span class="math inline">\(N\)</span> samples from our dataset, with probability at least <span class="math inline">\(1 - \delta\)</span> we will have</p>
+<p><span class="math inline">\(\forall h \in \mathcal{H}, L_{01}(h) \leq \hat{L_{01}}(h) + \sqrt{\frac{(\ln 2)|h| + \ln \frac{1}{\delta}}{2N}}\)</span></p>
+<p>The proof of this is (compared to a lot of generalization bounds) relatively simple: you need a Chernoff bound on the sample mean of iid random variables that looks like this: <span class="math inline">\(P(\mathbb{E}(X) &gt; \sum X_i/N + \epsilon) \leq e^{2N\epsilon^2}\)</span>, the union bound (i.e. <span class="math inline">\(P(A \lor B) \leq P(A) + P(B)\)</span>), and Kraft’s inequality, which says that the prefix coding defines a distribution that sums to 1 over all hypotheses. I’ll leave it as an exercise because the Bayesian approach below is (in my opinion) much cooler.</p>
+<h1 id="lets-go-bayesian">Let’s go bayesian</h1>
+<p>The above discussion assumes a deterministic output, but what we’re really interested in is probabilistic methods. In particular, we’ll be looking at Gibbs classifiers. A Gibbs classifier assumes that you have a distribution over possible hypotheses, and its output for a given input is sampled from this distribution. Notice that in the Occam bound, we can interpret <span class="math inline">\(|h|\)</span> as defining a probability distribution over hypotheses given by <span class="math inline">\(p(h) = \frac{1}{2^{|h|}}\)</span>. We could obtain a Gibbs classifier from this distribution by sampling hypotheses according to their probability given by their compression length. McAllester’s theorem gives a bound for the true risk of any Gibbs classifier based on its empirical risk attained on a sample. The version of the theorem and following proof is taken from a tutorial by Seeger that I link to at the end of this post.</p>
+<p><em>Theorem (McAllester, 1999):</em> Let <span class="math inline">\(Q\)</span> be a probability distribution over a hypothesis space <span class="math inline">\(\mathcal{H}\)</span>. Let <span class="math inline">\(l(c, x)\)</span> be a loss function with <span class="math inline">\(l = \mathbb{E}_{x \sim \mathcal{D}} l(c, x)\)</span>, and <span class="math inline">\(\phi: \mathbb{R} \times \mathbb{R} \rightarrow \mathbb{R}\)</span> such that <span class="math inline">\(\phi(q,l)\)</span> is convex in <span class="math inline">\(q\)</span> and <span class="math inline">\(l\)</span>, and nondecreasing in <span class="math inline">\(|q - l|\)</span>. Let <span class="math inline">\(\mathcal{D}\)</span> be our input dataset. <span class="math inline">\(\phi\)</span> is essentially some function describing how far our empirical risk is from its true value. We also need the distribution of <span class="math inline">\(\phi(\hat{l}, l)\)</span> to satisfy a large deviation bound. Assume that <span class="math inline">\(l\)</span> and <span class="math inline">\(\mathcal{D}\)</span> are such that there exist constants <span class="math inline">\(C, \beta\)</span> with <span class="math inline">\(P(\hat{l} \geq q) \leq C\exp(-\beta \phi(q, l))\)</span> for <span class="math inline">\(q &gt; l\)</span> (and similarly for <span class="math inline">\(q &lt; l\)</span>). In most probabilistic bounds, <span class="math inline">\(\beta\)</span> will be the number of samples we’ve seen so far or closely related to this number, and so the bound will use a different letter like <span class="math inline">\(m\)</span> or <span class="math inline">\(N\)</span>.</p>
+<p>Given these constraints, we now let <span class="math inline">\(P\)</span> be some fixed reference distribution. Then</p>
+<p><span class="math inline">\(P_S \bigg \{ \phi(\mathbb{E}_{c \sim Q}\)</span> <span class="math inline">\([\hat{l} (c)], \mathbb{E}_{c \sim Q} [l(c)]) \geq \frac{KL(Q || P) + \log 2C\beta + \log \frac{1}{\delta}}{\beta - 1} \bigg \} &lt; \delta\)</span></p>
+<p>I’ll go over a sketch of the proof, because I think it provides some insight into what’s going on in the bound. Let <span class="math inline">\(\Delta(c)\)</span> denote <span class="math inline">\(\phi(l(c), \hat{l}(c))\)</span> – that is, <span class="math inline">\(\Delta(c)\)</span> is the error between the empirical risk and the true risk for a given concept/hypothesis. We’ll define a Gibbs measure <span class="math inline">\(P_G\)</span> based on this error with respect to our prior <span class="math inline">\(P\)</span> as follows:</p>
+<p><span class="math inline">\(dP_G(c) = \frac{e^{\alpha \Delta(c)}}{\mathbb{E}_{c \sim P}[e^{\alpha \Delta(c)}]}dP(c)\)</span></p>
+<p>i.e. the Radon-Nikodym derivative of <span class="math inline">\(P_G\)</span> with respect to <span class="math inline">\(P\)</span> is just an exponential of the error term multiplied by a constant that will be chosen carefully to make the bound work out nicely.</p>
+<p>Then we observe that since the KL divergence of any two probability measures (when it’s defined) is nonnegative, we can come up with a bound.</p>
+<p><span class="math inline">\(\begin{align*} 0 &amp;\leq KL[Q||P_G] = \int \log \bigg ( \frac{\mathbb{E}_{c \sim P}[e^{\alpha \delta(c)}]}{e^{\alpha \Delta(c)}} \frac{dQ(c)}{dP(c)} \bigg )\\ &amp;= KL[Q||P] + \log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] - \mathbb{E}_{c \sim Q}[\alpha \Delta(c)]\\ &amp;\implies \mathbb{E}_{c \sim Q}[\alpha \Delta(c)] \leq KL[Q||P] + \log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] \end{align*}\)</span></p>
+<p>If we choose <span class="math inline">\(\alpha\)</span> carefully, we can bound the <span class="math inline">\(\mathbb{E}_P e^{\alpha \Delta(c)}\)</span> term via a technical lemma that gives</p>
+<p><span class="math inline">\(Pr_S \bigg \{ \mathbb{E}_P e^{(\beta - 1) \Delta(c)} \geq \frac{2C\beta}{\delta} \bigg \} &lt; \delta.\)</span></p>
+<p>Thus, by picking <span class="math inline">\(\alpha = \beta - 1\)</span>, we get with probability at least <span class="math inline">\(1-\delta\)</span>,</p>
+<p><span class="math inline">\(\log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] \leq \log 2C\beta\delta^{-1}\)</span></p>
+<p>and so</p>
+<p><span class="math inline">\(\phi(\mathbb{E}_{c \sim Q}\)</span> <span class="math inline">\([\hat{l} (c)], \mathbb{E}_{c \sim Q} [l(c)]) \geq \frac{KL(Q || P) + \log 2C\beta + \log \frac{1}{\delta}}{\beta - 1}\)</span></p>
+<h1 id="why-cant-i-set-p-q">Why can’t I set P = Q?</h1>
+<p>Since the KL divergence between two distributions is zero when they’re equal, it seems obvious to set our prior to be <span class="math inline">\(P = Q\)</span> when we compute our bound. However, since we pick <span class="math inline">\(Q\)</span> after we’ve seen the sample <span class="math inline">\(S\)</span>, <span class="math inline">\(Q\)</span> is not independent of <span class="math inline">\(S\)</span> and this induces a subtle bug into the ‘technical lemma’ in the proof that I mentioned in the last section. The technical lemma states that for all concept classes <span class="math inline">\(c\)</span>, we have</p>
+<p><span class="math inline">\(\mathbb{E}_s [e^{(\beta - 1)\Delta(c)}] \leq 2C\beta.\)</span></p>
+<p>Then we have that</p>
+<p><span class="math inline">\(P_S \bigg \{ \mathbb{E}_{c \sim P}[e^{(\beta - 1)\Delta(c)}] \geq \frac{ \mathbb{E}_S \mathbb{E}_P [e^{(\beta - 1)\Delta(c)}]}{\delta} \bigg \} &lt; \delta.\)</span></p>
+<p>Then since <span class="math inline">\(P\)</span> and <span class="math inline">\(S\)</span> are independent of each other, we can swap the order of the expectation to get <span class="math inline">\(\mathbb{E}_S \mathbb{E}_P [e^{(\beta - 1)\Delta(c)}] = \mathbb{E}_P \mathbb{E}_S [e^{(\beta - 1)\Delta(c)}]\)</span>. Since the inner expectation is bounded by <span class="math inline">\(2C\beta\)</span> for all <span class="math inline">\(c\)</span>, we get that the whole thing is bounded by <span class="math inline">\(2C\beta\)</span>.</p>
+<p><em> But we need P and S to be independent!</em></p>
+<p>If P had been a function of <span class="math inline">\(S\)</span>, we couldn’t have swapped the order of the expectations. Since <span class="math inline">\(Q\)</span> depends on <span class="math inline">\(S\)</span>, it won’t be a suitable distribution to use in our bound.</p>
+<h1 id="further-reading">Further Reading</h1>
+<p>Hopefully this blog post has been a fairly low-overhead introduction to the mechanics of PAC-Bayes bounds. I was heavily inspired by the following papers, which I recommend reading for a more thorough explanation of the proofs in McAllester’s paper:</p>
+<p><a href="http://www.cs.toronto.edu/~toni/Courses/MLTheory/Papers/mcallester-proof.ps">[1] <em>The Proof of McAllester’s PAC Bayesian Theorem</em>, Matthias Seeger.</a></p>
+<p><a href="https://dl.acm.org/citation.cfm?id=307435">[2] <em>PAC-Bayesian Model Averaging </em>, David A. McAllester (1999)</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

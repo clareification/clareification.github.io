@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on April 20, 2020
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>In praise of the logarithm</h1>
+<p><em>A note: this post is mostly aimed at precocious high school students and early undergraduates. If you arrived here from ML twitter, you’ll probably find the content pretty elementary compared to some of my other stuff.</em></p>
+<p>Logarithms are magic.</p>
+<p>At first glance, the logarithm wouldn’t necessarily strike you as a particularly significant function. The grade school introduction to the logarithm is thoroughly uninspiring: the logarithm (base c) of x is the power you need to raise c to in order to get x. For example <span class="math inline">\(\log_2 ( 8) = 3\)</span>, because <span class="math inline">\(2^3 = 8\)</span>. If you were like me, after you learned this fact you then had to compute a bunch of logarithms by hand, and to solve word problems about the doubling time of investments. If you went on to learn computer science, you probably saw logarithms again when you talked about the running time of binary search. You probably also came across them in chemistry and physics, where they were used in the formulas for the entropy of a system. You might have been told that entropy describes how chaotic a system is, but if your lectures were anything like mine you probably didn’t dive deep into why, in all the mathematical universe, the logarithm is the function that best describes chaos. This entropy idea might also have come up again when you had lectures on information theory and compression, where it described how predictable a string was.</p>
+<p>The intuition behind why the logarithm occurs in all of these contexts has to do with the number of bits it takes to describe a state. In the rest of this post, <span class="math inline">\(\log\)</span> refers implicitly to base 2, and <span class="math inline">\(\ln\)</span> refers the the <em>natural logarithm</em>, which is the logarithm base e. The log base 2 of an integer <span class="math inline">\(n\)</span> tells you roughly how many digits are required to write out <span class="math inline">\(n\)</span> in binary. For example, <span class="math inline">\(\log (1024) = 10\)</span>, because <span class="math inline">\(1024 = 1000000000\)</span>, which has 10 binary digits. For non-integral powers of 2 this interpretation is correct up to a rounding error. In information theory, it’s helpful to think about a ‘unit’ of information as corresponding to a single character in a string. When the character is in the set {0,1}, we call the unit of information a bit. So it takes 10 bits to write out the number 1024 in binary. More generally, given a set of <span class="math inline">\(n\)</span> elements, we require $n $ bits to specify a specific element in that set.</p>
+<p>This interpretation of the logarithm as describing the number of digits necessary to express a number is pretty obvious, but also pretty deep. Because information theory is basically the study of writing sequences of numbers down using as few digits as possible, it makes a lot of sense that the logarithm would be important. I’m pretty sure <a href="https://en.wikipedia.org/wiki/Claude_Shannon">Claude Shannon</a> rolled over in his grave when I wrote that last sentence, so I’ll clarify what I mean by ‘writing sequences of numbers down using as few digits as possible’ before we continue.</p>
+<p>One of the crucial ideas in information theory is the idea of a code. A code is a function <span class="math inline">\(C : \mathcal{M} \rightarrow \Sigma\)</span> that takes as input some set of size <span class="math inline">\(m\)</span>, <span class="math inline">\(\mathcal{M} \simeq \{1, \dots, m\}\)</span>, and gives as output a string of characters from some alphabet <span class="math inline">\(\Sigma\)</span>. In theory the alphabet can be anything, but it’s usually taken to be binary strings, so <span class="math inline">\(\Sigma = \{0, 1\}\)</span>. For example, a Cesar cipher would take as input an enumeration of the english alphabet <span class="math inline">\(\{a, \dots, z\} \equiv \{1, \dots, 26\}\)</span>, and the mapping <span class="math inline">\(C\)</span> would satisfy <span class="math inline">\(C(x) =x + k\)</span> mod 26 for some fixed <span class="math inline">\(k\)</span>. If we were a computer, we would write <span class="math inline">\(C(x)\)</span> as a binary string, which we’ll denote <span class="math inline">\([x+k]_2\)</span>. Writing down a string of length <span class="math inline">\(n\)</span> in this scheme would take <span class="math inline">\(n \times \log_2(26)\)</span> binary characters.</p>
+<p>But suppose that Cesar were trying to save on paper – is there a more efficient way of encoding messages so that the encoded messages are shorter than <span class="math inline">\(n \times \log_2 (26)\)</span>? It turns out that the answer is yes! Going deep into optimal codes is well beyond the scope of this blogpost (see <a href="http://homes.sice.indiana.edu/yye/lab/teaching/spring2014-C343/huffman.php"> here</a> for an example of Huffman codes), but the key idea is to take advantage of the fact that letters that appear more frequently should get shorter code words, and letters that appear less frequently should get longer code words.</p>
+<p>For an example of how this might work, suppose Cesar wanted to invade Canada, and needed to send the message “Go to Toronto” to his general. Naively, he could encode this message using the code written above, by converting each letter to binary and then writing out the corresponding sequence of 1s and 0s on a sheet of paper. But suppose it was a small sheet of paper. Invading Canada is expensive, after all, and the military budget doesn’t have room for superfluous paper expenditure. The naive approach to encoding ‘go to toronto’ would be to encode each letter as its order in the alphabet, then write out that number in base 2. To make it clear where each number begins and ends, we have to make each encoding the same length – so even though the letter ‘g’ is number 7 in the alphabet, we have to write it as ‘00111’ instead of ‘111’. This gives us the following coded message.</p>
+<p>0011101111 1010001111 10100011111001001111011101010001111</p>
+<p>That’s a pretty long string, and it contains a lot of obvious redundancies – for starters, we only have 5 distinct characters in the message, but we’re using enough bits for each letter to distinguish up to 32 distinct characters! The letter ‘o’ appears 5 times – that’s almost half of the length of the string – but we use the same number of bits to encode the ‘o’ as we do ‘r’, which only occurs once. The Huffman code addresses all of these redundancies, and gives us the following much shorter string. It gives the map: ‘o’:0, ‘t’:11, ‘g’:1011, ‘r’:1010, ‘n’:100, which leaves us with the following much shorter message.</p>
+<p>10110 110 11010100100110</p>
+<p>The length of the message (ignoring spaces) is now 22 rather than 56.</p>
+<p>Although this procedure might have seemed totally unrelated to logarithms and entropy, it turns out that this procedure of encoding strings as bits actually gives us an estimate of the ‘entropy’ of the string. The original message had length 11, and its encoding had length 22. This tells us that we need on average about 2 bits per character in the message in order to transmit it as efficiently as possible. Now let’s look at the probability distribution that corresponds to randomly sampling a letter from the string:</p>
+<p><span class="math display">\[X \sim \textit{Uniform(}\text{'go to toronto'}) \quad \overset{D}{=} \quad P(X=g) = \frac{1}{11} \quad  \dots \quad P(X=o) = \frac{5}{11} \]</span></p>
+<p>The entropy of a probability distribution <span class="math inline">\(p\)</span> on a discrete set <span class="math inline">\(x_1, \dots, x_n\)</span> is defined as follows.</p>
+<p><span class="math display">\[H(p) = -\sum_{i=1}^n p(x_i) \log p(x_i) \]</span></p>
+<p>If we calculate this for the distribution we defined above, then we see something interesting.</p>
+<p><span class="math display">\[H(P) = 1.97 \approx 2 = \frac{\text{len(code)}}{\text{len(original message)}} \]</span></p>
+<p>Coincidence? Not a chance! Let’s go back to the Huffman code for our message. The code for ‘o’ is 0, which has length <span class="math inline">\(1 \approx -\log_2 (\frac{5}{11})\)</span>. Similarly, the average code length for the letters that appear once is <span class="math inline">\(\frac{11}{3} \approx -\log_2 \frac{1}{11}\)</span>. Notice a pattern here? The entropy of the distribution is telling us (up to a rounding error) the average number of bits it will take to encode characters sampled from that distribution given an optimal code! In fact, Shannon figured out in the 1950s that you can use the entropy of a distribution to get a lower bound on the length of the optimal coding for it (see e.g. <a href="https://www.cs.toronto.edu/~radford/csc310.F11/week3.pdf"> here for a proof</a>). This blog post is getting pretty long so I won’t go into that proof here, but it’s quite neat.</p>
+<p><b>Key takeaways.</b> The entropy of a probability distribution gives you an idea of how much information (measured as the average codeword length of an optimal encoding of the items in the distributiion) it takes to describe samples from that distribution. Because the logarithm tells you how long a string needs to be to enumerate a set of a given size, it appears in the formula for entropy as a measure of optimal codeword length. In probability distributions where only one event happens frequently (i.e. <i> predictable distributions </i>), we get a small average codeword length because we can use one bit to describe that event. In distributions where many possible events happen frequently (i.e. <i>unpredictable</i> or <i>chaotic</i> settings) we need longer codewords to be able to enumerate all of the possible events. This is why people use entropy to measure the chaos in a system.</p>
+<p>If you found this post interesting, I’ve included additional reading material below. Otherwise, happy quarantine!</p>
+<hr />
+<p><b> Footnotes </b> 1. The height of a full binary tree with <span class="math inline">\(2^n\)</span> leaf nodes is <span class="math inline">\(n+1\)</span>. We can interpret the binary tree as implicitly encoding each of its leaf nodes with a binary number by travelling from the root to the leaf, and putting a 1 down for each left edge, and a 0 for each right edge. 2. A proof of the optimality of the Huffman code can be found <a href="https://www.cs.toronto.edu/~radford/csc310.S02/week3b.pdf">here</a>.</p>
+<p><b> Background reading </b></p>
+<ul>
+<li>Calculus: <a href="https://www.khanacademy.org/math/differential-calculus"> Khan academy </a> will cover the basics of derivatives and integrals, to the level needed to understand this post.</li>
+<li>Trees: not strictly necessary, but they provide nice intuition. See <a href="http://www.cim.mcgill.ca/~langer/250/19-trees.pdf">trees</a>, <a href="http://www.cim.mcgill.ca/~langer/250/21-binarytrees.pdf">how trees can encode strings</a>, <a href="http://www.cim.mcgill.ca/~langer/250/22-BST.pdf">trees and binary search</a>.</li>
+<li></li>
+</ul>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

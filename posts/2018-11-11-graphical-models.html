@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on November 11, 2018
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>Graphical Models</h1>
+<p>Graphical models are a useful tool in machine learning, as they give us a natural means of expressing complex probability distributions in the language of graph theory. For example, after deciding that graduate student life is no longer for me, I may decide to start up a coffee business in Oxford. Now, in order to be able to tailor my supply purchases to the town’s demand, I find myself in need of a good model of the distribution of coffee preferences across the citizens of Oxford.</p>
+<p>I start off simply serving people coffee and taking notes on who comes in to my coffee shop. I then observe that the population can be broken down into two groups: university students, and normal people. I notice that university students on average drink 3 cups of coffee per day, whereas normal people drink 1. I also notice that that people who buy more coffee provide a tip on a smaller fraction of their purchases. However, when I take a closer look I realize that this is actually caused by the fact that students are much less likely than normal people to tip. In fact, students who buy more coffee don’t tip any more or less frequently than students who buy less, and the same goes for normal people. Thus I observe that tipping frequency and coffee consumption are <em>conditionally independent</em> given that I know whether the person is a student.</p>
+<p>I’ll provide the following definitions now for clarity:</p>
+<p><b>Conditional independence:</b> We say that <span class="math inline">\(a\)</span> is conditionally independent of <span class="math inline">\(b\)</span> given <span class="math inline">\(c\)</span> if <span class="math inline">\(p(a\mid b,c) = p(a \mid c)\)</span>. The following shorthand notation is common: <span class="math display">\[\newcommand{\bigCI}{\perp\mkern-10mu\perp} a \bigCI b \mid c \]</span></p>
+<p><b>Graphical Model:</b> A graphical model is a graph <span class="math inline">\(G(V,E)\)</span> representing a probability distribution on a set of random variables for which each <span class="math inline">\(v \in V\)</span> represents a subset of the random variables and the set <span class="math inline">\(E\)</span> captures the conditional independence structure of the distribution. The edges may be directed or undirected, corresponding to directed and undirected graphical models.</p>
+<p>For example, a graphical model describing coffee consumption and tipping frequency would look something like this:</p>
+<p><img src="../images/student_gm.png" width="300" align="center" /></p>
+<p>Note that there’s no arrow between tipping and coffee, because they’re both conditionally independent of each other given that we know whether we’re dealing with a student. This particular graphical model is an example of a Bayes network.</p>
+<p><b>Bayesian network:</b> A Bayesian network is a special class of graphical model for which the edges form a DAG (directed acyclic graph).</p>
+<h2>
+Inference in graphical models
+</h2>
+<p>After a few weeks in the coffee business, I observe that the number of customers I receive on any given day seems to depend only on the number of customers I received the day before. I am able to deduce that the citizens of Oxford engage in a bizarre process of coffee shop selection by which every night, each person chooses one other townsperson at random, and then goes to the coffee shop that person had visited during the day. I need to order coffee beans three days in advance, so on Monday I would like to know what the distribution of coffee purchasers will be on Thursday. To do this I will exploit the structure of markov chains to perform inference on the graphical model.</p>
+<p><img src="../images/markov_chain.png" width="900" /></p>
+<p>Now, I want to figure out the marginal distribution <span class="math inline">\(p(x_3)\)</span>, where <span class="math inline">\(x_3\)</span> represents the amount of coffee that will be bought that day. On day zero, I had 500 customers. I could sum over all of the possible values for <span class="math inline">\(x_1, x_2, x_3\)</span> and compute <span class="math inline">\(p(x_1|x_0)p(x_2|x_1, x_0)p(x_3|x_2, x_1, x_0)\)</span> to find the distribution over values for <span class="math inline">\(x_3\)</span>, but if we suppose there are 100000 potential customers and each <span class="math inline">\(x_i\)</span> can take on any integral value between 0 and 100,000, that would involve computing <span class="math inline">\(100,000^3\)</span> different probabilities.</p>
+<p>Fortunately, having studied probability before entering the coffee business, I know that the conditional probability of <span class="math inline">\(x_i\)</span> given <span class="math inline">\(x_{i-1}\)</span> follows a binomial distribution. I also know that since <span class="math inline">\(p(x_3|x_2, x_1, x_0) = p(x_3|x_2)\)</span>, I don’t really need to compute the probability of every possible combination of <span class="math inline">\(x_3, x_2, x_1\)</span> in order to compute the marginal <span class="math inline">\(p(x_3)\)</span>. Instead I can use a dynamic programming approach. That is, I compute <span class="math inline">\(p(x_1|x_0)\)</span> (100,000 numbers). Then I compute <span class="math inline">\(p(x_2|x_1)\)</span> (I perform <span class="math inline">\((100,000)^2\)</span> computations but only need to save the probabilities for <span class="math inline">\(x_2\)</span>). Then for <span class="math inline">\(x_3\)</span> I need only used my saved values for <span class="math inline">\(x_2\)</span> and compute <span class="math inline">\(p(x_3|x_2)\)</span> for each value of <span class="math inline">\(x_2\)</span>. This means that I save on about <span class="math inline">\(9.99 \times 10^{14}\)</span> computations that I didn’t have to perform because I took advantage of the graph structure of my data.</p>
+<p>Inference becomes more complicated when the Bayesian network doesn’t form a chain, but the principle is still the same. In fact, even when the network is no longer acyclic, we can still perform “loopy belief propagation”, in which we run the algorithm that works for the acyclic case and hope it eventually converges (spoiler alert: it doesn’t always do so). In the future, I’ll try to add to this post and summarize some work in approximate inference in graphical models, and also highlight how they tie in to the deep learning world.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
