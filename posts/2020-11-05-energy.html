@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on November  5, 2020
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>How do people work? Part 1: energy</h1>
+<p>Everyone knows that mitochondria are the ‘powerhouse of the cell’. But how do they actually work? How do we translate the chemical energy in a banana into all of the operations our cells do that let us get on with our daily lives? In this post, I’m going to do a deep dive into the chemistry of energy in our cells. In doing research for this blog post, I stumbled upon a few surprising facts:</p>
+<ol style="list-style-type: decimal">
+<li><p>Although mitochondria are the ‘powerhouse’ of the cell, you don’t use mitochondria directly to do things like lift weights or run up the stairs.</p></li>
+<li><p>Most operations that happen in the cell are powered by the movement of electrons from high-energy states to low energy states. Cells have a few molecules that are good at providing high-energy electrons for this purpose, and most ‘energy’ production in the cell revolves around constructing these molecules.</p></li>
+<li><p>The process by which we convert the chemical energy in carbohydrates into useful energy is basically just a slow-motion version of lighting a fire.</p></li>
+<li><p>Fat is a super efficient form of energy storage. If the typical body stored the same amount of energy as glycogen as it does in fat, it would be ~60 pounds heavier.</p></li>
+</ol>
+<p>Now, let’s take a closer look.</p>
+<h2 id="atp-the-euro-of-chemical-bonds">ATP = The Euro of Chemical Bonds</h2>
+<p>At a super high level, cells are just really really really complicated chemical reactions which use the energy from chemical bonds in some types of molecules to produce outputs like heat, electrical, or mechanical energy, as well as to replicate themselves. The way that they do this is to have (virtually) all of the chemical reactions necessary for the cell to perform its function depend on breaking the same bond to get their activation energy. By using this ‘common currency’, the reactions in the cell are much easier to power because you only need to generate this one type of chemical bond (a phosphate-phosphate bond found in Adenosine Tri-Phosphate, AKA ATP) in order to power virtually everything the cell does. Basically, it’s as if all of the different components of the cell got together and agreed to all use the same substrate to power their different energy needs like a European Union of molecules agreeing to use the Euro.</p>
+<div style="width:50%; float:right; padding:10px;">
+<img width="90%" src="../images/ATP.png" /> <br /> <br />
+<p align="center">
+An ATP molecule.
+</p>
+</div>
+Let’s look at a prototypical example of how cells break a phosphate-phosphate bond to obtain energy: motor proteins. Cells often need to move different components to different parts of the cell, particularly during cell division. Muscle cells also need to move the entire body by contracting and relaxing microscopic fibres. This can be done by motor proteins such as actin and myosin. Actin looks kind of like a long string, and myosin is another filament with a head that can attach to this string and act as a ‘propellor’. In its ‘rigor’ configuration, the myosin molecule’s head is attached to a binding site on the actin filament. The propellor operates by having a slot where ATP can bind. When an unsuspecting ATP molecule finds itself hurtling into a myosin head, it causes a change in the shape of the myosin protein that leads to the fit between the myosin head and the actin filament being less-than-perfect, causing myosin to slightly detach from the binding site. The myosin head then further changes shape in such a way that it hydrolizes the ATP, which then causes the entire shape of the molecule to change <em>again</em> in such a way that it propells itself forward along the actin filament and reattaches to a new binding site.
+<div style="width:50%; float:right; padding:5px;">
+<img width="90%" src="../images/myosin-powerstroke.jpg" /> <br /> Visualization of the myosin ‘power stroke’ from <a href="https://www.mechanobio.info/cytoskeleton-dynamics/what-are-motor-proteins/what-steps-are-involved-in-the-myosin-powerstroke/">MBInfo</a>.
+</div>
+<p>Honestly, how exactly so many wildly different intracellular operations manage to all depend on the same operation on the same chemical bond is still incredibly mysterious to me, but my impression is that it’s also pretty mysterious to biologists. Proteins are complicated molecules where chemical reactions can lead to hard-to-predict changes in their physical structure, so I think a lot of the nitty-gritty details of what changes where in order to induce the relevant conformal changes are still unknown (or at least, hard to find out on the internet).</p>
+<h2 id="how-to-make-atp">How to make ATP</h2>
+<p>OK, so we’ve established that once we have ATP, chemical reactions in the cell break up the phosphate bonds in order to produce functions necessary for life. But how do the leftover molecules get recycled back into ATP, and how do we convert burritos into this magical cellular energy currency? <em>Molecular Biology of the Cell</em> provides a number of nice pictures in which the actual chemical reactions that convert precursor molecules into ATP are hidden in coloured text boxes, and most introductory explanations I could find online don’t go into much more detail, so I’ll have to leave this explanation at a fairly high level.</p>
+<h3 id="glycolysis">Glycolysis</h3>
+<div style="width:50%; float:right; padding:5px;">
+<img width="90%" style="float:right;" src="../images/NAD.png" />
+</div>
+<p>The first way to make ATP doesn’t actually happen in the mitochondria, but rather in the body of the cell (the cytosol). This process is basically a gradual version of burning sugar, where the glucose-glucose bond is oxidized to produce carbon dioxide and water. Within cells, this oxidation reaction is mediated by NAD<sup>+</sup>, and produces two molecules of pyruvate as waste rather than CO2 and H2O. Note that this reaction doesn’t need molecular oxygen and hence is anaerobic, but what the body then does with the pyruvate ‘waste’ product in the mitochondria will need O<sub>2</sub>. Glycolysis is used by skeletal muscles for short bursts of activity (this is why lifting weights is an <em>anaerobic</em> exercise), and is faster than the mitochondrial energy production discussed next. The NADH produced by glycolosis can be recycled by donating electrons to the pyruvate molecules, yielding lactate and the NAD<sup>+</sup> needed to oxidize more glycolysis reactions. Although this reaction is faster than that which occurs in mitochondria, it requires two ATP molecules to catalyze and only generates four ATPs, making it an order of magnitude less efficient than mitochondrial ATP production.</p>
+<h3 id="mitochondrial-atp-production">Mitochondrial ATP Production</h3>
+<p>The idea is basically that this molecule called NADH donates electrons to a chemical reaction that unites one molecule of ADP with one phosphate group to get one molecule of ATP (leaving behind water and NAD<sup>+</sup>) in a process called <em> oxidative phosphorylation</em> (oxidative because electrons are donated, phosphorylation presumably because of the phosphate-phosphate bond). This reaction happens in the inner membrane of a mitochondrion, but the ATP molecule is then sent out into the cell for use in other organelles.</p>
+The rough sequence of events can be described as follows:
+<ul>
+<li>
+food molecules in the cytosol enter through the inner membrane of a mitochondrion into the matrix
+</li>
+<li>
+The food molecules get turned into another molecule called acetyl coA
+</li>
+<li>
+Acetyl coA gets fed into the citric acide cycle, which spits out at some point an NADH molecule
+</li>
+<li>
+NADH donates an electron to the ‘electron transport chain’, a collection of enzymes located on the mitochondrion’s inner membrane that pump out H<sup>+</sup> ions, which cause a proton gradient to form in the inter-membrane space.
+</li>
+<li>
+As protons diffuse along their gradient, they flow into ATP Synthase, which uses the proton to combine an ADP molecule with a phosphate, producing ATP.
+</li>
+<li>
+</ul>
+<h2 id="the-dark-side-of-redox-reactions">The dark side of redox reactions</h2>
+<p>I’ve skipped over the citric acid cycle and how the waste products generated during ATP production get recycled, although I think someone won a nobel prize for it at some point so it’s probably worth reviewing at some point to appreciate how complex the chemical systems powering our cells are. Instead, I’m going to close by highlighting the dark side of the reactions used to power our cells.</p>
+<p>Cells are chaotic soups of molecules. The oxidizing agents used to power the reactions needed to generate ATP sometimes produce a negatively charged oxygen molecule called superoxide. These molecules then aren’t confined to a locked safe – they’re free to fly around the cell grabbing electrons and wreaking havoc on the delicate proteins needed to synthesize DNA and perform other basic functions. While there are many mechanisms in cells to mop up these oxidizing agents (known as antioxidants), even the minor damage caused before these molecules are removed accumulates over time. Such damage is particularly common within the mitochondria, and there is some evidence that mitochondrial disfunction is a major cause of cellular senescence.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
