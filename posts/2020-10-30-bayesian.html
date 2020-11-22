@@ -111,7 +111,8 @@
 <style>
 button {
 	background-color:white;
-	border:2px solid black;
+	border:3px solid black;
+	
 }
 </style>
 <p><strong>TL;DR</strong> <strong>Models that train faster</strong> (with respect to the number of data points they need to fit the dataset) have a <strong>higher marginal likelihood</strong>. We leverage this to get estimators of the (log) marginal likelihood in linear models that depend on the <strong>sum of training losses</strong> obtained in an iterative updating procedure. We show an intriguing connection between these estimators and the weight assigned to features in linear regression, and find that <strong>the intuition driving these estimators also seems to hold in deep neural networks</strong>.</p>
@@ -138,10 +139,10 @@ button {
 <li>There are some generalization bounds that are related to training speed</li>
 <li>A Bayesian approach to model selection is to pick the model with the highest marginal likelihood</li>
 </ul>
-<button onclick="hideDiv('background')">
+<button onclick="hideDiv('background-div')">
 Toggle details
 </button>
-<div id="background" class="btn" style="display:none;">
+<div id="background-div" class="btn" style="display:none;">
 <h3 id="model-selection-in-neural-networks-is-hard.">Model selection in neural networks is hard.</h3>
 <p>Before digging into the Bayesian perspective, we’re going to give some context for the model selection problem in deep learning. In most machine learning applications, our goal is to produce some function approximator that fits a target function on some unknown data-generating distribution, from which we have samples in the form of a training set. Typically, some points from this training set is hidden from the model during training, and an estimate of the model’s expected risk (its average error on the data generating distribution) is obtained by computing the validation loss on this held-out data. The model with the lowest validation loss is assumed to also have the lowest expected risk. While the validation loss is great as an estimator of empirical risk, it’s not ideal for hyperparameter tuning because a) it’s expensive to optimize and b) it doesn’t explain <a href="https://arxiv.org/abs/2010.11924"><em>why</em> a model will generalize well</a>.</p>
 <p>Generalization bounds can be used to address both of these issues. A generalization bound gives a high-probability guarantee that the test set error will not exceed a certain value, and can typically be decomposed into an empirical risk estimate (i.e. the training loss) and a model complexity penalty. The model complexity penalty can be interpreted as giving a causal hypothesis for what makes a model generalize well, addressing point a) above. When both of these terms are differentiable, the bound can be <a href="https://arxiv.org/abs/1703.11008">optimized directly</a>, addressing point b) above. While generalization bounds can get <a href="https://arxiv.org/abs/1804.05862">non-vacuous</a> values on neural networks, they’re generally <a href="https://arxiv.org/abs/1912.02178">not tight enough</a> to be useful for model selection. We conjecture that part of the reason these bounds might struggle so much in the deep learning regime is that the model complexity term used typically only depends on the final value of the model’s parameters after training, rather than taking into account properties of the training scheme. Some <a href="https://papers.nips.cc/paper/2019/file/05ae14d7ae387b93370d142d82220f1b-Paper.pdfs">recent work</a> has developed PAC-Bayesian generalization bounds based on a similar idea, but there’s likely much more that could be explored.</p>
