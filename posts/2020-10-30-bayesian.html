@@ -114,14 +114,11 @@ button {
 	border:3px solid black;
 	
 }
+.figure {
+	font-size:small;
+	margin: 2px;
+}
 </style>
-<p><strong>TL;DR</strong> <strong>Models that train faster</strong> (with respect to the number of data points they need to fit the dataset) have a <strong>higher marginal likelihood</strong>. We leverage this to get estimators of the (log) marginal likelihood in linear models that depend on the <strong>sum of training losses</strong> obtained in an iterative updating procedure. We show an intriguing connection between these estimators and the weight assigned to features in linear regression, and find that <strong>the intuition driving these estimators also seems to hold in deep neural networks</strong>.</p>
-<h1 id="introduction">Introduction</h1>
-<p>Suppose that you’re trying to build a <a href="https://www.youtube.com/watch?v=pqTntG1RXSY">hotdog classifier</a>, and you have a choice between two neural networks: network A has a cross-entropy loss of 0.01 on the training set, and it reached that loss extremely quickly. Network B obtains a cross-entropy loss of 0.0001 on the training set, but it took a lot longer to get below 0.01 than Network A. You want to use the model that will be the most accurate on new, unseen possible-hotdogs: which do you pick?</p>
-<div style="width:40%; margin:2px; float:right;">
-<img width="90%" src="../images/hotdog_classifier.png" /> <br /> <br /> A difficult model selection problem.
-</div>
-<p>If you held out some training data for a validation set, then you can pick the one with better performance on the unseen data and be done. But suppose you don’t have access to a validation set. Is there still a way of justifying the intuition that the model that got a pretty low loss quickly is less likely to have overfit than the model that got an extremely low loss slowly? It turns out the answer is yes – if you’re willing to be Bayesian.</p>
 <script>function hideDiv(divid) {
   var x = document.getElementById(divid);
   console.log(divid);
@@ -131,6 +128,13 @@ button {
     x.style.display = "none";
   }
 }</script>
+<p><strong>TL;DR</strong> <strong>Models that train faster</strong> (with respect to the number of data points they need to fit the dataset) have a <strong>higher marginal likelihood</strong>. We leverage this to get estimators of the (log) marginal likelihood in linear models that depend on the <strong>sum of training losses</strong> obtained in an iterative updating procedure. We show an intriguing connection between these estimators and the weight assigned to features in linear regression, and find that <strong>the intuition driving these estimators also seems to hold in deep neural networks</strong>.</p>
+<h1 id="introduction">Introduction</h1>
+<p>Suppose that you’re trying to build a <a href="https://www.youtube.com/watch?v=pqTntG1RXSY">hotdog classifier</a>, and you have a choice between two neural networks: network A has a cross-entropy loss of 0.01 on the training set, and it reached that loss extremely quickly. Network B obtains a cross-entropy loss of 0.0001 on the training set, but it took a lot longer to get below 0.01 than Network A. You want to use the model that will be the most accurate on new, unseen possible-hotdogs: which do you pick?</p>
+<div class="figure" style="width:40%; margin:2px; float:right;">
+<img width="90%" src="../images/hotdog_classifier.png" /> <br /> <br /> A difficult model selection problem.
+</div>
+<p>If you held out some training data for a validation set, then you can pick the one with better performance on the unseen data and be done. But suppose you don’t have access to a validation set. Is there still a way of justifying the intuition that the model that got a pretty low loss quickly is less likely to have overfit than the model that got an extremely low loss slowly? It turns out the answer is yes – if you’re willing to be Bayesian.</p>
 <h2 id="background-on-model-selection">Background on Model Selection</h2>
 <p><strong>TL;DR</strong></p>
 <ul>
@@ -164,7 +168,9 @@ Toggle details
 <p>Making the dependence of the conditional <span class="math inline">\(P(D_i|D_{&lt;i})\)</span> on the parameters <span class="math inline">\(\theta\)</span> more explicit, we get</p>
 <p><span class="math display">\[\log P(\mathcal{D}) = \sum \log \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[P(\mathcal{D}_i | \theta)] \]</span></p>
 <p>In other words: the marginal likelihood measures how well a posterior update based on one subset of the data <span class="math inline">\(\mathcal{D}_{&lt;i}\)</span> is able to predict the next data point <span class="math inline">\(\mathcal{D}_i\)</span>. We can visualize the log ML as computing the ‘area under the curve’ of posterior predictive probabilities.</p>
+<div class="figure">
 <p><img src="../images/ml-figure.png" width="80%" /></p>
+</div>
 <h3 id="estimator-zoo">Estimator Zoo</h3>
 <p>The value <span class="math inline">\(\log \mathbb{E}[P(\mathcal{D}_i|\theta)]\)</span> isn’t always possible to compute exactly. However, given parameter samples from the posterior, it’s straightforward to estimate a lower bound.</p>
 <p><span class="math display">\[\log P(\mathcal{D}) = \sum \log \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[P(\mathcal{D}_i | \theta)]  \ge \sum \mathbb{E}_{P(\theta | \mathcal{D}_{&lt;i})}[  \log P(\mathcal{D}_i | \theta)]  = L(D)\]</span></p>
@@ -174,7 +180,7 @@ Toggle details
 <p><span class="math display">\[ \log P(\mathcal{D}) = \sum_{i=1}^n \mathbb{E}[\log P(\mathcal{D}_i|\widehat{\mu}_i, \widehat{\sigma}^2_i)]  = L_S(D)\]</span></p>
 <p>Each of these estimators has its own pros and cons: <span class="math inline">\(L\)</span> has an intriguing interpretation from the minimum description length framework, but can have a large bias term when used to estimate the ML. <span class="math inline">\(L_k\)</span> reduces this bias term, but both <span class="math inline">\(L_k\)</span> and <span class="math inline">\(L\)</span> can’t be applied to models whose likelihood is a dirac delta distribution (i.e. models with zero observation noise). <span class="math inline">\(L_S\)</span> works even for models with zero observation noise, but only yields an unbiased estimate of a lower bound when the posterior predictive is Gaussian (otherwise this may no longer be a lower bound).</p>
 <h3 id="estimating-the-log-ml-via-gradient-descent">Estimating the log ML via Gradient Descent</h3>
-<div style="width:50%; float:right;">
+<div class="figure" style="width:50%; float:right;">
 <img width="90%" style="float:right;" src="../images/linear-ml-alg.png" />
 </div>
 <strong>TL;DR:</strong> In linear models, we can sample parameters from a prior and then run gradient descent to get a posterior sample to feed into the estimators from the last section.
@@ -183,7 +189,7 @@ Toggle details.
 </button>
 <div id="graddescent" style="display:none;">
 <p>In linear models, we can get the posterior samples that these estimators need by the ensemble methods described previously. Specifically: in Bayesian linear regression with noiseless Gaussian likelihoods, we can sample parameters from the prior and then optimize the <span class="math inline">\(\ell_2\)</span> regression loss. The minimum of this optimization problem will correspond to a sample from the posterior of the model conditioned on the data used for optimization. This gives us a way of translating Bayesian updating to gradient optimization with ensembles, which we can adapt to models with noisy likelihoods (assuming we know the ground-truth targets) by adding noise to the targets and optimizing a penalized regression loss which encourages parameters to stay close to their initialized values.</p>
-<div style="width:30%; float:right;">
+<div class="figure" style="width:30%; float:right;">
 <img width="90%" style="float:right;" src="../images/gaussian.png" /> <br /> Optimizing a linear regression objective lets us sample from the posterior.
 </div>
 <ul>
@@ -215,7 +221,7 @@ Toggle details.
 </div>
 <h3 id="empirical-results">Empirical Results</h3>
 <p>We compared all three estimators on a feature selection task and found that they provided a similar model ranking to that given by the log ML. This is a nice existence proof that the lower bounds give sensible model rankings, and we provide a few more example problems in the paper. The results shown here are for the task of <em>feature selection</em> – i.e., how many (and which) features should we use in our model? We simulate a dataset inspired by  of the form <span class="math inline">\((\textbf{X}, \textbf{y})\)</span>, where <span class="math inline">\(x_i = (y_i + \epsilon_1, y_i + \dots, y_i + \epsilon_{15}, \epsilon_{16}, \dots, \epsilon_{30})\)</span>, and consider a set of models <span class="math inline">\(\{\mathcal{M}_k\}\)</span> with feature embeddings <span class="math inline">\(\phi_k(x_i) = x_i[1, \dots, k]\)</span>. The optimal model selects the first 15 features. This example is typical of a range of model selection tasks that we looked at where the hyperparameter formed a nice “Occam’s Hill”. The estimators tended to agree around the optimal hyperparameter/model, with the estimator for <span class="math inline">\(L(D)\)</span> penalizing models whose posteriors were too peaked more than the log ML did in models that didn’t fit the data well.</p>
-<div style="width:90%; margin-bottom: 20px; margin-right:auto; margin-left:auto;">
+<div class="figure" style="width:90%; margin-bottom: 20px; margin-right:auto; margin-left:auto;">
 <img width="30%" src="../images/estimator_comparison_dims.pdf" /><img width="30%" src="../images/feature_selection.png" /> <img width="30%" src="../images/prior_variance_selection.png" /> <br /> Running gradient descent on a sample from the prior using a linear regression objective gives a sample from the posterior (for linear models).
 </div>
 <p>We find similar results when we compare the weight assigned to a Bayesian model in a linear model combination trained online as the Bayesian model is being iteratively updated, as in the procedure described in the previous section. We compare against two other linear model combination approaches: one where we train the linear model combination on samples from the already-fitted posterior <span class="math inline">\(P(D_i|D)\)</span>, and another where we fit the linear model combination on samples from the prior <span class="math inline">\(P(D_i|\emptyset)\)</span>. We again see that <span class="math inline">\(L(D)\)</span> and <span class="math inline">\(\log P(D)\)</span> agree close to the optimum. We also see a similar ranking of models between <span class="math inline">\(L(D)\)</span> and the linear model combination weights given by concurrent sampling – the ‘posterior sampling’ and ‘prior sampling’ approaches do not exhibit this trend, as expected.</p>
@@ -250,11 +256,11 @@ Toggle details.
 <p>Concretely, we hypothesize that under fixed-stepsize SGD, models that obtain a lower sum over training losses should get the best test set performance. We evaluated a handful of different neural network architectures trained on image datasets and found that this correlation was fairly consistent. A more in-depth empirical analysis in the setting of neural architecture serach was performed by <a href="https://arxiv.org/abs/2006.04492">Ru et al</a>.</p>
 </div>
 <h3 id="empirical-results-1">Empirical Results</h3>
-<div style="width:40%; margin:2px; float:right;">
+<div class="figure" style="width:40%; margin:2px; float:right;">
 <img width="90%" src="../images/SOTLvsXEParallel.png" /> <br /> <br /> Models which train faster (as measured by their sum over training losses) generalize better.
 </div>
 We now ask whether the connection between <span class="math inline">\(\mathcal{L}(\mathcal{D})\)</span> and the weight assigned to a model in a linear model combination might also apply in some form to the deep learning setting. The lemma doing the heavy lifting in the proof of this result basically says that the weight assigned to a feature in a linear regression problem depending to some extent on that feature being fairly predictive of the target (modulo a bunch of assumptions). We make a similar conjecture for the weight assigned to activations in the penultimate layer of a neural network: features which are more predictive of the targets will be assigned higher weight. Because the final-layer weights and activations are trained concurrently, we expect that the notion of how predictive a node is will be more closely aligned with the SOTL definition rather than its final ‘training loss’.
-<div style="width:100%; margin:2px; padding:2px; float:left;">
+<div class="figure" style="width:100%; margin:2px; padding:2px; float:left;">
 <img align="center" width="90%" src="../images/submodel_perf.png" /> <br /> <br />Layer activations which train faster (as measured by their sum over ‘information losses’) are assigned higher weight by the final layer of a neural network.
 </div>
 <p>To investigate this claim, we train a linear combination of models, and see whether the test loss correlates with the assigned model weight. We observe that SGD tends to upweight models that generalize better. This suggests that SGD may implicitly perform model selection. Interestingly, we see that this phenomenon also holds for subnetworks within a network. The above figure shows that SGD upweights sub-networks with lower SOTL. These results are far from the final word on the topic, and we believe they present an interesting direction for future work.</p>
