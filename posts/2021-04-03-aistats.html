@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Clare Lyle</h1>
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on April  3, 2021
+    
+        by Clare
+    
+</div>
+<div class="container">
+<h1>Auxiliary tasks in RL</h1>
+<h2 id="intro">Intro</h2>
+<p>One of the most fundamental problems in reinforcement learning (RL) is how to learn a good <a href="http://incompleteideas.net/book/first/ebook/node34.html">value function</a>. We’ve gotten pretty good as a community at getting agents to learn good value functions for some domains, like Atari games or robot control simulators, but we still have a lot of room for improvement. There are hundreds if not thousands of papers coming out every year with new tricks to learn better value functions that let agents perform even better on these tasks.</p>
+<p>Intuitively, you might think that the best way to figure out how good an action is would be to laser-focus on <em>only</em> the components of your input that tell you how much reward you’re going to receive in the future. If you’re learning how to play soccer for the first time, for example, you should pay attention to the ball. You don’t want to concurrently try to learn how to take a penalty kick and estimate the number of dandelions behind the net.</p>
+<p>Estimating the number of dandelions behind the net is an example of what the RL community calls an <em>auxiliary task</em>. It’s not your main goal, but you’re still using it as a learning signal while you’re messing about trying to figure out how your environment works. Auxiliary tasks have been shown to significantly improve agent performance in reinforcement learning across a huge range of domains. Typically these tasks are chosen to be a bit more useful than counting dandelions on a soccer pitch: a better analogy might be learning to move the ball from one side of the pitch to the other, or learning to predict which direction a player will run. If you were dropped onto a soccer pitch with no concept of “hand ball”, “goal”, or “opposite team”, it would take a lot of random running about before you discovered that putting a ball into one of the nets gives you a point. Learning to control parts of the game will likely help you once you do figure out that putting a ball in the net earns you a point, since you don’t now need to learn how to kick the ball from scratch.</p>
+<p>But how does trying to predict something other than your main objective help deep RL agents? The answer isn’t super clear. The general consensus in the community is learning with auxiliary tasks leads to better representations (outputs of intermediate layers of a neural network), although what makes a representation better seems to follow a circular definition of “it leads to improved performance”. This isn’t a super satisfying definition, so in our (joint work with Mark Rowland, Georg Ostrovski, and Will Dabney) recent <a href="https://arxiv.org/abs/2102.13089">paper</a>, we tried to dig into what’s happening in agents’ representations that might be leading to performance gains.</p>
+<h2 id="learning-dynamics">Learning Dynamics</h2>
+<p>We did this by analyzing an idealized model of representation learning. There are a lot of different value-learning algorithms in RL, but we’re going to focus our analysis on <a href="http://incompleteideas.net/book/first/ebook/node60.html">temporal difference learning</a> in the policy evaluation setting (i.e. the agent is just trying to figure out the value <span class="math inline">\(V^\pi\)</span> of a fixed action selection rule <span class="math inline">\(\pi\)</span>). Even more specifically, we’re going to focus on TD(0) updates, which update the value function at time <span class="math inline">\(t\)</span>, <span class="math inline">\(V_t\)</span>, based on the observed reward and the expected value at the next state.</p>
+<p><span class="math display">\[ V_{t+1}(x) = V_t(x) + \alpha( R^{\pi}(x) + \gamma \mathbb{E}_{x' \sim P^\pi{x'|x}} V_{t}(x') - V_t(x)) \]</span></p>
+<p>In matrix notation, we write this update as follows, where <span class="math inline">\(V_{t}\)</span> refers to the vector representation of the value function:</p>
+<p><span class="math display">\[V_{t+1} = V_t + \alpha(R^{\pi} + \gamma P^\pi V_t -  V_t) \]</span></p>
+<p>We’re going to focus on the learning dynamics induced by this update rule. By learning dynamics, we’re referring to how the value function changes over time. We’re going to make a simplifying assumption and focus on <em>continuous-time</em> dynamics, where we model the discrete update described above as a continous time system whose time derivative looks as follows:</p>
+\begin{equation} \partial_t V_t = R + \gamma P^\pi V_t - V_t \end{equation}
+<p>We can visualize this system for a simple two-state MDP to get a sense of how the temporal difference updates compare to performing regression on the target value function <span class="math inline">\(V^\pi(x)\)</span> directly.</p>
+<div class="figure" style="width:40%; margin-left:3em; float:right;">
+<img src="../images/ex-TDMC.pdf" width="90%" /> <br /> <br />
+<p align="center">
+Evolution of randomly initialized value functions as they converge to <span class="math inline">\(V^\pi\)</span> in a simple 2-state MDP, as shown in the <a href="https://arxiv.org/abs/2102.13089">paper</a> this post is based on.
+</p>
+<blockquote>
+</div>
+</blockquote>
+<p>The lines in these figures show the path that a value function initialized at a point on that line will follow if it evolves according to the continuous time dynamics given by either Monte Carlo or TD updates. The MC updates follow a straight line to <span class="math inline">\(V^\pi\)</span>, which is exactly what you’d expect for a regression objective. The TD updates follow a more curved path, and converge along the line corresponding to the constant function <span class="math inline">\((\alpha, \alpha)\)</span>.</p>
+<p>Why does this happen? Well, one thing to note is that for any 2x2 stochastic matrix <span class="math inline">\(P^\pi\)</span>, the constant function <span class="math inline">\((\alpha, \alpha)\)</span> is an eigenvector of <span class="math inline">\(P^\pi\)</span> with eigenvalue 1. In particular, it’s the eigenvector corresponding to the largest eigenvalue. So while the MC updates are going straight for <span class="math inline">\(V^\pi\)</span>, the TD updates are headed almost-straight for the top eigenvector of <span class="math inline">\(P^\pi\)</span>, and then once they’re close to that line they go straight to the target <span class="math inline">\(V^\pi\)</span>. In other words: they’re converging to a <em>subspace determined by the top eigenvector of <span class="math inline">\(P^\pi\)</span></em>.</p>
+<div class="figure" style="width:30%; margin-left:3em; float:right;">
+<img src="../images/grassmann.png" width="80%" /> <br /> <br />
+<p align="center">
+We used a generalized notion of the “angle’ between two subspaces to prove convergence. Figure by Mark Rowland.
+</p>
+<blockquote>
+</div>
+</blockquote>
+<p>In our paper, we formally show that under a specific measure of distance between subspaces (see the picture on the right), the “error term” <span class="math inline">\(V_t - V^\pi\)</span> converges to the subspace spanned by the top eigenvectors of <span class="math inline">\(P^\pi\)</span>. When <span class="math inline">\(R^\pi=0\)</span>, the value function converges to zero along the subspace spanned by the top eigenvectors of the environment transition dynamics. Thus even when <span class="math inline">\(V^\pi = 0\)</span>, <strong>the learned value function is picking up some of the structure of the environment</strong>.</p>
+<p>This is all well and good, but it doesn’t answer the question we originally posed: how do TD updates affect agents’ representations? For this we have to look at a different dynamical system.</p>
+<h2 id="representations">Representations</h2>
+<p>We’re going to assume an agent’s value function can be broken down into two parts: a feature map <span class="math inline">\(\phi\)</span> which takes observations <span class="math inline">\(x\)</span> as input and outputs a vector <span class="math inline">\(\phi(x)\)</span>, and a linear value approximator <span class="math inline">\(w\)</span>. The value function of a state <span class="math inline">\(x\)</span> can then be given by <span class="math inline">\(V(x) = \langle \phi(x), w \rangle\)</span>. This simulates the penultimate layer of a neural network feeding into a linear map to produce the output.</p>
+<div class="figure" style="width:40%; margin-left:3em; float:right;">
+<img src="../images/value_pong.png" width="90%" /> <br /> <br />
+<p align="center">
+Our representation learning model.
+</p>
+<blockquote>
+</div>
+</blockquote>
+<p>Temporal difference updates for linear function approximation follow a <em>semi-gradient</em> with respect to the TD prediction error. We say this is a semi-gradient because we’re trying to move the predictions closer to the targets, not move the targets closer to the predictions (this would be a bit like if you start your drive to work, estimate it will take you 30 minutes, then see an accident on the road that will make you 15 minutes late and instead of updating your original prediction to account for the traffic jam you decide that traffic jams don’t slow you down).</p>
+<p><span class="math display">\[ \partial_t w_t =  \sum_{x \in \mathcal{X}} (r(x) + \gamma \mathbb{E}[V_t(x')] - V_t)\nabla_w V_t  = \Phi_t^\top (R^\pi + \gamma P^\pi \Phi_t w_t - \Phi_t w_t)\]</span></p>
+<p>Where similarly to how <span class="math inline">\(V\)</span> is the vector of values for each state, <span class="math inline">\(\Phi\)</span> is the matrix whose rows are feature vectors.</p>
+<p>Because we’re interested in feature learning, we’ll also model how <span class="math inline">\(\phi(x)\)</span> changes as a function of time. We’re going to make the assumption that <span class="math inline">\(\phi(x)\)</span> changes exactly according to the gradient updates. In practice, <span class="math inline">\(\phi\)</span> is parameterized by the weights of a neural network, and updates with respect to the weights may lead to changes in <span class="math inline">\(\phi\)</span> that are different from the gradient computation we do here. However, this setting still tells us what really really big neural network are “trying” to do.</p>
+<p><span class="math display">\[\partial_t \Phi_t = (R^\pi + \gamma P^\pi \Phi_t w_t - \Phi_t w_t) w_t^\top\]</span></p>
+<div class="figure" style="width:40%; margin-left:3em; float:right;">
+<img src="../images/learned_features.pdf" width="90%" /> <br /> <br />
+<p align="center">
+Evolution of features during training.
+</p>
+<blockquote>
+</div>
+</blockquote>
+<p>Because <span class="math inline">\(\Phi_t\)</span> and <span class="math inline">\(w_t\)</span> depend on each other, this system of equations evolves in hard-to-predict ways and so we can’t necessarily obtain a closed-form solution. We ran some simulations and found that the features did seem to end up looking like different eigenvectors of the transition matrix, but there wasn’t a straightforward pattern in <em>which</em> eigenvectors they ended up resembling. However, we are able to show that similarly to how the value function can be shown to pick up information about the environment transition dynamics, so too can the representation <span class="math inline">\(\Phi\)</span>. This leads to the main take-away of the paper.</p>
+<p><strong>Under some assumptions on <span class="math inline">\(w_tw_t^\top\)</span>, the representation <span class="math inline">\(\Phi_t\)</span> converges to the subspace spanned by the top eigenvectors of <span class="math inline">\(P^\pi\)</span>.</strong></p>
+<p>The assumptions here are relatively technical, so I won’t get into them except to say that under some auxiliary tasks with fixed or slowly updated weight vectors, these assumptions end up being satisfied. We are then able to get the closed-form feature trajectories for a range of auxiliary tasks where the agent is being trained to predict many (OK, we take a limit of infinitely many) things.</p>
+<p>One particularly interesting setting is <em>random cumulant prediction</em>, where we predict the value corresponding to a randomly generated reward function. Under this auxiliary task, we find that the features <span class="math inline">\(\Phi_t\)</span> converge not to zero, but to a random subspace which is biased towards the top singular vectors of the resolvent matrix <span class="math inline">\((I - \gamma P^\pi)^{-1}\)</span>. In other words: <strong>under random cumulant auxiliary tasks, not only does the representation pick up information about the environment dynamics, but it also doesn’t collapse to zero!</strong></p>
+<h2 id="results">Results</h2>
+<p>Based on the above observations, we hypothesize that predicting the value of random rewards should be a useful auxiliary tasks for settings where the agent doesn’t see rewards until relatively late in training – the sparse reward setting. The idea here is basically that under the value prediction objective and auxiliary tasks that use the observed extrinsic reward, the agent’s predictions and features will collapse to be effectively zero because the target value function is zero. In contrast, a random cumulant agent will avoid representation collapse and while still picking up useful information about the environment structure. Indeed, this is what we see: predicting many random things isn’t particularly helpful when the environment reward is giving you a good learning signal, but when you aren’t receiving reward it can help keep you from concluding that everything is equally terrible so that when you do finally see rewards you are able to use them to improve your value function.</p>
+<div class="figure" style="width:99%; margin-left:3em; float:right;">
+<img src="../images/atari_results.pdf" width="100%" /> <br /> <br />
+<p align="center">
+Atari results. DDQN+RC is the agent trained with the random cumulant auxiliary task. All other agents use the observed environment reward to perform updates. DDQN+RC is the only agent to attain nontrivial reward in Montezuma’s Revenge, a hard exploration task in Atari.
+</p>
+<blockquote>
+</div>
+</blockquote>
+<p>So what can we conclude from this? There are two main take-aways: first, value functions and representations trained with TD updates pick up information about the transition structure of the environment. Second, auxiliary prediction tasks can be useful to ground the representation in sparse reward environments to prevent the agent from mapping all states to the zero vector. While this paper is hardly the final word on representation learning in RL, I think it provides some neat insights into how learning algorithms and representations interact that might prove useful for the community.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
