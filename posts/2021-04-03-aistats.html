@@ -122,7 +122,7 @@
 \begin{equation} \partial_t V_t = R + \gamma P^\pi V_t - V_t \end{equation}
 <p>We can visualize this system for a simple two-state MDP to get a sense of how the temporal difference updates compare to performing regression on the target value function <span class="math inline">\(V^\pi(x)\)</span> directly.</p>
 <div class="figure" style="width:40%; margin-left:3em; float:right;">
-<img src="../images/ex-TDMC.pdf" width="90%" /> <br /> <br />
+<img src="../images/ex-TDMC.png" width="90%" /> <br /> <br />
 <p align="center">
 Evolution of randomly initialized value functions as they converge to <span class="math inline">\(V^\pi\)</span> in a simple 2-state MDP, as shown in the <a href="https://arxiv.org/abs/2102.13089">paper</a> this post is based on.
 </p>
@@ -157,7 +157,7 @@ Our representation learning model.
 <p>Because we’re interested in feature learning, we’ll also model how <span class="math inline">\(\phi(x)\)</span> changes as a function of time. We’re going to make the assumption that <span class="math inline">\(\phi(x)\)</span> changes exactly according to the gradient updates. In practice, <span class="math inline">\(\phi\)</span> is parameterized by the weights of a neural network, and updates with respect to the weights may lead to changes in <span class="math inline">\(\phi\)</span> that are different from the gradient computation we do here. However, this setting still tells us what really really big neural network are “trying” to do.</p>
 <p><span class="math display">\[\partial_t \Phi_t = (R^\pi + \gamma P^\pi \Phi_t w_t - \Phi_t w_t) w_t^\top\]</span></p>
 <div class="figure" style="width:40%; margin-left:3em; float:right;">
-<img src="../images/learned_features.pdf" width="90%" /> <br /> <br />
+<img src="../images/learned_features.png" width="90%" /> <br /> <br />
 <p align="center">
 Evolution of features during training.
 </p>
@@ -171,7 +171,7 @@ Evolution of features during training.
 <h2 id="results">Results</h2>
 <p>Based on the above observations, we hypothesize that predicting the value of random rewards should be a useful auxiliary tasks for settings where the agent doesn’t see rewards until relatively late in training – the sparse reward setting. The idea here is basically that under the value prediction objective and auxiliary tasks that use the observed extrinsic reward, the agent’s predictions and features will collapse to be effectively zero because the target value function is zero. In contrast, a random cumulant agent will avoid representation collapse and while still picking up useful information about the environment structure. Indeed, this is what we see: predicting many random things isn’t particularly helpful when the environment reward is giving you a good learning signal, but when you aren’t receiving reward it can help keep you from concluding that everything is equally terrible so that when you do finally see rewards you are able to use them to improve your value function.</p>
 <div class="figure" style="width:99%; margin-left:3em; float:right;">
-<img src="../images/atari_results.pdf" width="100%" /> <br /> <br />
+<img src="../images/atari_results.png" width="100%" /> <br /> <br />
 <p align="center">
 Atari results. DDQN+RC is the agent trained with the random cumulant auxiliary task. All other agents use the observed environment reward to perform updates. DDQN+RC is the only agent to attain nontrivial reward in Montezuma’s Revenge, a hard exploration task in Atari.
 </p>
