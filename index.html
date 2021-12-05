@@ -10,12 +10,12 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-
+    <link rel="icon" href="./images/ox.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
-    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="./css/clean-blog.min.css" rel="stylesheet">
+    <link href="./css/clean-blog.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -43,7 +43,7 @@
 </head>
 
 <body>
-
+    <link rel="icon" href="./images/ox.png" sizes="32x32">
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
         <div class="container-fluid">
@@ -85,17 +85,17 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5); height:100px">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="site-heading">
-                        <h1>Clare Lyle</h1>
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
                         <!--<hr class="small">
                         <span class="subheading">Machine Learning</span>-->
-                    </div>
-                </div>
-            </div>
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
         </div>
     </header>
 
@@ -103,12 +103,38 @@
     <div class="container"><style>
 .post-preview:nth-of-type(1n+4){display:none;}
 </style>
-<div style="font-size:20px; font-family:Open Sans;">
-<p>Hello, world!</p>
 
-<p>I'm a PhD student at Oxford interested in theoretical understanding of machine learning. I've also worked on reinforcement learning. I like to write about math, computer science, and life in general. My publications can be found <a href="./pubs.html">here.</a></p>
-I also occasionally blog. This blog is not optimized for mobile devices and contains a lot of long equations that will be a pain to view on your phone. Unless you enjoy suffering, I strongly recommend reading it on large screens only.
+<h2>About</h2>
+<div style="float:none; clear:both">
+<div style="font-size:18px;margin-bottom:20px; width:70%; float:left;">
+<p>Hello there! I'm a PhD student at the University of Oxford interested in generalization and learning dynamics in deep (reinforcement) learning. I work jointly with Yarin Gal at the <a href="https://oatml.cs.ox.ac.uk/">Oxford Applied and Theoretical Machine Learning</a> group, and <a href="https://www.cs.ox.ac.uk/people/marta.kwiatkowska/">Marta Kwiatkowska</a>.
+In my spare time, I <a href="./archive.html">blog</a> and play <a href="https://oubbc.weebly.com/2020-211.html">basketball</a>. </p></div> <div style="float:right; width:20%; padding-right:10px; margin-left:20px; margin-right:auto;"> <img style="width:80%; height:90%;border-radius:50%;" src="./images/compressed_me.jpg" /></div>
 </div>
+<div style="clear:both"></div>
+<hr>
+<h2>Recent Publications</h2>
+<p>I've put some recent papers below. A full list of my publications can be found <a href="./pubs.html">here.</a></p>
+
+<p><b>Revisiting the train loss: an efficient performance estimator for neural architecture search.</b> Binxin Ru*, Clare Lyle*, Lisa Schut, Mark van der Wilk, and Yarin Gal. NeurIPS 2021. <a href="https://arxiv.org/abs/2006.04492">(arXiv link)</a>.</p>
+
+<p><b>Provable Guarantees on the Robustness of Decision Rules to Causal Interventions</b> Benjie Wang*, Clare Lyle*, Marta Kwiatkowska. IJCAI 2021. <a href="https://arxiv.org/abs/2105.09108">(arXiv link)</a>.</p>
+
+<p><b>On The Effect of Auxiliary Tasks on Representation Dynamics</b>  Clare Lyle*, Mark Rowland*, Georg Ostrovski, Will Dabney, AISTATS 2021. <a href="https://arxiv.org/abs/2102.13089">(arXiv link)</a>.</p>
+<hr />
+<h2>Talks</h2>
+I've given a few talks during my PhD. Most of these weren't recorded, but the slides might still be useful to give a narrative overview of some of the projects I've worked on.
+
+<p> </p>
+<ul>
+	<li><b>Simons Institute Workshop on Theory of Deep RL</b>, October 2020. Invariant Prediction for Generalization in RL | <a href="https://simons.berkeley.edu/talks/tbd-212">Talk recording</a> | <a href="./files/simons.pdf" download="simons.pdf">Slides</a></li>
+	<li><b>GenU Workshop</b>, October 2021. Bayesian Model Selection and Generalization in Deep Learning | <a href="./files/bayesian.pdf" download="genU.pdf">Slides</a></li>
+	<li><b>G-Research ML College</b>,  November 2021. The Many Faces of Model Selection | <a href="./files/model.pdf" download="model.pdf">Slides</a></li>
+	<li><b>OxCSML Group</b>, December 2021. Representation Dynamics and Feature Collapse in RL | <a href="./files/collapse.pdf" download="collapse.pdf">Slides</a></li>
+</ul>
+<hr />
+<h2>Blog</h2>
+<b>Warning!</b> This blog is not optimized for mobile devices and contains a lot of long equations that will be a pain to view on your phone. Unless you enjoy suffering, I strongly recommend reading it on large screens only.
+
 <link href="./css/previews.css" rel="stylesheet">
 <div class="container">
     <div class="row">
