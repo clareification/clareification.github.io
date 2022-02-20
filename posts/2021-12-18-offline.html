@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/ox.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5); height:100px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on December 18, 2021
+</div>
+<div class="container">
+<h1>The Importance of Making Mistakes in RL</h1>
+<p>Offline reinforcement learning – the process of trying to learn how to achieve a goal without ever getting to interact with the ‘real world’ – is hard. Readers who have tried to train RL agents from offline data will know this well and can skip this paragraph. For readers without experience in offline RL, consider the contrast between watching your parents drive you as a child, and learning to drive a car for the first time as a young adult. Even though they might have many years of “passive” driving experience, a new driver is unlikely to perfectly replicate the policy their parents would follow when it’s their first time behind the wheel. As an even greater challenge, minor inaccuracies or differences in a new driver’s policy can result in them facing new situations that they’ve never seen an expert navigate. For example, a new driver may avoid exceeding the posted speed limit while on a learner’s permit, which on narrow roads could lead to a long line of cars and their irritated drivers accumulating behind it. To navigate this situation, the driver needs to either a) correctly generalize to this new situation and pull over at the first safe opportunity to let the cars pass, or b) ask a supervisor for guidance. Identifying option a) requires skill and creativity typically unavailable to new drivers, and so most jurisdictions institute graduated licensing programs where the learner is required by law to have an expert in the car that they can query at all times for their first year or so of driving.</p>
+<div class="figure" style="width:30%; margin-left:3em; float:right;">
+<img src="../images/traffic.png" width="90%" />
+<p align="center">
+Learning to drive requires generalization to navigate situations that an expert would have avoided, such as accumulating a long line of angry drivers behind you.
+</p>
+</div>
+<p>Non-human RL agents face similar challenges when they are trained using offline data, without the benefit of a human supervisor and a prescribed number of hours of real-world interaction. Concretely, there are two major technical challenges in offline RL: distribution shift in the state visitation distribution, and lack of coverage of the action set by the data-generating policy. Distribution shift occurs because even a near-optimal policy will nonetheless make mistakes, and these mistakes can result in the agent encountering novel situations that it never saw the expert navigate when it finally is deployed in the real world. But a potentially bigger problem is the lack of action coverage: even if the state visitation distribution is the same, the agent won’t have the data necessary to to identify when it is overestimating the advantage of a particular action. Agents which can interact with their environment will quickly see the effects of taking actions they incorrectly predict to be optimal, and so collect the data they need to correct overly-optimistic estimates. Agents trained with offline data don’t have this luxury.</p>
+<p>This problem has been <a href="https://arxiv.org/abs/2005.01643">widely studied</a> in the offline RL literature. Most of the discussion here has focused on the overestimation bias problem, where an agent “halucinates” a high value for an action which then gets exacerbated via bootstrapping over the course of training because the agent never sees data revealing its error. Offline RL approaches like Conservative Q-Learning try to get around this by incorporating pessimism into their predictions, so that an action which isn’t taken in the dataset is assumed to have a lower value than the actions which were taken. Even with this kind of work-around, letting an agent go out into the world and make its own mistakes tends to be much more effective at improving performance (though also more dangerous for the agent).</p>
+<p>This blog post will discuss insights from two papers that explore why letting agents make their own mistakes is so crucial for obtaining performant policies in value-based RL. The first of these papers, <a href="https://openreview.net/forum?id=nPHA8fGicZk">On the Difficulty of Passive Learning in Deep Reinforcement Learning</a>, identifies a neat phenomenon called the <a href="https://psc-g.github.io/posts/research/rl/tandem/">Tandem Effect</a>, whereby agents trained on data collected by a greedy policy with respect to their predictions obtain much better performance than agents with a different network initialization which are otherwise trained on <em>exactly the same stream of data</em>. (I’ll abbreviate this paper to <em>Tandem RL</em> due to the framework used to study this phenomenon.) The second paper, <a href="https://arxiv.org/abs/2112.04716">DR3: Value Based Deep RL Requires Explicit Regularization</a> (which I’ll abbreviate to DR3),looks at how the dynamics of stochastic gradient descent influence agents’ representations to propose a mechanism for a failure mode of offline RL known as <em>implicit underparamterization</em>. Taken together, they suggest that data collection policies which don’t reveal when an agent has over-estimated the relative value of an action are harmful to performance even in the absence of bootstrapping, but that when coupled with bootstrap updates they can result in particularly pathological representation learning dynamics and completely derail the learning process.</p>
+<div style="background-color:rgba(0, 180, 220, 0.15); padding:1px; padding-left:2px;">
+<p><strong>Side bar: overestimation bias and approximation error.</strong> <br />Overestimation in offline RL can take two forms: overestimation of the value of a state, and overestimation of the <em>advantage</em> of an action at a state. The former materializes as <em>overestimation bias</em>, whereby overly optimistic estimates of an action that the behaviour policy didn’t take leads to runaway bootstrap updates that dramatically overestimate the values of state-action pairs in the entire MDP. The latter type of overestimation which I talk about in this post doesn’t necessarily result in runaway predictions, but can result in sub-optimal policies. Essentially, if the values of all the actions at a given state are similar, even a tiny amount of approximation error can drastically change the greedy policy associated with a learned value function.</p>
+</div>
+<h2 id="making-mistakes-prevents-erroneous-extrapolation">Making mistakes prevents erroneous extrapolation</h2>
+<p float="right">
+The study of the tandem effect is inspired by an experiment done with kittens in the 1960s by psychologists studying how the visual system develops. The idea is to pair up two kittens using an elaborate harness contraption, so that one kitten (the <em>active</em> kitten) can move about freely and look at things, and the other (the <em>passive</em> kitten) can only look at things determined by the first kitten. After a couple of weeks of this, the active kitten has a normally-functioning visual system, while the passive kitten’s vision is under-developed in comparison (the passive kitten is then set free to roam about and do kitten things and catches up after). This was one of the first studies to investigate the importance of having control over the data your brain is exposed to in learning and development.
+</p>
+<div style="width:40%; margin-left:3em; float:right;">
+<img src="../images/tandem_kittens.png" width="90%" />
+<p align="center">
+Kittens in the tandem learning experiment from the 50s.
+</p>
+</div>
+<p>
+The tandem RL framework tries to replicate this experiment in RL agents. It considers two agents: an active agent, and a passive agent. As with the kittens, the active agent gets to interact with the environment and learn as usual. The passive agent has access to the active agent’s replay buffer, but can’t generate its own data. Both agents are trained using the same update rule (for the most part, standard TD learning), and sample the same minibatches from replay for every update. Thus the only difference between the training procedure for the two agents is their predicted values at initialization.
+</p>
+<p>One important detail here is that unlike in offline RL, the passive agent sees a constantly evolving and improving data distribution. This is a big difference from using a static, fixed dataset. For starters, it means that the agent can see a greater diversity of states and actions over the course of training. It also means that the passive agent gets to see the exact same data as the active agent, so any difference in performance between the two can’t be attributed to properties of using a fixed dataset. The only difference between the active and the passive agent’s training procedures is that their neural networks are initialized using different random seeds. As a result the actions sampled from the replay buffer will usually be ones that the active agent, but not necessarily the passive agent, thinks are optimal.</p>
+<p>So what happens when we set these two agents off to learn about the world? Initially, things usually look ok: both agents will start to improve their performance. However, the passive agent’s performance inevitably levels off and in most cases declines as training progresses. This decline in performance in the passive agent but not the active agent is what the paper terms the <em>tandem effect</em>.</p>
+<div class="figure" style="width:80%; margin-left:3em;">
+<img src="../images/tandem_perf.png" width="90%" />
+<p align="center">
+Evaluation of active and passive agents in the Tandem RL framework.
+</p>
+</div>
+<p>Does this difference in performance occur because differently initialized agents are somehow incompatible? Would the tandem effect go away if the initial policy were greedy with respect to the passive agent’s value function? To answer this, the authors present a “forked tandem” paradigm. Here, we freeze the active agent’s policy and copy the active agent’s weights to the passive agent. We then kick off learning using the active agent’s frozen policy and starting the passive agent from the active agent’s current parameters. Note that, at least initially, the “active” policy will always pick the action that the passive agent thinks is greedy, since they both have the same parameters initially. After running this training procedure for a while (presumably until the outdated active agent’s policy is sufficiently not-greedy with respect to the passive agent’s predictions), the passive agent’s performance <em>again</em> starts to decline.</p>
+<div class="figure" style="width:80%; margin-left:3em;">
+<img src="../images/tandem_forked.png" width="90%" />
+<p align="center">
+The “forked tandem” setup.
+</p>
+<blockquote>
+</div>
+</blockquote>
+<p>The authors study three properties that could plausibly generate this effect: <strong>bootstrapping</strong> (B), the <strong>data distribution</strong> (D), and <strong>function approximation</strong> (F). Intriguingly, while bootstrapping exacerbates the tandem effect, it doesn’t seem to play as crucial of a role as the other two factors. To show this, the authors train the passive agents on the same TD targets as the active agent is using (i.e. using the active agent’s target parameters and policy), and <em>still</em> see a tandem effect. In some cases using the active agent’s targets produces a smaller effect, but the phenomenon doesn’t go away in any of the environments.</p>
+<div class="figure" style="width:80%; margin-left:3em;">
+<img src="../images/tandem_bootstrap.png" width="90%" />
+<p align="center">
+The influence of bootstrapping exacerbates the tandem effect, but isn’t a necessary condition.
+</p>
+</div>
+<p>This suggests that whatever’s driving the tandem effect, it’s not solely a product of bootstrapping off of a sub-optimal data-collection distribution. Minus one point for bootstrapping. Instead, it seems to result from the interplay between function approximation and insufficient action coverage. I would conjecture that this probably has something to do with the sidebar above: value-based RL agents following greedy policies will be highly dependent on getting the relative ordering of actions with relatively similar values correct in order to obtain good performance. Even a small approximation error as a result of overestimating an action by <span class="math inline">\(\epsilon\)</span> can lead to catastrophic performance reductions if it isn’t corrected, and the passive agents are unlikely to get the data they need to make this relatively minor correction.</p>
+<p>This argument explains why we would expect to see large performance gaps between value functions that are close in an <span class="math inline">\(\ell_2\)</span> sense, but doesn’t explain where the difference in the value functions arises from. The authors provide some evidence that this phenomenon is likely due to poor generalization of the passive agent.</p>
+<ol style="list-style-type: decimal">
+<li><p>Increasing the number of passive learner optimization steps per active learner step exacerbates the gap, so the tandem effect isn’t driven by the passive agent underfitting relative to the active agent. (+1 for <strong>D</strong>)</p></li>
+<li><p>The tandem effect isn’t completely eliminated by regressing the passive agent on the active Q-values for all actions (though it is significantly reduced). This suggests that poor advantage approximation drives a significant part of the tandem effect, but can’t totally explain it. (+1 for <strong>F</strong> <em>and</em> +1 for <strong>D</strong>)</p></li>
+<li><p>Increasing network width reduces the tandem effect, but increasing network depth exacerbates it. Honestly, I’m not 100% sure how to interpret this result, so I’m just leaving it here for now. (+1 for <strong>F</strong> maybe??)</p></li>
+<li><p>Tying the weights of early layers of the active and passive network (so that the passive network in the extreme case only performs gradient updates on its final layer), reduces the gap between the active and passive agent. (+1 for <strong>F</strong>)</p></li>
+</ol>
+<p><strong>Conclusions:</strong> what we get from all of this is that agents need to see the effects of the actions that they think are best in order to perform well at the task they’re learning. This is true even when the agent is trained without bootstrapping, although the effect is stronger when bootstrapped targets are used. We can conclude that there’s definitely <em>something</em> really interesting going on in the interaction between the generalization induced by function approximation and the predicted optimality of the set of actions that the agent gets to update during training, but I’m still not entirely sure what that something is.</p>
+<h2 id="making-mistakes-prevents-implicit-underparameterization">Making mistakes prevents implicit underparameterization</h2>
+<p>At the Deep RL workshop, Kumar et al. presented a separate paper studying another peculiar phenomenon in offline RL: implicit underparameterization. A <a href>previous ICML paper</a> had revealed a weird phenomenon in offline RL where agents’ representations (i.e. penultimate layer feature activations) tend to be dominated by a couple dimensions. This paper proposed an explanation for that phenomenon. Unlike the previous paper, which focused specifically on agent performance and studied the effects of bootstrapping, the data-genearting distribution, and function approximation, this paper studied a potential <em>mechanism</em> by which bootstrapping in offline RL can lead to pathological learning dynamics, resulting in the downstream effect of poor performance. Kumar et al.‘s focus on the mechanisms by which poor performance occurs results in a rich analysis that yields a lot of interesting insights into what’s going on in offline RL agents’ features when they perform updates using bootstrapped actions that aren’t the ones followed by the behaviour policy.</p>
+<p>The short version of this paper is that, by following a similar analysis to prior work that studied stochastic gradient descent on regression objectives, we can study the <em>implicit regularization</em> induced by following stochastic gradient descent on the temporal difference learning objective when the agent uses bootstrapping. I’m less familiar with the papers the authors cited, but similar work essentially finds that gradient descent with discrete step sizes induces a bias towards flat minima compared to what you would expect by following a continuous tie gradient flow. We’re generally interested in discrete systems of the form</p>
+<p><span class="math display">\[ f_{t+1}(x) = f_t(x) + \alpha \nabla \ell(f_t(x)) \; .\]</span></p>
+<p>A first-order continuous approximation of this system looks as follows</p>
+<p><span class="math display">\[ \partial_t f_t(x) = - \alpha \nabla \ell(f_t(x)) \]</span></p>
+<p>but importantly also needs to take into account that taking a discrete gradient step results in different dynamics than following infinitesimal gradients. Instead, we can introduce a correction into the continuous time system to account for the effect of these discrete steps. The result is that rather than following the gradient of the loss, we end up following the gradient of the loss <em>plus a scaled penalty on the gradient norm</em>.</p>
+<p><span class="math display">\[ \partial_t f_t(x) = -\alpha [ \nabla \ell (f_t(x)) + \lambda \nabla \| \nabla \ell (f_t(x))\|^2 ]= -\alpha \nabla \ell (f_t(x)) - \beta \nabla R(f_t(x)) \]</span></p>
+<p>As a result, we say that running discrete-time GD induces implicit regularization towards solutions with lower gradient norm in their vicinity – in other words, towards solutions that are flatter.</p>
+<p>Since TD updates don’t correspond to the gradient of any function, the dynamics for TD learning induce slightly different implicit regularization. We end up getting</p>
+<p><span class="math display">\[ R(f_t(x)) =  \sum [ {\color{blue}{\|Q_\theta(s,a)\|^2}} - \color{red}{\gamma \nabla Q_\theta(s,a) \nabla [[ Q_\theta(s', a')]]}] \]</span></p>
+<p>(where [[<span class="math inline">\(\cdot\)</span>]] denotes the stop-gradient function). This has a gradient penalty term as before, but now it also has a weird dot product term that measures how aligned the gradients are between adjacent state-action pairs in the MDP. What’s more, this gradient-alignment penalty actually has a <em>negative</em> sign, which means that it is encouraging this term to be maximized. One interpretation of the gradient alignment penalty is that it says our model should update adjacent states similarly. However, because this is an unnormalized dot product between states, one way we can maximize it is to have all states map to the same feature vector.</p>
+<p>Kumar et al. then make a neat insight. In the online RL setting, the dot product maximization can’t get out of hand without also increasing the gradient norms, which are controlled by the blue term. Since most behaviour policies are relatively greedy, the bootstrap state-action pair will be visited in the next timestep, and so the gradient norm penalty will be able to keep the norm in check. However, if a particular state-action pair used in the bootstrap update <em>isn’t</em> seen very often by the behaviour policy, as may be the case in offline RL, then it only appears in the gradient alignment regularizer. If this occurs often enough, it may result in runaway gradient norms in the optimization process.</p>
+<p>And that’s indeed what the paper then observes.</p>
+<div class="figure" style="width:80%; margin-left:3em;">
+<img src="../images/dr3-coadaptation.png" width="90%" />
+<p align="center">
+Feature co-adaptation as observed by Kumar et al.
+</p>
+</div>
+<p>They also do an ablation to study the effect of using out-of-sample (i.e. out-of-distribution w.r.t. the empirical distribution in the offline dataset) actions to confirm that the feature norms blow up only when the bootstrap target actions aren’t taken by the behaviour policy, even when bootstrapping is used. The paper then introduces a regularizer to cancel out the implicit regularization induced by discrete step sizes, which does seem to mitigate implicit under-parameterization. This part of the paper is worth a read but doesn’t pertain directly to the focus of this post, so I won’t go over it here. I recommend reading the paper if you’re interested.</p>
+<h2 id="concluding-thoughts">Concluding Thoughts</h2>
+<p>The main take-away from these papers is that <strong>reinforcement learning agents need to see the effects of the actions they predict are optimal in order to find good policies</strong>. Tandem RL shows that even if they’re not using bootstrapping, agents’ performance still suffers when the actions used to generate their training data are different from the ones they predict are optimal, though this effect is exacerbated by bootstrapping. DR3 shows that in agents trained on offline datasets with bootstrapping, poor action coverage can lead to exploding feature vectors.</p>
+<p>There are a lot of hanging questions I had after reading these two papers that I’m hoping the community will shed light on in the coming years. The biggest one is to understand how the mechanisms these two papers study relate to each other: can the exacerbating effect of bootstrapping be attributed uniquely to the mechanism proposed by Kumar et al., or are there additional factors at play? I also think maybe applying a similar analysis to that motivating DR3 might be useful to explain the phenomena studied by Ostrovski et al. to get at related questions: what is the mechanism underlying the tandem effect when the agents don’t use bootstrapping? Is there something about updating the action that the agent predicts to be optimal that affects generalization in some important way? Are there alternative forms of regularization that might allow agents to obtain good performance from passive learning?</p>
+<p>I don’t have the answers to these questions, nor am I actively working on them right now (I’ve been going down a few too many LaTeX rabbit holes whilst writing my thesis). However, I am very curious about the answers and if you, dear reader, manage to figure them out then please let me know. :)</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
