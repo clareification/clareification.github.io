@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/ox.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5); height:100px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on July 30, 2022
+</div>
+<div class="container">
+<h1>Do we know why deep learning generalizes yet?</h1>
+<blockquote>
+<p>Deep learning has seen tremendous empirical success in recent years. However, theoretical understanding of deep neural networks remains limited.</p>
+</blockquote>
+<p>You can find these two sentences, and variations thereupon, in probably hundreds of papers that try to prove things about deep neural networks (or, if you’re like me, prove things about linear models, then close your eyes and say “in the limit of infinite width” to yourself until you can sleep at night). I for one have been guilty of using variations on these two sentences in the introductions of many paper drafts and course projects – with good reason. The statement above is strictly speaking true: deep learning has been absurdly successful at a diverse range of tasks, and we definitely have a lot of unanswered questions about why exactly this success is happening. I would say that the second sentence in particular was probably a fair take in 2015. At the same time, there have been <em>a lot</em> of papers over the past seven years trying to develop a theory of deep learning. Is it still fair to say that we don’t really understand deep neural networks?</p>
+<p>In this blog post I’m going to attempt to answer this question, and in the process figure out whether the introduction to every paper I tried to write in the first year of my PhD was a bald-faced lie. Most of the community’s confusion about machine learning stems from its successful generalization performance, so throughout most of this blog post I’ll use “understanding deep learning” and “understanding why deep learning generalizes” interchangeably. To make the question more tractable, I’ll break up the topic of ‘understanding deep learning’ into three components:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Interpolation:</strong> do we know why giant models that perfectly fit their training data so often also perform near-optimally on test data?</p></li>
+<li><p><strong>Optimization:</strong> why does gradient descent on a massively over-parameterized nonlinear function space 1) converge 2) to solutions with a relatively small generalization gap?</p></li>
+<li><p><strong>Architecture design:</strong> do we understand why the community’s favourite architectures are so successful?</p></li>
+</ol>
+<h2 id="historical-background">Historical background</h2>
+<p>Before diving into recent work, it’s helpful to understand the origins of the study of generalization. Strictly speaking, analysis of the convergence rates of various statistical estimators dates back to the <a href="https://mathshistory.st-andrews.ac.uk/Biographies/Bessel/">nineteenth century</a>. Supposing, for example, that your goal is to estimate the mean of a probability distribution from samples, you can use the standard empirical mean estimator: <span class="math display">\[ \widehat{\mu}(x_1, \dots, x_n) = \frac{1}{n} \sum x_i \]</span> and the expected error of your estimator can be characterized by its variance, which decays with the inverse of the number of samples. Of course, if what you care about is to minimize the “typical” error of your estimator, there are more complicated estimators that will do the job better – see e.g. <a href="https://slideslive.com/38969196/do-we-know-how-to-estimate-the-mean?ref=recommended">Gabor Lugosi’s NeurIPS 2021 tutorial</a>.</p>
+<p>In machine learning problems we’re usually interested in a more complex statistic of the training data than its empirical mean. For example, we may want to estimate the classification error of a hyperplane that separates a set of inputs according to their labels. Of course, the hyperplane we are most interested in is the one which best separates our finite dataset, but the error of the best-fit hyperplane on a set of points will be lower than its expected error on other points drawn from the distribution, so we cannot straightforwardly reuse the training dataset to estimate the expected error. This makes bounding the error of this estimator more challenging, and necessitates more complex mathematical tools: these are what we now call generalization bounds. <span id="hist">The first paper I’m aware of to produce something that a modern reader would call a generalization bound was due to Vapnik in the late 1960s, with the engrossing title <a href="https://courses.engr.illinois.edu/ece544na/fa2014/vapnik71.pdf">On the Uniform Convergence of Relative Frequencies of Events to Their Probabilities</a>.</span></p>
+<p>The key takeaway from this paper is that by restricting the expressivity of a class of function approximators <span class="math inline">\(F\)</span>, one can guarantee that the training loss of the function that best fits the training data will converge to the expected loss of the best-fit approximator over the entire distribution. This represents a <em>worst-case</em> bound, because it says that the probability of drawing a particularly unrepresentative sample such that there exists some function in <span class="math inline">\(F\)</span> that can obtain an extremely low loss on this set while performing poorly in expectation over new samples is low. In other words, the odds that you sample a training set for which there is a terrible empirical risk minimizer is low. This result is incredibly pessimistic: it says that even if there are a million functions in <span class="math inline">\(F\)</span> that fit the training set and also get a low expected loss, if even one function in <span class="math inline">\(F\)</span> has a large expected risk on new samples then your bound will depend on that one.</p>
+Obviously, this kind of guarantee is terrible for explaining generalization in large neural networks because
+<ol>
+<li>
+DNNs are universal function approximators, which means that there will often exist parameters that can interpolate the training set but obtain arbitrarily bad performance on new data, and
+</li>
+<li>
+the way we train DNNs (see the section on convergence) means that we’re extremely unlikely to find these misleading parameters.
+</li>
+</ol>
+<p>To understand generalization in neural networks, we need to understand how the architectures and training procedures used in practice bias the search algorithm towards ‘good’ parameters. A really smart uniform convergence bound might have some success with this, but it will have to do a very good job of restricting the function class <span class="math inline">\(F\)</span> to reflect this bias, and potentially also take into account the ‘niceness’ of real-world datasets. This seems hard to do analytically, but if there’s a paper on arxiv tomorrow that gives a formula for this inductive bias I will be pleasantly surprised.</p>
+It’s also unclear whether generalization bounds are necessarily the right tool for providing any <em>explanation</em> of deep learning’s generalization performance in the first place. A generalization bound is a mathematical truth about a learning algorithm applied to a function class. It doesn’t make falsifiable predictions: it is either true or false, and it is verified by the correctness of the corresponding proof, not by attempts to falsify its predictions experimentally (although it’s <a href="https://arxiv.org/abs/1912.02178">possible</a> to shoehorn the rankings of bounds into a <a href="https://arxiv.org/abs/2010.11924">predictive theory</a> and test that, in which case most bounds tend not to fare particularly well). In this sense a generalization bound is very different from a scientific theory that tries to explain an empirical phenomenon. Because this blog post is about understanding and explaining the empirical generalization performance DNNs, I will mostly omit prior work computing generalization bounds except where these bounds are actually correlated with ‘real-world’ generalization – which, as <a href="https://arxiv.org/abs/2010.11924">Dziugaite et al.</a> show, is quite rare.
+<div class="note">
+Note to ML theory twitter: this omission doesn’t mean that I think generalization bounds are a completely pointless field of study, just that they’re not relevant to this blog post.
+</div>
+<h2 id="interpolation">Interpolation</h2>
+<p>A really exciting line of work over the past few years has studied the properties of <em>interpolating predictors</em>: learning algorithms and model classes that can attain zero loss on the training set. This is the regime that most DNN architectures tend to fall into. Large neural networks are <a href="https://arxiv.org/abs/1606.05336">incredibly expressive</a>, and the ability of DNNs to interpolate even <a href="https://arxiv.org/abs/1611.03530">completely random labels of their training data</a> has been <a href="https://cacm.acm.org/magazines/2021/3/250713-understanding-deep-learning-still-requires-rethinking-generalization/fulltext">well-studied</a>. One intriguing finding in this regime is the double descent phenomenon, which has been observed in <a href="https://arxiv.org/abs/1710.03667">linear models</a>, in <a href="https://proceedings.mlr.press/v119/d-ascoli20a.html">kernel learning</a>, and in <a href="https://arxiv.org/abs/1912.02292">deep neural networks</a>.</p>
+<h3 id="double-descent-benign-overfitting">Double descent &amp; benign overfitting</h3>
+<p>The double (or indeed <a href="https://arxiv.org/abs/2008.01036">multiple</a>) descent phenomenon shows that as a model becomes increasingly over-parameterized, it can obtain increasingly <em>better</em> generalization performance long after it has reached the threshold needed for interpolation. Rather than increasing the risk of overfitting, adding more parameters to a model can in many cases shrink the generalization gap, resulting in functions which interpolate their training data and exhibit reasonable behaviour on the support of the data-generating distribution. Of course, the way that you add these additional parameters is crucial to ensure that the double descent behaviour occurs.</p>
+<div align="center">
+<img width="80%" src="../images/double_descent.png" /> <br /> A double descent curve characterizing generalization error as a function of model capacity in neural networks (Nakkiran et al.)
+</div>
+<p>Peter Bartlett has been giving talks since before I started my PhD on the second descent region of these double descent curves, where the function approximator falls into the regime of <em>benign overfitting</em>. This describes the situation where the predictor has overfit in the sense that it attains zero loss on a noisy training set, where the true optimal predictor over the whole distribution would attain non-zero loss, but nonetheless attains an expected risk close to that of the optimal predictor. In other words, attaining a lower-than-optimal loss on the training set doesn’t hurt its ability to generalize near-optimally. A <a href="https://www.pnas.org/doi/pdf/10.1073/pnas.1907378117">recent paper</a> studying benign overfitting in linear models gives some intuition on when we can expect this to occur as a function of the spectrum of the feature covariance matrix. The key idea is that most of the mass of the feature-generating distribution needs to reside in a small number of dimensions relative to the size of the training set (in order to accurately estimate the parameers of the linear model), but also be diffuse enough that the label noise in the training set doesn’t completely overpower the signal from the features (to avoid pathological overfitting). While it’s unclear how much this intuition carries over to neural networks, where the features of the input are learned, the idea that the training set needs to be big enough to capture the modes of the data distribution, but that the noise in this dataset shouldn’t carry undue influence over the learned parameters, is plausible.</p>
+<p>Increasing over-parameterization can also increase the smoothness/robustness of the learned function, as <a href="https://openreview.net/forum?id=z71OSKqTFh7">an exciting Neurips paper</a> showed last year. This work, and others like it, observes that a sufficiently expressive function approximator will have an easier time interpolating its training data with a smooth function than a less-overparameterized model. This leads to a divergence from pessimistic generalization bounds, which take a pessimistic view over the larger function class and give looser upper bounds. In essence, in many classes of function approximators including neural networks, increasing the size of the function class via increasing the number of parameters results in functions that both fit the training data and are smooth, e.g. have a small Lipschitz constant relative to those found in smaller function classes. In other words, even though the worst functions in the class defined by wider networks might be worse, the best functions are better.</p>
+<p>What this paper and <a href="https://proceedings.mlr.press/v80/belkin18a.html">others</a> show is that there are many function classes, not just deep neural networks, for which a predictor can ‘overfit’ (in the sense that its empirical risk will be lower than its true risk) and still attain near-optimal generalization performance. This line of investigation is quite orthogonal to that of the uniform convergence bounds we will discuss next, in that it is in a sense more optimistic: many papers studying benign overfitting focus on the existence of good functions in a function class, rather than the existence of pathological ones.</p>
+<h3 id="aside-the-state-of-uniform-convergence-in-dnns">Aside: the state of uniform convergence in DNNs</h3>
+<p>A flurry of recent papers have debated the very utility of generalization bounds as described <a href="#hist">above</a>. The past ten years have seen a zoo of generalization bounds proposed to predict generalization in DNNs; these all have a similar flavour as the early uniform convergence results of Vapnik. Essentially, such a uniform convergence result is a statement of the following form: for any hypothesis set <span class="math inline">\(F\)</span>, with probability <span class="math inline">\(1-\delta\)</span> over the sampled training set <span class="math inline">\(\mathcal{D}^n\)</span>, the error of the function <span class="math inline">\(f\)</span> output by some learning algorithm <span class="math inline">\(\mathcal{A}\)</span> given <span class="math inline">\(F\)</span> and <span class="math inline">\(\mathcal{D}^n\)</span> will be bounded by some function of the complexity of the hypothesis class, the number of samples, and <span class="math inline">\(\delta\)</span>. The distinguishing factor between such bounds arises in the notion of complexity used. Prior works have set this to depend on &lt;a href=“”https://arxiv.org/abs/1506.02617&gt;various</a> <a href="https://arxiv.org/abs/1706.08498">norms</a> of the weights, <a href="https://openreview.net/forum?id=r1e_FpNFDr">distance from initialization</a>, <a href="https://arxiv.org/abs/1509.01240">number of training steps</a>, and <a href="https://arxiv.org/abs/1703.11008">the flatness of the local minimum</a>.</p>
+<p>Two notable recent works complicate this picture. First, <a href="https://arxiv.org/abs/1912.02178">Jiang et al.</a> in their whimsically named paper “Fantastic Generalization Measures and Where to Find Them” observed that many of the complexity measures that appeared in generalization bounds for DNNs are actually <em>negatively</em> correlated with a model’s generalization gap. Historically, vacuous generalization bounds were excused by the argument that even if such bounds were a bit flabby, they still gave an interesting directional indicator of the relative performance of different models. A model with a lower upper bound, it could be argued, should be preferred over a model with a greater upper bound on its test error. However, empirical results suggest that many uniform convergence results for DNNs are not only vacuous but also useless as even directional predictors of generalization.</p>
+<p>Second, <a href="https://proceedings.neurips.cc/paper/2019/hash/05e97c207235d63ceb1db43c60db7bbb-Abstract.html">Nagarajan et al.</a> constructed a simple example showing that uniform convergence guarantees are fundamentally incapable of describing the generalization performance of some overparameterized model classes. The driving intuition behind these examples is to construct a high-dimensional input space and hypothesis class (whose size depends on the number of samples <span class="math inline">\(n\)</span>), such that any predictor obtained by GD which attains near-zero risk will still misclassify some non-zero subset of the input space whose probability under the data-generating distribution is at least <span class="math inline">\(\delta\)</span> – i.e., for any hypothesis the probability of sampling a dataset on which its empirical risk differs from its true risk by a large amount is at least <span class="math inline">\(\delta\)</span>. This frequency of so-called ‘bad’ datasets necessarily increases the value of any uniform convergence guarantee. While two <a href="https://proceedings.mlr.press/v119/negrea20a.html">recent</a> <a href="https://arxiv.org/abs/1906.11300">papers</a> have shown that modified analysis incorporating an auxiliary function class can avoid this pathology, I personally am still somewhat pessimistic about uniform convergence results ever explaining generalization in DNNs for any reasonable interpretation of generalization. The amount of pessimism necessary to obtain general guarantees forces the theorist to ignore a lot of the data-dependent properties that likely drive the strong generalization performance of neural networks.</p>
+<h2 id="optimization">Optimization</h2>
+<p>OK, so we’ve concluded that although we clearly have a better sense of why overparameterization isn’t the devil that classical generalization bounds initially made it out to be, we still don’t have a great sense of how the search process defined by gradient descent so often finds nice parameterizations that generalize fairly well. In fact, this observation consists of two somewhat independent miracles: first, we have no reason to expect a priori that GD on functions parameterized as neural networks should even find parameters that fit the training data. Second, even assuming we found these parameters, it’s not obvious that parameters that fit the training data should also perform well on the underlying distribution.</p>
+<h3 id="the-difficulties-of-depth">The difficulties of depth</h3>
+<p>Solving the first point was a major focus of research in the 1990s through to the mid-2010s. Initial implementations of neural networks were incredibly difficult to train, particularly in the “end-to-end” framework so popular today. For example, <a href="http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf">this classic paper</a> provides a nice overview of the steps involved in training a digit classifier end-to-end back when this type of thing was new and exciting. In more complex vision tasks involving images of exotic objects like trucks and horses, however, one-shot training a neural network was pretty much impossible. Instead, <a href="https://proceedings.mlr.press/v9/erhan10a/erhan10a.pdf">people tended to pre-train features using supervised learning</a>, and then fine-tune on the target dataset.</p>
+<p>Getting large neural networks to work required solving two big technical problems. The first was one of raw computational power: training a big neural network requires performing a large number of arithmetic operations in parallel. For smaller MLPs, Moore’s law and patience were enough to get sufficient computational power to train the model using sequential operations. However, bigger networks saw a massive benefit from the discovery that GPUs, which are very good at doing parallel arithmetic operations such as matrix multiplication, could be used to train really big neural networks at lightning speed. This was what drove the huge improvement in <a href="https://proceedings.neurips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf">AlexNet</a> when it ‘solved’ ImageNet back in the early 2010s.</p>
+<p>The second technical problem involved stabilizing neural network training to enable deeper network architectures. One major breakthrough in this regard came from finding nice initialization distributions so that gradients didn’t explode or vanish as they were propagated forwards and backwards through a network. One of the most popular initialization schemes used today, <a herf="https://arxiv.org/pdf/1502.01852.pdf">He initialization</a>, aims for the following property: <span class="math display">\[ \frac{1}{2}n_l \mathrm{Var}[w_l] = 1 \; \forall l. \]</span></p>
+<p>The intuition behind why this property is desirable is straightforward, but I think it says a lot about how <em>other</em> tricks for deep learning have developed: essentially, try to get the gradients and activations in each layer to look like a Gaussian with unit variance. Similar intuition lies behind the <a href="https://proceedings.mlr.press/v9/glorot10a/glorot10a.pdf">Glorot initialization</a>, which is almost identical to He but uses a uniform as opposed to Gaussian distribution to initialize the weights and a slightly different constant scaling factor. Batch normalization can also be interpreted as a means of keeping activations (and by extension gradients) roughly looking like unit variance <em>independent</em> gaussians. While I’m not aware of a particularly satisfying explanation of the effect of batchnorm layers, I and most other people I know share the intuition that a) poorly conditioned gradients (such as those you would get from highly correlated activations) are not friendly to optimization, and b) forcing activations to preserve the unit norm property throughout training as opposed to just at initialization is probably also beneficial for avoiding vanishing or exploding gradients.</p>
+<h3 id="traversing-the-loss-landscape">Traversing the loss landscape</h3>
+<p>One interesting observation of <a href="https://arxiv.org/pdf/1512.03385.pdf">the OG resnet paper</a> is that back in the olden days of deep learning adding more layers to a network hurt accuracy not by causing overfitting, which is what I would have expected, but by kneecapping optimization dynamics so badly that the network couldn’t even converge to a reasonable training loss in the first place. Tricks like residual connections smoooth out the loss landscape enough that optimization can proceed in a relatively stable manner, in a way that’s relatively robust to the dimensionality of the search problem. Finding architectures that scale well to billions or trillions of parameters has played a huge role in enabling the <a href="https://www.deepmind.com/publications/a-generalist-agent">impressive feats</a> performed by <a href="https://arxiv.org/abs/2205.11487">giant</a> <a href="https://arxiv.org/abs/2103.00020">pretrained</a> <a href="https://www.deepmind.com/publications/an-empirical-analysis-of-compute-optimal-large-language-model-training">transformers</a> over the past few years.</p>
+<div class="figure" style="width:30%; margin-left:3em; float:right;">
+<img src="../images/sand_robot_dalle.png" width="90%" />
+<p align="center">
+Artistic rendering of an AI navigating the loss landscape via gradient descent. (DALL-E, 2022.)
+</p>
+</div>
+<p>Ultimately, training a neural network requires walking a very fine line between <a href="https://proceedings.neurips.cc/paper/2017/file/81c650caac28cdefce4de5ddc18befa0-Paper.pdf">chaos</a> and stagnation. With small learning rates and suitable initialization schemes, we find ourselves in the NTK regime, where optimization follows a nice convex geometry but the network is unable to do meaningful feature learning; larger learning rates and different initialization schemes lose the convexity guarantee but enable more interesting behaviour in the hidden layers of the network. <a href="https://arxiv.org/abs/2203.03466">Recent work</a> analyzes how different initialization schemes can lead to the presence or absence of feature learning in the infinite-width limit of neural networks trained with gradient descent. And yet it’s clear that there are also exciting properties of gradient descent on finite-width neural networks that still need to be explained: the <a href="https://arxiv.org/abs/1803.03635">existence of “lottery tickets”</a>, the <a href="https://arxiv.org/abs/1611.01540?context=cs">linear connectivity</a> of <a href="https://proceedings.mlr.press/v119/frankle20a.html">local minima</a>, and the tendency of SGD to <a href="https://arxiv.org/abs/1905.11604">learn functions of increasing complexity</a>. Theoretical analysis has also characterized the bias of (stochastic) gradient descent towards flat minima, providing some intuition towards why gradient descent should prefer minima that generalize well – assuming it can find them in the first place.</p>
+<h2 id="architecture-design">Architecture design</h2>
+<p>The final piece of the puzzle is how the structure of neural network architectures biases gradient-based optimization towards minima that generalize well. As we mentioned in the previous section, gradient descent on any parameterized function class will prefer solutions that are flatter with respect to the loss. However, neural networks seem to have a <em>particularly</em> friendly inductive bias for a lot of natural datasets, beyond that which we would expect from a a preference for smooth functions. In some cases, the inductive bias is obvious: convolutional neural networks explicitly make it easy to learn functions that depend mostly on local structure, and which are relatively invariant to translations. This type of structure is clearly helpful for images, but it’s also relevant to a lot of other data types such as strings and even audio, where events that are close togehter in time are likely to be related. Similarly, neural networks that build in equivariance or invariance to group transformations will naturally have a nice inductive bias for learning functions that also exhibit these structures.</p>
+<p>Some inductive biases, however, are a bit trickier to characterize. For example, <a href="https://proceedings.mlr.press/v97/rahaman19a.html">many</a> <a href="https://arxiv.org/abs/1706.05394">analyses</a> have shown that neural networks trained with SGD are biased towards smooth functions. <a href="https://openreview.net/pdf?id=rye4g3AqFm">Other work</a> has shown that the mapping from parameters to functions in DNNs is biased towards simple (with respect to an information-theoretic notion of simplicity) functions. One approach to study the inductive bias of neural networks is through the spectrum of the neural tangent kernel corresponding to the infinite-width limit of a given architecture, or to study the class of solutions obained by idealized neural network models on synthetic datasets. For example, <a href="https://openreview.net/forum?id=krz7T0xU9Z_">a recent ICLR paper</a> showed that ReLU networks converge to a combination of max-margin predictors.</p>
+<p>Some other ways of measuring the utility of an inductive bias stem from using linear probes of randomly initialized (or in some cases pre-trained) feature maps. It has long been known that even <a href="https://arxiv.org/abs/1806.05789">randomly initialized convolutional networks provide features rich enough to obtain reasonable performance on image classification tasks</a>. While the inductive bias of transformers is harder to get a handle on (though some <a href="https://arxiv.org/abs/2110.10090">recent work</a> has made an impressive effort to do so), giant transformers trained on massive datasets presumably see enough of the world to encode a suitable “inductive bias” into their parameters, if not into the architecture itself. In fact, some interesting work has shown that fine-tuned <a href="https://arxiv.org/abs/2103.00020">CLiP models actually do better than more traditional conv nets</a> at generalizing to certain classes of distribution shift – for example, they tend to generalize better between CIFAR-10 and CIFAR-10.1 compared to models trained only on CIFAR-10. Other work has identified specific sub-networks in transformer models that can perform tasks like induction, a phenomenon that might provide some intuition for phenomena such as the creatively named ‘grokking’, whereby networks can see sudden phase transitions in their generalization performance over the course of training even after attaining a low loss.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>It would be a poor show for me to answer the titular question of this blog post with an equivocal answer like “it depends”. At the same time, the question of whether we understand generalization in deep learning is sufficiently vague that any pure yes or no answer would be incorrect. As a compromise I will try to enumerate a few sub-questions to which I’m confident I can give a binary answer.</p>
+“Given a neural network architecture with some set of parameters and some train set loss, can we accurately predict how well the network will generalize to data drawn from the same distribution as the training set?”
+<div style="color:#dd3377;">
+No. Frankly, we can’t even predict whether it will do better or worse relative to some other network, let alone predict its raw test set loss.
+</div>
+<p>
+</p>
+“Do we know of properties of a neural network that correlate with generalization?”
+<div style="color:#11aa99;">
+Yes. <a href>Loads.</a>
+</div>
+<p>
+</p>
+“Have we identified quantities that are causally related to generalization?”
+<div style="color:#dd3377;">
+No. <a href>They all break under some experimental condition.</a>
+</div>
+<p>
+</p>
+“Do we know of mechanisms by which gradient descent tends to pick out parameters that generalize better than the worst case ones?”
+<div style="color:#11aa99;">
+Yes. We can both theoretically characterize this, and we have strong empirical work highlighting e.g. the existence of high-perofrming subnetworks present at initialization and amplified by SGD.
+</div>
+<p>
+</p>
+“Does the community have an intuitive understanding of why uniform convergence bounds tend to be uninformative in deep neural networks?”
+<div style="color:#11aa99;">
+Yes: We know that DNNs + SGD have an inductive bias towards smooth functions, and most real-world datasets are fairly smooth. We also know that many NN architectures have a sufficiently good (but more nebulous) inductive bias such that just training a linear probe on top of them can give good performance.
+</div>
+<div style="color:#dd3377;">
+No: we don’t know how to formally articulate this inductive bias.
+</div>
+<p>
+</p>
+“Do we understand how architectural choices influence generalization?”
+<div style="color:#dd3377;">
+We can’t predict generalization solely given an architecture and a dataset, so in this sense the answer is no.
+</div>
+<div style="color:#11aa99;">
+We <em>do</em> have a handle on how some architectural design choices influence the loss landscape, and we know that explicitly building in the equi-/invariant structure found in a dataset is usually helpful, so we’re not completely in the dark.
+</div>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
