@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-93569319-1');
+    </script>
+
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/ox.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Archive</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on August 27, 2023
+</div>
+<div class="container">
+<h1>Evaluating understanding in LLMs</h1>
+<p>It has recently come to my attention that People Of The Internet have become very interested in figuring out whether large language models really “understand” what they are saying. As someone who read a book on the philosophy of science once and has trained a fairly large transformer to do things, I have exactly enough relevant knowledge to be easily nerd-sniped by this question, and have written this blog post to share my conclusions and to help others avoid spending their Sunday afternoon reading the Stanford Encyclopedia of Philosophy and talking to chatbots. This marks a bit of a departure from my usual ML paper write-ups and topic surveys. This blog post might be wrong. It might be boring. It might be both. I guess you’ll have to read it to find out. In what follows I assume that you, the reader, know the meaning of words like epistemology and ontology, and that you know roughly what LLMs are and how they are trained. If you don’t know these things, do a quick google search and come back when you do. I’ll wait.</p>
+<h2 id="a-conversation-with-claude">A conversation with Claude</h2>
+<p>To begin my investigation, I pulled up my test subject: Claude, Anthropic’s LLM chatbot. Our initial interaction went something like this:</p>
+<div align="center">
+<img width="80%" src="../images/claude-sky.png" /> <br /> Me: What colour is the sky? Claude: The sky is blue on a clear day due to Rayleigh scattering of sunlight as it passes through the atmosphere.
+</div>
+<p>To the best of my knowledge, this answer is correct. But does the LLM that generated it <em>understand</em> the answer? I think there are at least three meaningful axes along which we can subdivide that question.</p>
+<ol style="list-style-type: decimal">
+<li>Does the neural network which generated the answer (henceforth “Claude”) understand what the sky is?</li>
+<li>Does Claude understand what the colour blue is?</li>
+<li>Does Claude understand what Rayleigh scattering is?</li>
+</ol>
+<p>The word “understand” in each of these questions is doing a lot of work under the hood. I mean something slightly different by it in each case, because my subjective experiences of thinking about the sky, the colour blue, and Rayleigh scattering are profoundly different. For example, my understanding of Rayleigh scattering is almost completely abstract – I don’t have any physically grounded notion of an oxygen molecule in the air or of a photon. If I try to interrogate these concepts in my head it feels very much like I am just pushing and manipulating symbols. These symbols have pointers, for example I have a pointer from an oxygen molecule to the experience of the wind in my face, but the only physical experience that pointer is based on is the physical experience of reading a physics or chemistry book that told me the air is made up of molecules.</p>
+<p>Understanding what the colour blue is, however, has a completely different character: most people would agree that to truly understand what I, as a person who is not to my knowledge colour blind, mean by the colour blue it is necessary to have an experience of what it is like to <em>see</em> the colour blue. In this sense, even other humans might not share this understanding, for example if they are colour blind or have had a visual impairment since birth (I won’t go down the rabbit hole of whether your blue is the same as my blue).</p>
+<p>Meanwhile, the sky is an actual physical object that I can interact with: I look at it at night when I’m stargazing, I hide from it with a roof or an umbrella when it rains, and I move through it when I fly somewhere in an airplane. The physical properties of this thing I call “sky”, however, are not consistent: it could be grey or blue or orange depending on the time of day and weather. It also has fuzzy boundaries. An airplane is definitely in the sky at its cruising altitude of 35,000 feet, but not when it is about to touch down a meter above the ground; the precise moment when it transitions from being “above the ground” to “in the sky” is not clear. In order to understand what the sky is, one’s concept of ‘sky’ must capture all of these properties.</p>
+<div align="center">
+<img width="80%" src="../images/claude-sky-below.png" /> <br /> Claude demonstrating pretty good understanding of the fact that the world is round and so the sky can be both above and below you.
+</div>
+<p>Most people will agree that a language model (trained only on text), will not understand what the colour blue is in the sense I have outlined above. This notion of understanding requires subjective experience, and whether or not you believe artificial neural networks can have subjective experiences, they certainly are not exposed to coloured images and so by design cannot have <em>this</em> experience. So we have a hard no on question 2.</p>
+<p>Question 3 is fun because one could argue that Claude in fact understands Rayleigh scattering <em>better</em> than I do (which is only that it makes the sky blue). Upon further interrogation, Claude could not only describe in detail the phenomenon of Rayleigh scattering, it also drew a diagram for me (although it needed two tries to generate the correct ASCII that it was describing) and was able to explain the underlying physical principles driving the inverse fourth power law observed by Sir Rayleigh back in the 19th century. So insofar as I would say that I kindof understand Rayleigh scattering, I have to say that Claude also at least kind of understands Rayleigh scattering.</p>
+<p>This leaves us with the sky. I’m not going to embarrass myself by trying to give a definitive answer to this question, but I will note that . Giving a definitive answer would first require resolving a centuries-long problem in philosophy of rigorously defining and categorizing the notion of understanding and knowledge, and I want to finish this blog post before I go back to the office on Monday. Instead, I’m going to explore some ideas closer to my wheelhouse as a pseudo-empirical scientist: falsification.</p>
+<h2 id="falsification-is-hard">Falsification is hard</h2>
+<p>As far as I can see, there are two big reasons why people disagree on whether large language models understand what they’re talking about. The first is from a philosophical and ethical perspective: it is a morally relevant question to ask whether LLMs have experiences and are sentient. Understanding in this case is a proxy for whether language models have something akin to the experience we humans have of thinking out loud (although instances of people without inner monologues suggest that this might not be a universal phenomenon). The second is more practical: if LLMs don’t understand a concept, then they might misapply it in the future. Maybe a robot will pull out an umbrella in the middle of the sistine chapel because its notion of “sky” included ceilings painted to look like the sky, or more disastrously, an autonomous vehicle’s notion of “pedestrian” might not include children sitting in pedal cars.</p>
+<p>Natural scientists, I am told (not being one myself), are never “right”. They’re only ever “not wrong yet”. Newton’s theory of gravity was wrong. JJ Thompson’s plum pudding model of the atom was wrong. People figured out they were wrong by making predictions and testing them. We characterize the usefulness of a scientific theory by how many new falsifiable things it predicts and gets right – i.e. how many times it could have been wrong, but wasn’t. While we accept that the theory du jour is probably going to be disproven at some point, we carry on as though it’s right if it is consistent with everything we’ve thrown at it so far. This is the line of reasoning that Turing follows in his essay where he proposes what’s now known as the Turing test. If a machine can pass any test designed to identify a failure in its ability to “think”, then perhaps we should say that it <em>is</em> thinking, at least in some sense of the word. I think a similar strategy can be applied to LLMs and the notion of understanding. Simply put, if a LLM passes every test you give it that requires understanding a concept, you should be able to say that it understands that concept without having the epistemology police knock at your door.</p>
+<p>Of course, theories often take centuries to be disproven because people don’t know what experiments will ultimately falsify it. Often the existing paradigm gives researchers a sort of vernacular of investigation, which means that they tend to ask certain types of questions that can be answered with certain techniques. If the field is unlucky, these types of questions end up living far from the set that would reveal contradictory results to the current paradigm. Physicists spent centuries studying springs before they stumbled upon the paradox of blackbody radiation. Biologists spent decades on viral vectors and gene editing before some random quirky phenomenon in bacterial genomes ended up revealing a much safer means of inserting and removing genes. I think that the types of questions that would falsify the hypothesis that LLMs understand concepts at the level of a B-minus college student are similarly counterintuitive, and it may take some searching to find a good way to test LLMs fairly.</p>
+<p>In some cases, it seems straightforward to construct a hypothetical set of tests that could determine whether or not a neural network understands a concept. In the easiest case, we have addition. If, given a long enough scratch pad to write out its work, a neural network will correctly output the sum of any two numbers you could give it, then you are safe to say that the neural network understands addition. The same can be said for most other logical and mathematical operations. Since humans often make errors in lengthy computations, maybe you want to make some allowance for stochasticity in the model’s sampling process. Even if you don’t, the criterion that one understands addition if and only if one can add together any two numbers of any size, given enough time and scratch paper for the calculation, seems reasonable. A similar criterion can be given for other forms of logical or mathematical reasoning.</p>
+<p>This criterion is a bit less straightforward to apply beyond logical and mathematical knowledge and into facutal knowledge about the real world: we should say that a neural network knows what a table is if it can answer any question about a table as well as any human. But how do we evaluate on the set of all questions about the sky? Obviously, we can’t practically do so, since there are infinitely many questions we can ask about the sky and we don’t want to spend eternity asking GPT-7 if there are 238,614 clouds in the sky.</p>
+<p>The success of LLMs on factual knowledge examinations (for example, getting a B on Scott Aaronson’s quantum computing exam) suggests that for the most part, LLMs have a B-student-level understanding (at least at a symbol-manipulating level) of most concepts. When I gave OpenAI’s GPT-3.5 and Anthropic’s Claude skill-testing riddles and bizarre questions, they generally did reasonably well, even if their responses were a bit verbose. This was particularly the case for single-step solutions, like recalling facts or proposing straightforward creative uses of objects. For pretty much any questions that sounds like something you might see in an exam or asked on reddit, I was able to get a pretty good answer.</p>
+<p>This makes it really really hard to come up with tests to see if a language model’s understanding of a concept is the same as a human’s. With other people we have a sense of what types of questions are likely to elicit wrong answers from people who don’t understand something and right answers from people who do, because other people’s minds are like ours. In contrast, LLMs are totally alien ways of modelling the world and do not have our inductive biases. That means that the types of questions that humans often ask each other to test their understanding are often the ones that LLMs have the easiest time with, because these types of questions tend to get asked a lot more on the internet than questions whose answer is completely obvious to everyone.</p>
+<h2 id="one-small-success">One small success</h2>
+<p>In fact, it took a bit of work to find examples where the language model’s response <em>wasn’t</em> satisfactory. When I did find these examples, they typically showed up in multi-step reasoning styles of questions. While LLMs are capable of making individual steps if you hold their hand, stringing these steps together often doesn’t produce strikingly discordant responses. Take this gem from GPT-3.5, for example:</p>
+<div align="center">
+<img width="80%" src="../images/gpt-34-even.png" /> <br />
+</div>
+<p>I have a hard time believing that a system which generated this response understands the concept of an even number for any reasonable definition of the word “understand”, unless your definition doesn’t include the ability to make logical inferences about the concept of even-ness. At the same time, when I directly ask questions about even numbers, GPT-3.5 is able to tell me lots of facts about them, so if I was going about trying to quiz LLMs with questions that I’d think are hard I probably wouldn’t do a very good job of identifying failure modes. All of this has essentially led me to conclude that detecting these types of failure modes in a systematic way is going to be a major challenge for researchers in the next few years, and I’m glad that there are people working on this problem who know more about interpretability.</p>
+<h3 id="conclusions">Conclusions</h3>
+<p>Overall, I think there are three main conclusions from my foray into whether LLMs understand things.</p>
+<ol style="list-style-type: decimal">
+<li><p>We mean a lot of things by the term “understand”, but the most useful and interesting meaning for the purposes of AI research is “can answer questions about a concept/object as well as a human who understands it would”. Questions about subjective experience are fun to ponder but not particularly useful at the moment.</p></li>
+<li><p>LLMs are shockingly good at answering stereotypical check-your-understanding types of questions, and can even draw helpful diagrams despite never being trained on image data(?)</p></li>
+<li><p>It is takes a lot of creativity to shepherd a LLM into a situation where failures of understanding are revealed. These failures often show up in multi-step reasoning problems, and can lead to some unproductive back-and-forths if you try to convince chatGPT that 34 is even.</p></li>
+</ol>
+<p>I think combining these three take-aways, I’m now a bit more hesitant to say confidently that LLMs understand things just because they can get good scores on tests, because these situations are some of the most “in-distribution” ways you can test their understanding. There’s probably a long tail of situations where some context that doesn’t typically show up on the internet reveals a failure of the LLM to generalize correctly, and we don’t currently have a great way to find this long tail. It’s possible that this type of counterexample-finding will have a bit of a flavour of the adversarial examples literature, where people identify failure modes of LLMs, then the companies that train them patch the error, and then people find more failure modes, and this is able to spawn a thriving research community with thousands of papers for decades to come. Or it could be that the more failure modes you find, the better we are able to instill the right kinds of inductive biases into LLMs by using these failure modes as additional training data and the more robust future iterations are. For the sake of the robustness and safety of these systems, I hope it’s the latter, and that we’re able to fairly quickly get LLMs that accurately emulate human-style understanding.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
