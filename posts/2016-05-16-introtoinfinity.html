@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -106,23 +95,23 @@
 <div class="container">
 <h1>A gentle introduction to infinities</h1>
 <p>As children, we learn about infinity in much the same way we learn to tie our shoes. First, we are taught an complicated sequence of motions and symbols, with little explanation of why the rabbit has to go around the tree before it jumps into the hole. It is only later after learning an appreciable amount of physics and geometry that the reason one’s shoes do not fall off becomes clear. One spends the majority of grade school mathematics classes shunting symbols about a page, with little appreciation for the meaning of the odd sideways eight.</p>
-<p><img src="../images/infty.jpg" title="See: cool sideways 8" style="float:right; width:300px; max-width:100%" ; /></p>
+<p>&lt;img src=“/images/infty.jpg” title=“See: cool sideways 8” style=“float:right; width:300px; max-width:100%”; /&gt;</p>
 <p>Although there is much to be said about the complexity of shoe-tying, I would argue that the notion of infinity is slightly more difficult to comperhend. As a child, I used the word infinity to mean something “really really really big” when I was too lazy to say the word “really” that many times. Occasionally I simply threw the word about because I thought it made me sound precocious. Of late, however, coursework has required me to give the subject deeper thought.</p>
 <p>Computer scientists frequently find themselves dealing with unfathomably large numbers. Many concepts in theoretical computer science – in particular, the analysis of algorithmic complexity – rely on taking limits as the size of the input to a problem becomes ‘infinitely’ large. Yet too often the subject of size is approached in a hand-wavey fashion that leaves a slight distaste in the mouth of a student in mathematics. Computer science students, it seems, often find themselves forging ahead without first checking whether their mathematical shoes are securely fastened. In this post, I’ll attempt to make some small effort at remedying this worrying trend, and try to explain one small facet of the concept of infinity.</p>
 <p>I’ll start with FizzBuzz, the classic programming interview question, which goes as follows. Loop through a set of numbers. If a number is divisible by 3, print “Fizz”. If it’s divisible by 5, print “Buzz”. In python, this would look like:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">a <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]
-a[<span class="dv">2</span>] <span class="op">=</span> a
-<span class="bu">print</span>(a)
-<span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>,<span class="dv">2</span>,[...]]</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">2</span>] <span class="op">=</span> a</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>,<span class="dv">2</span>,[...]]</span></code></pre></div>
 <p>Now, one question we might ask about this program is “How many times will it print fizz in a given input?”, and we’d find that the answer is <span class="math inline">\(\rfloor \frac{n}{3} \lfloor\)</span> ( <span class="math inline">\(\rfloor 3.2 \lfloor = 3\)</span>, as an example). Similarly, we’ll print “buzz” <span class="math inline">\(\rfloor \frac{n}{5} \lfloor\)</span> times.</p>
 <p>Now, imagine we had a computer that could store arbitrarily large numbers and had it run the following, slightly modified version of the fizzbuzz solution:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">i <span class="op">=</span> <span class="dv">1</span>
-    <span class="cf">while</span> i <span class="op">&gt;</span><span class="dv">0</span>:
-    <span class="cf">if</span> i<span class="op">%</span><span class="dv">3</span><span class="op">==</span><span class="dv">0</span>:
-	<span class="bu">print</span> <span class="st">&quot;fizz&quot;</span>
-    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:
-	<span class="bu">print</span> <span class="st">&quot;buzz&quot;</span>
-    i<span class="op">++;</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&gt;</span><span class="dv">0</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i<span class="op">%</span><span class="dv">3</span><span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>	<span class="bu">print</span> <span class="st">&quot;fizz&quot;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">5</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>	<span class="bu">print</span> <span class="st">&quot;buzz&quot;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    i<span class="op">++;</span></span></code></pre></div>
 <p>It doesn’t take much contemplation to recognize that this program won’t terminate any time soon (barring the heat death of the universe). So if the universe doesn’t end, and our program runs forever, will we have printed the word “fizz” more times, or the word “buzz”?</p>
 <p>The answer is subtle. If we stop the computer at any point, the answer will be that we printed “fizz” more often, since there are more numbers that are divisible by 3 than by 5 in the interval (1, n) for any value of n. Intuitively, we might then look at this output and say that since the ratio of fizz to buzz favours fizz, there are more whole numbers divisible by 3 than by 5.</p>
 <p>As appealing as this explanation is, it doesn’t hold water since our program <em>doesn’t</em> terminate. The number of fizzes is <span class="math inline">\((3)( \infty) \leq (5) (\infty)\)</span> (the number of “buzz”es), but since <span class="math inline">\((3 )(\infty) = \infty\)</span> and <span class="math inline">\((5) (\infty) = \infty\)</span>, we’re left with <span class="math inline">\(\infty &lt; \infty\)</span>, which is just silly.</p>

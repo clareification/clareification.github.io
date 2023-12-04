@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -108,11 +97,11 @@
 <p>It has recently come to my attention that People Of The Internet have become very interested in figuring out whether large language models really “understand” what they are saying. As someone who read a book on the philosophy of science once and has trained a fairly large transformer to do things, I have exactly enough relevant knowledge to be easily nerd-sniped by this question, and have written this blog post to share my conclusions and to help others avoid spending their Sunday afternoon reading the Stanford Encyclopedia of Philosophy and talking to chatbots. This marks a bit of a departure from my usual ML paper write-ups and topic surveys. This blog post might be wrong. It might be boring. It might be both. I guess you’ll have to read it to find out. In what follows I assume that you, the reader, know the meaning of words like epistemology and ontology, and that you know roughly what LLMs are and how they are trained. If you don’t know these things, do a quick google search and come back when you do. I’ll wait.</p>
 <h2 id="a-conversation-with-claude">A conversation with Claude</h2>
 <p>To begin my investigation, I pulled up my test subject: Claude, Anthropic’s LLM chatbot. Our initial interaction went something like this:</p>
-<div align="center">
+<div data-align="center">
 <img width="80%" src="../images/claude-sky.png" /> <br /> Me: What colour is the sky? Claude: The sky is blue on a clear day due to Rayleigh scattering of sunlight as it passes through the atmosphere.
 </div>
 <p>To the best of my knowledge, this answer is correct. But does the LLM that generated it <em>understand</em> the answer? I think there are at least three meaningful axes along which we can subdivide that question.</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li>Does the neural network which generated the answer (henceforth “Claude”) understand what the sky is?</li>
 <li>Does Claude understand what the colour blue is?</li>
 <li>Does Claude understand what Rayleigh scattering is?</li>
@@ -120,7 +109,7 @@
 <p>The word “understand” in each of these questions is doing a lot of work under the hood. I mean something slightly different by it in each case, because my subjective experiences of thinking about the sky, the colour blue, and Rayleigh scattering are profoundly different. For example, my understanding of Rayleigh scattering is almost completely abstract – I don’t have any physically grounded notion of an oxygen molecule in the air or of a photon. If I try to interrogate these concepts in my head it feels very much like I am just pushing and manipulating symbols. These symbols have pointers, for example I have a pointer from an oxygen molecule to the experience of the wind in my face, but the only physical experience that pointer is based on is the physical experience of reading a physics or chemistry book that told me the air is made up of molecules.</p>
 <p>Understanding what the colour blue is, however, has a completely different character: most people would agree that to truly understand what I, as a person who is not to my knowledge colour blind, mean by the colour blue it is necessary to have an experience of what it is like to <em>see</em> the colour blue. In this sense, even other humans might not share this understanding, for example if they are colour blind or have had a visual impairment since birth (I won’t go down the rabbit hole of whether your blue is the same as my blue).</p>
 <p>Meanwhile, the sky is an actual physical object that I can interact with: I look at it at night when I’m stargazing, I hide from it with a roof or an umbrella when it rains, and I move through it when I fly somewhere in an airplane. The physical properties of this thing I call “sky”, however, are not consistent: it could be grey or blue or orange depending on the time of day and weather. It also has fuzzy boundaries. An airplane is definitely in the sky at its cruising altitude of 35,000 feet, but not when it is about to touch down a meter above the ground; the precise moment when it transitions from being “above the ground” to “in the sky” is not clear. In order to understand what the sky is, one’s concept of ‘sky’ must capture all of these properties.</p>
-<div align="center">
+<div data-align="center">
 <img width="80%" src="../images/claude-sky-below.png" /> <br /> Claude demonstrating pretty good understanding of the fact that the world is round and so the sky can be both above and below you.
 </div>
 <p>Most people will agree that a language model (trained only on text), will not understand what the colour blue is in the sense I have outlined above. This notion of understanding requires subjective experience, and whether or not you believe artificial neural networks can have subjective experiences, they certainly are not exposed to coloured images and so by design cannot have <em>this</em> experience. So we have a hard no on question 2.</p>
@@ -136,13 +125,13 @@
 <p>This makes it really really hard to come up with tests to see if a language model’s understanding of a concept is the same as a human’s. With other people we have a sense of what types of questions are likely to elicit wrong answers from people who don’t understand something and right answers from people who do, because other people’s minds are like ours. In contrast, LLMs are totally alien ways of modelling the world and do not have our inductive biases. That means that the types of questions that humans often ask each other to test their understanding are often the ones that LLMs have the easiest time with, because these types of questions tend to get asked a lot more on the internet than questions whose answer is completely obvious to everyone.</p>
 <h2 id="one-small-success">One small success</h2>
 <p>In fact, it took a bit of work to find examples where the language model’s response <em>wasn’t</em> satisfactory. When I did find these examples, they typically showed up in multi-step reasoning styles of questions. While LLMs are capable of making individual steps if you hold their hand, stringing these steps together often doesn’t produce strikingly discordant responses. Take this gem from GPT-3.5, for example:</p>
-<div align="center">
+<div data-align="center">
 <img width="80%" src="../images/gpt-34-even.png" /> <br />
 </div>
 <p>I have a hard time believing that a system which generated this response understands the concept of an even number for any reasonable definition of the word “understand”, unless your definition doesn’t include the ability to make logical inferences about the concept of even-ness. At the same time, when I directly ask questions about even numbers, GPT-3.5 is able to tell me lots of facts about them, so if I was going about trying to quiz LLMs with questions that I’d think are hard I probably wouldn’t do a very good job of identifying failure modes. All of this has essentially led me to conclude that detecting these types of failure modes in a systematic way is going to be a major challenge for researchers in the next few years, and I’m glad that there are people working on this problem who know more about interpretability.</p>
 <h3 id="conclusions">Conclusions</h3>
 <p>Overall, I think there are three main conclusions from my foray into whether LLMs understand things.</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li><p>We mean a lot of things by the term “understand”, but the most useful and interesting meaning for the purposes of AI research is “can answer questions about a concept/object as well as a human who understands it would”. Questions about subjective experience are fun to ponder but not particularly useful at the moment.</p></li>
 <li><p>LLMs are shockingly good at answering stereotypical check-your-understanding types of questions, and can even draw helpful diagrams despite never being trained on image data(?)</p></li>
 <li><p>It is takes a lot of creativity to shepherd a LLM into a situation where failures of understanding are revealed. These failures often show up in multi-step reasoning problems, and can lead to some unproductive back-and-forths if you try to convince chatGPT that 34 is even.</p></li>

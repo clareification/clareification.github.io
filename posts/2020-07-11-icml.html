@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -107,11 +96,11 @@
 <h1>Causality, Generalization, and Reinforcement Learning</h1>
 <p>Reinforcement learning has a generalization problem.</p>
 <p>To be more precise, RL has a <em>lack of generalization</em> problem. The RL objective is to maximize cumulative discounted reward in an environment, and over the years algorithms have gotten better and better at doing so in a variety of tasks. However, research has focused on maximizing returns in a <em>single</em> environment. This yields agents vulnerable to failure when the environment changes even slightly, and leaves the community in a position where we have more superhuman Atari-playing neural networks than we could possibly need, but (without training on thousands of environments) no agents that are robust to a change in the colour scheme of the game they were trained on.</p>
-<div align="center">
+<div data-align="center">
 <img width="200" src="../images/cheetah_train_env_1.png" /><img width="200" src="../images/cheetah_train_env_2.png" /><img width="200" src="../images/cheetah_test_env.png" /> <br /> Can a mujoco agent trained on the first two observations generalize its knowledge of the laws of physics to the third image?
 </div>
 <p>Our recent ICML paper proposes a way to address this problem. It’s impossible to train an agent to attain good performance under any possible new environment, so we’ll focus on generalization to new environments that are behaviourally equivalent, or <em>bisimilar</em>, to the training environments. For example, we’d like a Mujoco agent trained with pixel-valued observations from one or two camera angles to learn how to control a simulated robot, and to generalize what it learns to new camera angles. Standard RL methods have a really hard time doing this out of the box, unless you train on a massive number of camera angles. Our method, as we’ll see later, does quite well with only two training angles.</p>
-<div align="center">
+<div data-align="center">
 <img width="80%" src="../images/icp.png" /> <br /> An illustration of the intuition behind Invariant Causal Prediction.
 </div>
 <p>
@@ -126,14 +115,14 @@ We do this by leveraging a tool from causal inference called <a href="https://ar
 <p><img src="../images/IRM_POMDP_base.png" width="80%" align="center" /></p>
 <p>The first major insight of our paper is to show that in MDPs where the observation space is some collection of variables <span class="math inline">\((x_1, \dots, x_n)\)</span> whose transition dynamics can be characterized by a causal graph <span class="math inline">\(\mathcal{G}\)</span>, <b>the causal ancestors of the return in this graph correspond to a model irrelevance state abstraction</b>. To prove this, we show that knowing the causal parents of the reward is sufficient to predict its expectation, and that more generally knowing all of the causal parents of any particular variable in the state abstraction is sufficient to capture its next-state distribution. Then since the set of causal ancestors of the reward is closed under taking parents, it follows immediiately that this set of variables will be sufficient to predict the next-step distribution of itself, and to predict the expected reward. This is precisely what it means to be a model-irrelevance state abstraction.</p>
 What’s really great about this state abstraction is that it’s going to be robust to changes in the variables that aren’t causally related to the return – this means that for <em>any</em> new environment with interventions to spurious variables, a reinforcement learning agent trained using this state abstraction won’t perform worse than on its training environments. This is a much nicer guarantee than what we’d normally get from applying a PAC-style bound on the generalization error of an agent, because it leverages the structure of the environment. We demonstrate this using a toy environment with an agent trained to predict the value of a policy using linear value function approximation. One agent is trained using a subset of the observation space that corresponds to this causal ancestor set. The other is trained on all of the variables. The causal state abstraction agent doesn’t see any degradatiion in performance when the spurious variable is intervened on. However, the agent trained on the whole state space sees monotonically increasing Bellman error as the intervention distribution on the spurious variable moves further and further from the training distribution.
-<div align="center">
+<div data-align="center">
 <img width="60%" src="../images/causal_gen_variance_labels.png" /> <br /> Comparison of Bellman policy evaluation error for causal and identity state abstractions under intervention on a spurious variable.
 </div>
 <p>And there you have it folks. We’ve solved generalization to new environments in reinforcement learning. Thank you for your attention. Come back next time when we present our AGI.</p>
 <p>Unfortunately, the structure we assume for the idealized setting is almost never present in interesting RL problems. Now we need to deal with the types of environments that give RL theorists nightmares: the rich observation setting with nonlinear function approximation (i.e. Deep RL). Causal inference can provide us with inspiration for this setting, but unfortunately we have to leave behind our provable guarantees and move into the land of approximations. Here there be Bellman errors.</p>
 <p>We present a neural network architecture which aims to capture the invariant structure across training environments by learning an environment-invariant latent transition model, which is then used to construct a policy. The idea here is that if we learn how to predict the structure of the environment in a way that’s invariant across the training environments, then this should, fingers crossed, give us a state abstraction that will also capture the latent structure of new environments. Then the policiy we learn based on this state abstraction should generalize well to the new environments as well.</p>
 <p>For this more complex setting, we provide some bounds on the error of continuous state embeddings that only approximately capture the underlying structure of the MDP in new environments. These bounds depend on the accuracy of the learned latent-space model on its training environments, and the distance between the new environment’s latent embedding and the training environments. These bounds depend on the embedding performing sensibly in the new environment, which is unfortunately not guaranteed by the method we propose for the rich observation setting, so we resort to empirical evaluations to see how it does.</p>
-<div align="center">
+<div data-align="center">
 <img src="../images/cartpole_swingup.png" width="45%" /> <img src="../images/imitation_policy_actor_error_cheetah_run.png" width="45%" /> <br /> Comparison of our method with other baselines in the rich observation setting.
 </div>
 <p>Fortunately, our method is able to pick up the invariant structure quite well in a number of tasks, outperforming the baselines that have the same architecture but don’t enforce invariance across the training environments. As another baseline we also compared against Invariant Risk Minimization (IRM), another method for learning invariant structures in the rich observation setting. We found IRM to be very sensitive to learning rate schedules and hyperparameters; in one task we found it outperformed our method, but in the RL task we evaluated it failed completely to solve the task even on the training environments.</p>

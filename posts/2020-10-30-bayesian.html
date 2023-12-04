@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -126,10 +115,11 @@ button {
   }
 }</script>
 <p><strong>TL;DR</strong> <strong>Models that train faster</strong> (with respect to the number of data points they need to fit the dataset) have a <strong>higher marginal likelihood</strong>. We leverage this to get estimators of the (log) marginal likelihood in linear models that depend on the <strong>sum of training losses</strong> obtained in an iterative updating procedure. We show an intriguing connection between these estimators and the weight assigned to features in linear regression, and find that <strong>the intuition driving these estimators also seems to hold in deep neural networks</strong>.</p>
-<h1 id="introduction">Introduction</h1>
+<p>#Introduction</p>
 <p>Suppose that you’re trying to build a <a href="https://www.youtube.com/watch?v=pqTntG1RXSY">hotdog classifier</a>, and you have a choice between two neural networks: network A has a cross-entropy loss of 0.01 on the training set, and it reached that loss extremely quickly. Network B obtains a cross-entropy loss of 0.0001 on the training set, but it took a lot longer to get below 0.01 than Network A. You want to use the model that will be the most accurate on new, unseen possible-hotdogs: which do you pick?</p>
 <div class="figure" style="width:40%; margin:2px; float:right;">
-<img width="90%" src="../images/hotdog_classifier.png" /> <br /> <br /> A difficult model selection problem.
+<img width="90%" src="../images/hotdog_classifier.png" /> <br /> <br />
+A difficult model selection problem.
 </div>
 <p>If you held out some training data for a validation set, then you can pick the one with better performance on the unseen data and be done. But suppose you don’t have access to a validation set. Is there still a way of justifying the intuition that the model that got a pretty low loss quickly is less likely to have overfit than the model that got an extremely low loss slowly? It turns out the answer is yes – if you’re willing to be Bayesian.</p>
 <h2 id="background-on-model-selection">Background on Model Selection</h2>
@@ -144,12 +134,12 @@ button {
 Toggle details
 </button>
 <div id="background-div" style="display:none;">
-<h3 id="model-selection-in-neural-networks-is-hard.">Model selection in neural networks is hard.</h3>
+<p>###Model selection in neural networks is hard.</p>
 <p>Before digging into the Bayesian perspective, we’re going to give some context for the model selection problem in deep learning. In most machine learning applications, our goal is to produce some function approximator that fits a target function on some unknown data-generating distribution, from which we have samples in the form of a training set. Typically, some points from this training set is hidden from the model during training, and an estimate of the model’s expected risk (its average error on the data generating distribution) is obtained by computing the validation loss on this held-out data. The model with the lowest validation loss is assumed to also have the lowest expected risk. While the validation loss is great as an estimator of empirical risk, it’s not ideal for hyperparameter tuning because a) it’s expensive to optimize and b) it doesn’t explain <a href="https://arxiv.org/abs/2010.11924"><em>why</em> a model will generalize well</a>.</p>
 <p>Generalization bounds can be used to address both of these issues. A generalization bound gives a high-probability guarantee that the test set error will not exceed a certain value, and can typically be decomposed into an empirical risk estimate (i.e. the training loss) and a model complexity penalty. The model complexity penalty can be interpreted as giving a causal hypothesis for what makes a model generalize well, addressing point a) above. When both of these terms are differentiable, the bound can be <a href="https://arxiv.org/abs/1703.11008">optimized directly</a>, addressing point b) above. While generalization bounds can get <a href="https://arxiv.org/abs/1804.05862">non-vacuous</a> values on neural networks, they’re generally <a href="https://arxiv.org/abs/1912.02178">not tight enough</a> to be useful for model selection. We conjecture that part of the reason these bounds might struggle so much in the deep learning regime is that the model complexity term used typically only depends on the final value of the model’s parameters after training, rather than taking into account properties of the training scheme. Some <a href="https://papers.nips.cc/paper/2019/file/05ae14d7ae387b93370d142d82220f1b-Paper.pdfs">recent work</a> has developed PAC-Bayesian generalization bounds based on a similar idea, but there’s likely much more that could be explored.</p>
 <p>The idea that models which train faster should generalize better is not a new one: generalization bounds based on the <em>stability</em> of gradient descent have existed <a href="https://arxiv.org/abs/1509.01240">for</a> <a href="https://www.jmlr.org/papers/volume2/bousquet02a/bousquet02a.pdf">years</a>. These bounds explicitly depend on the number of training steps taken to reach a minimum. However, they also require some assumptions that aren’t obvious to show in the generic deep learning setting. There have also been some more oblique connections in the literature. For example, <a href="https://arxiv.org/abs/1901.08584">Arora et al.</a> propose a generalization bound with a data complexity term that can be related to an upper bound on the convergence rate of gradient descent on a convex function.</p>
 <p>Instead of trying to directly solve the model selection problem for neural networks, we’re going to take a digression into an easier setting, Bayesian models, and develop some theoretically grounded intuition on the model selection there. Don’t forget about this section though – we’ll come back to it in a bit.</p>
-<h3 id="bayesian-inference-in-2-minutes">Bayesian Inference in 2 Minutes</h3>
+<p>###Bayesian Inference in 2 Minutes</p>
 <p>Being a Bayesian is all about using Bayes’ rule to update prior beliefs based on evidence. For example, given a model <span class="math inline">\(M\)</span> and some data <span class="math inline">\(D\)</span>, our belief that the model generated the data can be expressed in terms of the likelihood the model assigns the data, and our prior probability of the data and the model.</p>
 <p><span class="math display">\[P(M|D) = \frac{P(D|M)P(D)}{P(M)}\]</span></p>
 <p>To quantify terms like ‘evidence’ and ‘prior belief’, we translate some standard quantities from the risk minimization framework into probabilistic analogues. Instead of optimizing the parameters of a function using its loss on the data, we have a model <span class="math inline">\(\mathcal{M}\)</span> which defines a probability distribution over the data <span class="math inline">\(P(\mathcal{D}|\theta)\)</span> given some parameters <span class="math inline">\(\theta \in \Theta\)</span>, along with a probability distribution over the parameters <span class="math inline">\(P(\theta)\)</span>.</p>
@@ -158,7 +148,7 @@ Toggle details
 <p><span class="math display">\[P(\mathcal{D}) = \int_{\theta} P(\mathcal{D}|\theta) P(\theta) d\theta \]</span></p>
 <p>If we have a collection of models, picking the one with the highest marginal likelihood is what MacKay calls Type II maximum likelihood estimation and is a popular approach to Bayesian model selection. Maximizing the marginal likelihood is less prone to overfitting than maximum likelihood estimation at the parameter level, as the marginal likelihood can be viewed as having a built-in model complexity term that helps to prevent overfitting.</p>
 </div>
-<h1 id="estimating-the-marginal-likelihood">Estimating the Marginal Likelihood</h1>
+<p>#Estimating the Marginal Likelihood</p>
 <h3 id="decomposing-the-log-ml">Decomposing the log ML</h3>
 <p>OK, so if we want to perform model selection by maximizing the marginal likelihood, we’ll need to compute the marginal likelihood first. Observe that we can write the (log) ML as follows.</p>
 <p><span class="math display">\[\log P(\mathcal{D}) = \sum \log P(\mathcal{D}_i|\mathcal{D}_{&lt;i}) \]</span></p>
@@ -181,9 +171,7 @@ Toggle details
 <img width="90%" style="float:right;" src="../images/linear-ml-alg.png" />
 </div>
 <strong>TL;DR:</strong> In linear models, we can sample parameters from a prior and then run gradient descent to get a posterior sample to feed into the estimators from the last section.
-<button onclick="hideDiv('graddescent')">
-Toggle details.
-</button>
+<button onclick="hideDiv('graddescent')">Toggle details.</button>
 <div id="graddescent" style="display:none;">
 <p>In linear models, we can get the posterior samples that these estimators need by the ensemble methods described previously. Specifically: in Bayesian linear regression with noiseless Gaussian likelihoods, we can sample parameters from the prior and then optimize the <span class="math inline">\(\ell_2\)</span> regression loss. The minimum of this optimization problem will correspond to a sample from the posterior of the model conditioned on the data used for optimization. This gives us a way of translating Bayesian updating to gradient optimization with ensembles, which we can adapt to models with noisy likelihoods (assuming we know the ground-truth targets) by adding noise to the targets and optimizing a penalized regression loss which encourages parameters to stay close to their initialized values.</p>
 <div class="figure" style="width:30%; float:right;">
@@ -240,8 +228,8 @@ Toggle experiment details.
 </ul>
 <!-- First, we map the idea of a Bayesian model, which computes a probability distribution, to a function approximator, which provides a point estimate of a classifier. Rather than considering a Bayesian updating procedure, we’re interested in models trained with minibatch SGD to minimize some cost function. Instead of summing over predictive posterior likelihoods to estimate the log marginal likelihood, we will be summing over minibatch training losses. Finally, our metric of which model is `best’ won’t be the marginal likelihood -- instead we’re interested in the model with the lowest test set error. -->
 <p>While there are many interesting lines of work framing stochastic gradient optimization as performing posterior sampling, in the analysis that follows we won’t be using this interpretation. Nor will we try to cast classifiers as computing unnormalized probability distributions. Instead, we’re going to focus on using minibatch SGD to measure how well model updates based on one subset of the data generalize to other subsets.</p>
-<h3 id="motivation-minibatch-loss-as-a-risk-estimator">Motivation: Minibatch Loss as a Risk Estimator</h3>
-<p><strong>TL;DR:</strong> when you compute a minibatch gradient update, your loss on the next, disjoint minibatch gives you an idea of how well that gradient update will generalize to your test set.</p>
+<p>###Motivation: Minibatch Loss as a Risk Estimator
+<strong>TL;DR:</strong> when you compute a minibatch gradient update, your loss on the next, disjoint minibatch gives you an idea of how well that gradient update will generalize to your test set.</p>
 <button onclick="hideDiv('minibatch')">
 Toggle details.
 </button>
@@ -251,7 +239,8 @@ Toggle details.
 <p><span class="math display">\[\begin{align} \ell(D_i ; \theta_{t+1}) - \alpha g_{t}) &amp;\approx \ell(D_i; \theta_{t}) - \alpha \nabla_\theta \ell (D_i; \theta_{t}) ^\top g_{t}\\
 &amp; = \ell(D_i; \theta_{t_i}) - \alpha \|g_{t}\|^2 
 \end{align}\]</span></p>
-<p>Meanwhile, the change due to gradients tep <span class="math inline">\(g_{t_i}\)</span> on a disjoint minibatch <span class="math inline">\(D_j\)</span> can be written <span class="math display">\[\begin{align}
+<p>Meanwhile, the change due to gradients tep <span class="math inline">\(g_{t_i}\)</span> on a disjoint minibatch <span class="math inline">\(D_j\)</span> can be written
+<span class="math display">\[\begin{align}
 \ell(D_j; \theta_{t+1}) = \ell(D_j; \theta_t - \alpha g_{t}) &amp;\approx  \ell(D_j; \theta_t) - \nabla_\theta \ell (D_j; \theta)^\top g_t \\
 &amp;=  \ell(D_j; \theta_t) - \nabla_\theta \ell (D_j; \theta)^\top \nabla_\theta \ell(D_i; \theta)
 \end{align}\]</span></p>
@@ -260,7 +249,8 @@ Toggle details.
 </div>
 <h3 id="empirical-results-1">Empirical Results</h3>
 <div class="figure" style="width:40%; margin:2px; float:right;">
-<img width="90%" src="../images/SOTLvsXEParallel.png" /> <br /> <br /> Models which train faster (as measured by their sum over training losses) generalize better.
+<img width="90%" src="../images/SOTLvsXEParallel.png" /> <br /> <br />
+Models which train faster (as measured by their sum over training losses) generalize better.
 </div>
 We now ask whether the connection between <span class="math inline">\(\mathcal{L}(\mathcal{D})\)</span> and the weight assigned to a model in a linear model combination might also apply in some form to the deep learning setting. The lemma doing the heavy lifting in the proof of this result basically says that the weight assigned to a feature in a linear regression problem depending to some extent on that feature being fairly predictive of the target (modulo a bunch of assumptions). We make a similar conjecture for the weight assigned to activations in the penultimate layer of a neural network: features which are more predictive of the targets will be assigned higher weight. Because the final-layer weights and activations are trained concurrently, we expect that the notion of how predictive a node is will be more closely aligned with the SOTL definition rather than its final ‘training loss’.
 <div class="figure" style="width:100%; margin:2px; padding:2px; float:left;">

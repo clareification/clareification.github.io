@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -108,9 +97,12 @@
 <p>There are many reasons to use an adaptive optimizer in machine learning, such as simpler hyperparameter tuning and faster convergence, but improved generalization is usually not one of them. While there have been mixed empirical results concerning whether adam or sgd tends to find solutions that generalize better in deep neural networks, the overall theoretical consensus seems to be that adam is prone to larger generalization gaps than gradient descent. But why should adaptive learning rates lead to solutions that generalize worse? As it turns out, it’s quite easy to construct a simple learning problem where gradient descent finds a solution that generalizes better than adam. This example should provide some intuition about the failure modes of adaptive learning rates and how they might arise in more interesting problems.</p>
 <p>The regime of interest is simple: we consider a linear regression problem of <span class="math inline">\(n\)</span> data points <span class="math inline">\(\boldsymbol{x}_i \in \mathbb{R}^{n+1}\)</span>. Letting <span class="math inline">\(e_i\)</span> denote the <span class="math inline">\(i^{th}\)</span> basis vector, we define each data point <span class="math inline">\(\boldsymbol{x}_i, i=1\dots n\)</span> as <span class="math inline">\(e_i + y_i e_{n+1}\)</span>, where <span class="math inline">\(y_i \sim \mathcal{N}(0, 1)\)</span>. We set regression targets equal to <span class="math inline">\(y_i\)</span>, and look for a set of weights <span class="math inline">\(w\)</span> such that <span class="math inline">\(\langle w, \boldsymbol{x}_i \rangle = y_i \; \forall i\)</span>. This is an over-parameterized linear regression problem, and so there are infinitely many solutions. These solutions have the interpretation of being some combination of two archetype solutions: the first is what I’ll call the ‘generalizing’ solution, and is of the form <span class="math inline">\(w_G = (0, \dots, 0, 1)\)</span>. The second is the ‘memorizing’ solution <span class="math inline">\(w_M\)</span> and has the form <span class="math inline">\(\frac{1}{y_1}, \dots, \frac{1}{y_n}, 0\)</span>.</p>
 <p>This problem is constructed to clearly distinguish between features that generalize between data points and features which `memorize’, and only contain data relevant to the data point where they are active. Here the feature <span class="math inline">\(e_{n+1}\)</span> is constructed to contain all of the generalizable information between datapoints. While it doesn’t necessarily make sense to imagine how <span class="math inline">\(w_G\)</span> will generalize to new data, we note that for a subset <span class="math inline">\(S = \{x_{i_1}, \dots, x_{i_k}\} \subset \boldsymbol{X}\)</span>, the induced memorizing solution <span class="math inline">\(w_M^S = \sum_{i_k} \frac{1}{y_{i_k}} e_{i_k}\)</span> would obtain generalization error equal to <span class="math display">\[\sum_{y_i \in S^C} y_i^2 \]</span> on the remaining data points.</p>
-<p>So what happens when we run gradient descent on this problem? For simplicity, we consider full-batch gradient descent with fixed step-size <span class="math inline">\(\alpha\)</span>. In this case, ignoring the negligible feature noise, we get <span class="math display">\[\nabla_w \frac{1}{2} \|\boldsymbol{X}w - y\|^2 = X^\top(\boldsymbol{X}w - y)\]</span> when <span class="math inline">\(w=0\)</span>, this becomes <span class="math display">\[\nabla_w \frac{1}{2} \|\boldsymbol{X}w - y\|^2 = (y_1, \dots, y_n, \sum_{i=1}^n y_i^2)\]</span></p>
+<p>So what happens when we run gradient descent on this problem? For simplicity, we consider full-batch gradient descent with fixed step-size <span class="math inline">\(\alpha\)</span>. In this case, ignoring the negligible feature noise, we get
+<span class="math display">\[\nabla_w \frac{1}{2} \|\boldsymbol{X}w - y\|^2 = X^\top(\boldsymbol{X}w - y)\]</span>
+when <span class="math inline">\(w=0\)</span>, this becomes
+<span class="math display">\[\nabla_w \frac{1}{2} \|\boldsymbol{X}w - y\|^2 = (y_1, \dots, y_n, \sum_{i=1}^n y_i^2)\]</span></p>
 <p>If <span class="math inline">\(y_i\)</span> is very small, then it is possible that <span class="math inline">\(\sum_{i=1}^n y_i^2\)</span> can in principle be smaller than <span class="math inline">\(y_i\)</span>, however if we assume that the features are reasonably balanced, then in most cases the update to coefficient <span class="math inline">\(n+1\)</span> will be much larger than the updates to the other coefficients. Intuitively, this is because there are <span class="math inline">\(n\)</span> data points which are all contributing mass to this dimension, whereas each other dimension is only influenced by a single data point. A similar line of argument applies to future gradient steps, and the end result is that gradient descent will tend to bias towards solutions which are more similar to <span class="math inline">\(w_G\)</span> than <span class="math inline">\(w_M\)</span>. Here’s the result I got by running gradient descent on the problem described above.</p>
-<div align="center">
+<div data-align="center">
 <img width="40%" src="../images/sgd_solution.png" /> <br />.
 </div>
 <p>Now consider adam.</p>
@@ -120,16 +112,16 @@
 <p>The important thing to note here is that if the magnitude of the gradient of some parameter is zero for the vast majority of inputs, then when we finally do see a nonzero gradient, the effective step size will be enormous relative to the parameters that are updated more frequently.</p>
 <p>What implications does this have for the generalization of the parameters that an adaptive optimizer will find in our toy problem? Well, under the non-batched RMSProp update rule, the gradient magnitudes for generalizing and non-generalizing indices will be exactly equal. As a result, we get updates of the form <span class="math inline">\((\pm 1 )_{i=1}^{n+1}\)</span>. In this sense, we can say that <em>by design</em> the optimizer doesn’t have a preference for features that appear in many data points compared to features which only arise in a small subset of samples.</p>
 <p>As a result, when we run an adam optimizer on the same problem as we used to generate the previous figure, we get the following:</p>
-<div align="center">
+<div data-align="center">
 <img width="40%" src="../images/adam_solution.png" /> <br />.
 </div>
 <p>To test how these solutions generalize, we can imagine partitioning the dataset into a train and test split. Because of how we’ve constructed the data, naively taking the features from the original problem will be a less informative experiment than one might initially expect. Several indices of the features will be zero for <em>all</em> training inputs, meaning that there is no gradient for the optimizer to reduce whatever initial weight was assigned to these indices, and so both GD and adam should generalize similarly based on their initialization. If we add a small amount of noise to the features, so that we define each data point <span class="math inline">\(\boldsymbol{x}_i, i=1\dots n\)</span> as <span class="math inline">\(e_i + y_i e_{n+1} + \epsilon_{i}\)</span>, where <span class="math inline">\(y_i \sim \mathcal{N}(0, 1)\)</span>, with <span class="math inline">\(\epsilon_{i} \in \mathbb{R}^{n+1} \sim \epsilon \mathcal{N}(0, Id)\)</span> for some small but nonzero <span class="math inline">\(\epsilon\)</span>, then the zero-gradients issue goes away while preserving the intuition of the original problem setting that one feature is significantly more predictive of the outcome than any other.</p>
 <p>After training with gradient descent and adam, we essentially replicate the result above: gradient descent assigns a high magnitude to the generalizing feature and low magnitudes to the rest. Adam assigns large magnitudes all over the place. However, adam converges faster and gets lower training error after a truncated training period of 1000 steps. We might be a bit conflicted then on which solution we should pick – in previous papers I did suggest that training speed should be indicative of generalization in at least some cases. To give some hint as to which way the answer to this question will go, I present without further comment the weights learned by adam and sgd on this problem.</p>
-<div align="center">
+<div data-align="center">
 <img width="30%" src="../images/noisy_adamsgd_weights.png" /> <br />
 </div>
 <p>To evaluate how well the two solutions generalize, I looked at what happened when training on 100 points of a 200-datapoint dataset and then evaluating both SGD and Adam on the entire set of points. The result is as would be expected: while adam is perfectly able to fit its training set, the high weight magnitude to somewhat random indices elsewhere contribute to gigantic errors on the test points.</p>
-<div align="center">
+<div data-align="center">
 <img width="30%" src="../images/noisy_adamsgd_train.png" /> <img width="30%" src="../images/noisy_adamsgd_test.png" />
 </div>
 <p>Obviously, this setting is a bit contrived. For starters, it will be extremely rare in naturally occuring data for the principal component to be precisely axis-aligned with a single parameter. Adam’s second-moment correction is axis-aligned, and so the situation constructed in this blog post is probably the absolute worst-case setting you could put adam into. I tried replicating the analysis described in this blog post with non-axis-aligned features, and the result was much closer to what is reported in practice: gradient descent exhibited slightly better generalization, but nothing crazy like in the example here. Generally speaking, while it seems like adaptive learning rates have the potential to catastrophically affect generalization, in practice they don’t because they’re not very good at approximating curvature when features aren’t axis-aligned.</p>

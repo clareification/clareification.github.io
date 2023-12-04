@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -104,10 +93,60 @@
     Posted on April  9, 2019
 </div>
 <div class="container">
-<h1>An imPACtful, BAYESic result</h1>
+<h1>2019-04-09-pacbayes</h1>
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+<div class="container-fluid">
+<!-- Brand and toggle get grouped for better mobile display -->
+<div class="navbar-header page-scroll">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a href="../index.html" class="navbar-brand">Clare Lyle</a>
+</div>
+<!-- Collect the nav links, forms, and other content for toggling -->
+<div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+<ul>
+<li><a href="../index.html">Home</a></li>
+<li><a href="../about.html">About</a></li>
+<li><a href="../pubs.html">Publications</a></li>
+<li><a href="../archive.html">Archive</a></li>
+<li><a href="../contact.html">Contact</a></li>
+</ul>
+</div>
+<!-- /.navbar-collapse -->
+</div>
+<!-- /.container -->
+</nav>
+<!-- Page Header -->
+<!-- Set your background image for this header on the line below. -->
+<div class="intro-header" style="background-image: url('/images/spires.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.5);">
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<section id="clare-lyle" class="site-heading">
+<h1>Clare Lyle</h1>
+<!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+</section>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<div class="container">
+<div class="info" style="font-family:Open Sans; margin-left: 10%">
+Posted on April 9, 2019
+by Clare
+</div>
+<div class="container">
+<h1 id="an-impactful-bayesic-result">An imPACtful, BAYESic result</h1>
 <p>The applications of probably approximately correct (PAC) learning results to deep networks have historically been about as interesting as they sound. For neural networks of the scale used in practical applications, bounds involving concepts like VC dimension conclude that the algorithm will have no more than a certain error rate on the test set with probability at least zero. Recently, some work by <a href="https://arxiv.org/abs/1703.11008?context=cs">Dziugaite and Roy</a>, along with some <a href="https://arxiv.org/pdf/1804.05862.pdf">folks from Columbia</a> has managed to obtain non-vacuous generalization bounds for more realistic problems using a concept introduced by McAllester <a href="https://dl.acm.org/citation.cfm?id=307435">(1999)</a> called PAC Bayes bounds.</p>
 <h1 id="the-deterministic-case">The deterministic case</h1>
-<p>I’ll recall quickly the setup for a PAC bound. We assume we have some hypothesis space <span class="math inline">\(\mathcal{H}\)</span>, data <span class="math inline">\(\mathcal{D}\)</span>, and algorithm <span class="math inline">\(\mathcal{A} : \mathcal{P}(\mathcal{D}) \rightarrow \mathcal{H}\)</span> which takes as input some subset of our training data and outputs a hypothesis function. We then want to say that, given a sufficient number of training samples, a hypothesis that matches the training data will with high probability attain low error on the data it hasn’t seen yet. The error on the data the algorithm sees is called the empirical risk and is denoted <span class="math inline">\(\hat{r}_S(h).\)</span> The true risk is the expected error over the entire dataset, and is denoted <span class="math inline">\(r(h)\)</span>. This setup can be formalized in a number of ways (e.g. depending on whether the hypothesis is assumed to attain zero training loss), but they typically look something like this: given error parameters, <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\delta\)</span>, along with sample size <span class="math inline">\(|S| &gt; m(\delta, \epsilon)\)</span>, then with probability <span class="math inline">\(1 - \delta\)</span>:</p>
+<p>I’ll recall quickly the setup for a PAC bound. We assume we have some hypothesis space <span class="math inline">\(\mathcal{H}\)</span>, data <span class="math inline">\(\mathcal{D}\)</span>, and algorithm <span class="math inline">\(\mathcal{A} : \mathcal{P}(\mathcal{D}) \rightarrow \mathcal{H}\)</span> which takes as input some subset of our training data and outputs a hypothesis function. We then want to say that, given a sufficient number of training samples, a hypothesis that matches the training data will with high probability attain low error on the data it hasn’t seen yet. The error on the data the algorithm sees is called the empirical risk and is denoted <span class="math inline">\(\hat{r}_S(h)\)</span>. The true risk is the expected error over the entire dataset, and is denoted <span class="math inline">\(r(h)\)</span>. This setup can be formalized in a number of ways (e.g. depending on whether the hypothesis is assumed to attain zero training loss), but they typically look something like this: given error parameters, <span class="math inline">\(\epsilon\)</span> and <span class="math inline">\(\delta\)</span>, along with sample size <span class="math inline">\(|S| &gt; m(\delta, \epsilon)\)</span>, then with probability <span class="math inline">\(1 - \delta\)</span>:</p>
 <p><span class="math inline">\(\forall h \quad |r(h) - \hat{r}_S(h)| \leq \epsilon\)</span></p>
 <p>A simple example of a bound that looks like this is called the Occam bound. This bound assumes we have some prefix coding of our countable set of hypotheses. We use the notation <span class="math inline">\(|h|\)</span> to describe the length of the encoding for the hypothesis <span class="math inline">\(h\)</span>. We assume that our loss function is the zero-one loss function <span class="math inline">\(L_{01}\)</span>, defined as follows.</p>
 <p><span class="math inline">\(L_{01}(h) \equiv P_{x,y \sim \mathcal{D}}[h(x) \neq y]\)</span>.</p>
@@ -123,7 +162,7 @@
 <p><span class="math inline">\(dP_G(c) = \frac{e^{\alpha \Delta(c)}}{\mathbb{E}_{c \sim P}[e^{\alpha \Delta(c)}]}dP(c)\)</span></p>
 <p>i.e. the Radon-Nikodym derivative of <span class="math inline">\(P_G\)</span> with respect to <span class="math inline">\(P\)</span> is just an exponential of the error term multiplied by a constant that will be chosen carefully to make the bound work out nicely.</p>
 <p>Then we observe that since the KL divergence of any two probability measures (when it’s defined) is nonnegative, we can come up with a bound.</p>
-<p><span class="math inline">\(\begin{align*} 0 &amp;\leq KL[Q||P_G] = \int \log \bigg ( \frac{\mathbb{E}_{c \sim P}[e^{\alpha \delta(c)}]}{e^{\alpha \Delta(c)}} \frac{dQ(c)}{dP(c)} \bigg )\\ &amp;= KL[Q||P] + \log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] - \mathbb{E}_{c \sim Q}[\alpha \Delta(c)]\\ &amp;\implies \mathbb{E}_{c \sim Q}[\alpha \Delta(c)] \leq KL[Q||P] + \log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] \end{align*}\)</span></p>
+<p><span class="math inline">\(<span class="math display">\[\begin{align*} 0 &amp;\leq KL[Q||P_G] = \int \log \bigg ( \frac{\mathbb{E}_{c \sim P}[e^{\alpha \delta(c)}]}{e^{\alpha \Delta(c)}} \frac{dQ(c)}{dP(c)} \bigg )\\ &amp;= KL[Q||P] + \log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] - \mathbb{E}_{c \sim Q}[\alpha \Delta(c)]\\ &amp;\implies \mathbb{E}_{c \sim Q}[\alpha \Delta(c)] \leq KL[Q||P] + \log \mathbb{E}_{c \sim P} [e^{\alpha \Delta(C)}] \end{align*}\]</span>\)</span></p>
 <p>If we choose <span class="math inline">\(\alpha\)</span> carefully, we can bound the <span class="math inline">\(\mathbb{E}_P e^{\alpha \Delta(c)}\)</span> term via a technical lemma that gives</p>
 <p><span class="math inline">\(Pr_S \bigg \{ \mathbb{E}_P e^{(\beta - 1) \Delta(c)} \geq \frac{2C\beta}{\delta} \bigg \} &lt; \delta.\)</span></p>
 <p>Thus, by picking <span class="math inline">\(\alpha = \beta - 1\)</span>, we get with probability at least <span class="math inline">\(1-\delta\)</span>,</p>
@@ -136,12 +175,47 @@
 <p>Then we have that</p>
 <p><span class="math inline">\(P_S \bigg \{ \mathbb{E}_{c \sim P}[e^{(\beta - 1)\Delta(c)}] \geq \frac{ \mathbb{E}_S \mathbb{E}_P [e^{(\beta - 1)\Delta(c)}]}{\delta} \bigg \} &lt; \delta.\)</span></p>
 <p>Then since <span class="math inline">\(P\)</span> and <span class="math inline">\(S\)</span> are independent of each other, we can swap the order of the expectation to get <span class="math inline">\(\mathbb{E}_S \mathbb{E}_P [e^{(\beta - 1)\Delta(c)}] = \mathbb{E}_P \mathbb{E}_S [e^{(\beta - 1)\Delta(c)}]\)</span>. Since the inner expectation is bounded by <span class="math inline">\(2C\beta\)</span> for all <span class="math inline">\(c\)</span>, we get that the whole thing is bounded by <span class="math inline">\(2C\beta\)</span>.</p>
-<p><em> But we need P and S to be independent!</em></p>
+<p><em>But we need P and S to be independent!</em></p>
 <p>If P had been a function of <span class="math inline">\(S\)</span>, we couldn’t have swapped the order of the expectations. Since <span class="math inline">\(Q\)</span> depends on <span class="math inline">\(S\)</span>, it won’t be a suitable distribution to use in our bound.</p>
 <h1 id="further-reading">Further Reading</h1>
 <p>Hopefully this blog post has been a fairly low-overhead introduction to the mechanics of PAC-Bayes bounds. I was heavily inspired by the following papers, which I recommend reading for a more thorough explanation of the proofs in McAllester’s paper:</p>
 <p><a href="http://www.cs.toronto.edu/~toni/Courses/MLTheory/Papers/mcallester-proof.ps">[1] <em>The Proof of McAllester’s PAC Bayesian Theorem</em>, Matthias Seeger.</a></p>
-<p><a href="https://dl.acm.org/citation.cfm?id=307435">[2] <em>PAC-Bayesian Model Averaging </em>, David A. McAllester (1999)</p>
+<p>
+<a href="https://dl.acm.org/citation.cfm?id=307435">
+[2] <em>PAC-Bayesian Model Averaging</em> , David A. McAllester (1999)
+</p>
+</div>
+</div>
+<hr />
+<!-- Footer -->
+<footer>
+<div class="container">
+<div class="row">
+<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<ul>
+<li><a href="http://twitter.com/clarelyle"><span class="fa-stack fa-lg">
+<em></em>
+<em></em>
+</span></a></li>
+<li><a href="http://linkedin.com/in/clarelyle"><span class="fa-stack fa-lg">
+<em></em>
+<em></em>
+</span></a></li>
+<li><a href="http://github.com/clareification"><span class="fa-stack fa-lg">
+<em></em>
+<em></em>
+</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</footer>
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Custom Theme JavaScript -->
+<script src="js/clean-blog.min.js"></script>
 </div></div>
 
     <hr>

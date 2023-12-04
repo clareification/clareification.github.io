@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -104,11 +93,12 @@
     Posted on November 11, 2018
 </div>
 <div class="container">
-<h1>Graphical Models</h1>
+<h1>Probabilistic Graphical Models</h1>
 <p>Graphical models are a useful tool in machine learning, as they give us a natural means of expressing complex probability distributions in the language of graph theory. For example, after deciding that graduate student life is no longer for me, I may decide to start up a coffee business in Oxford. Now, in order to be able to tailor my supply purchases to the town’s demand, I find myself in need of a good model of the distribution of coffee preferences across the citizens of Oxford.</p>
 <p>I start off simply serving people coffee and taking notes on who comes in to my coffee shop. I then observe that the population can be broken down into two groups: university students, and normal people. I notice that university students on average drink 3 cups of coffee per day, whereas normal people drink 1. I also notice that that people who buy more coffee provide a tip on a smaller fraction of their purchases. However, when I take a closer look I realize that this is actually caused by the fact that students are much less likely than normal people to tip. In fact, students who buy more coffee don’t tip any more or less frequently than students who buy less, and the same goes for normal people. Thus I observe that tipping frequency and coffee consumption are <em>conditionally independent</em> given that I know whether the person is a student.</p>
 <p>I’ll provide the following definitions now for clarity:</p>
-<p><b>Conditional independence:</b> We say that <span class="math inline">\(a\)</span> is conditionally independent of <span class="math inline">\(b\)</span> given <span class="math inline">\(c\)</span> if <span class="math inline">\(p(a\mid b,c) = p(a \mid c)\)</span>. The following shorthand notation is common: <span class="math display">\[\newcommand{\bigCI}{\perp\mkern-10mu\perp} a \bigCI b \mid c \]</span></p>
+<p><b>Conditional independence:</b> We say that <span class="math inline">\(a\)</span> is conditionally independent of <span class="math inline">\(b\)</span> given <span class="math inline">\(c\)</span> if <span class="math inline">\(p(a\mid b,c) = p(a \mid c)\)</span>.
+The following shorthand notation is common: <span class="math display">\[\newcommand{\bigCI}{\perp\mkern-10mu\perp} a \bigCI b \mid c \]</span></p>
 <p><b>Graphical Model:</b> A graphical model is a graph <span class="math inline">\(G(V,E)\)</span> representing a probability distribution on a set of random variables for which each <span class="math inline">\(v \in V\)</span> represents a subset of the random variables and the set <span class="math inline">\(E\)</span> captures the conditional independence structure of the distribution. The edges may be directed or undirected, corresponding to directed and undirected graphical models.</p>
 <p>For example, a graphical model describing coffee consumption and tipping frequency would look something like this:</p>
 <p><img src="../images/student_gm.png" width="300" align="center" /></p>

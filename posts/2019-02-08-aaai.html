@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -105,159 +94,32 @@
 </div>
 <div class="container">
 <h1>What makes the distributional perspective on RL different?</h1>
-<p>Who wants to be average? Or rather, who wants to learn to predict an average? This was an idea explored in a 2017 paper called <a href="https://arxiv.org/abs/1707.06887">a distributional perspective on reinforcement learning</a>. It proposed that instead of just learning to predict the expected value of the return from state-action pairs, RL agents should learn to predict the probability distribution of the random variable corresponding to the return. This idea was justified by a proof of the convergence of a distributional analogue of the Bellman operator, and empirical results in Atari games showing that the C51 algorithm, which predicted distributions, outperformed DQN, which predicted expected values, in most tasks. <img src="../images/c51.png" alt="Empirical results from (Bellemare et al., 2017)" width="80%" /></p>
-<p>But the empirical evidence, though promising, didn’t conclusively show that the distributional perspective always helped, and theoretical results justifying the claimed improved performance were scarce. Over the following year, more analysis followed, leading to improved empirical performance (<a href="http://proceedings.mlr.press/v80/dabney18a/dabney18a.pdf">Dabney et al., 2017</a>) and richer theoretical understanding of distributional RL (<a href="https://arxiv.org/pdf/1802.08163.pdf">Rowland et al., 2018</a>). However, one question hung ominously in the distance.</p>
+<p>Who wants to be average? Or rather, who wants to learn to predict an average? This was an idea explored in a 2017 paper called <a href="https://arxiv.org/abs/1707.06887">a distributional perspective on reinforcement learning</a>. It proposed that instead of just learning to predict the expected value of state-action pairs, RL agents should learn to predict the probability distribution of te random variable corresponding to the return. This idea was justified by a proof of the convergence of a distributional analogue of the Bellman operator, and empirical results in atari showing that the C51 algorithm, which predicted distributions, outperformed DQN in most tasks.</p>
+<p>But the empirical evidence was far from conclusive and theoretical results justifying the claimed improved performance were scarce. Over the following year, more analysis followed, leading to improved empirical performance and richer theoretical understanding of distributional RL algorithms. However, one question hung ominously in the distance.</p>
 <p><em>Why does distributional RL work?</em></p>
 <p>There were a few hypotheses floating around. Predicting many things (i.e. auxiliary tasks) often leads to better performance, so it seems reasonable that distributional RL benefits from the many quantiles/atoms in its approximate representations of distributions. Perhaps probability distributions represent a nicer optimization landscape than expected values. Or maybe modeling a probability distribution leads to less jittering of the target function as the agent is learning.</p>
 <p>Before trying to tackle the question of why predicting a distribution is helpful, let’s ask a simpler question. The deep RL setting has a lot of moving parts, after all, and it can be difficult to disentangle different factors in behaviour.</p>
 <p><em>When is distributional RL different from expected RL?</em></p>
 <p>This question lends itself much more easily to analysis. Hopefully, it will also provide some hints into what makes the distributional perspective perform better when the answer to the question above is negative.</p>
 <h1 id="some-background-in-distributional-rl">Some background in distributional RL</h1>
-<p>I’m assuming you (the reader) are familiar with basic reinforcement learning ideas like MDPs and the Bellman operator. If that’s not the case, consider checking out <a href="http://incompleteideas.net/book/bookdraft2018mar21.pdf">chapters 1-4 of Sutton</a>. We’ll assume the usual notation for reinforcement learning. That is, we let <span class="math inline">\(M = (\mathcal{X}, \mathcal{A}, R, P, \gamma)\)</span> denote an MDP, with <span class="math inline">\(\pi\)</span> a policy. For the value functions, we’ll use <span class="math inline">\(Q: \mathcal{X} \times \mathcal{A} \rightarrow \mathbb{R}\)</span> and <span class="math inline">\(V: \mathcal{X} \rightarrow \mathbb{R}\)</span> for the Q and value-functions respectively.</p>
-<p>At the core of distributional reinforcement learning is what’s called the distributional bellman equation. The normal Bellman operator <span class="math inline">\(T^\pi\)</span> looks like this:</p>
+<p>We’ll assume the usual notation for reinforcement learning. That is, we let <span class="math inline">\(M = (\mathcal{X}, \mathcal{X}, R, P, \gamma)\)</span> denote an MDP, with <span class="math inline">\(\pi\)</span> a policy. For the value functions, we’ll use <span class="math inline">\(Q: \mathcal{X} \times \mathcal{A} \rightarrow \mathbb{R}\)</span> and <span class="math inline">\(V: \mathcal{X} \rightarrow \mathbb{R}\)</span> for the Q and value-functions respectively.</p>
+<p>At the core of distributional reinforcement learning is what’s called the distributional bellman equation. The normal Bellman equation looks like this:</p>
 <p style="text-align: center;">
-<span class="math inline">\(T^{\pi} Q(x,a) = \mathbb{E}[R(x,a)] + \gamma \mathbb{E}_{x', a' \sim P^\pi(\cdot|x,a)}Q(x', a')\)</span>.
+<span class="math inline">\(T^{\pi} Q(x,a) = \mathbb{E}[R(x,a)] + \gamma \mathbb{E}_{x', a' \sim P^\pi(\cdot|x,a)}Q(x', a')\)</span>
 </p>
 Notice the expected values? We’re going to lift this operator to act on functions of the form <span class="math inline">\(Z: \mathcal{X} \times \mathcal{A} \rightarrow \mathcal{P}(\mathbb{R})\)</span> (where <span class="math inline">\(\mathcal{P}(\mathbb{R})\)</span> refers to the set of probability distributions on <span class="math inline">\(\mathbb{R}\)</span>) by getting rid of them, and looking at the laws of the underlying random variables. We then get
 <p style="text-align: center;">
-<span class="math inline">\(T^{\pi}_D Z(x,a) \stackrel{D}{=} R(x,a) + \gamma Z(X', A')\)</span>.
+<span class="math inline">\(T^{\pi}_D Z(x,a) = R(x,a) + \gamma Z(X', A')\)</span>
 </p>
-<p>Note that this is equality in distribution. We abuse notation a bit here in that <span class="math inline">\(Z\)</span> evokes a random variable while we really care about probability distributions, but writing the distributions directly involves a lot of overhead involving pushforward measures that seemed overkill for a blog post. So where <span class="math inline">\(Z\)</span> appears, consider it to be a generic random variable that can be any realization of the underlying distribution that we actually care about.</p>
 <h1 id="a-thought-experiment">A thought experiment</h1>
-<img src="../images/dobby.jpg" style="align:left; margin: 10px; width:200px; float:left;" />
-<p>
-Let’s consider two RL agents: Dobby and Elsa. Distributional Dobby is a distributional RL agent. Every time he sees a state-action pair, he makes a prediction about how likely it is for the return to take certain values. For example, if Dobby has to navigate a maze and he thinks there’s a 50% chance he’ll get to the end and find the 100 gold coin treasure in 10 timesteps, and a 50% chance he’ll get to the end in 11 timesteps, then he would assign weight 0.5 to the return <span class="math inline">\(\gamma^{10} \times 100\)</span> and 0.5 to the return <span class="math inline">\(\gamma^{11} \times 100\)</span>.
-</p>
-<p><img align="right" src="../images/elsa.png" height="200px" width="200px" /> Expected Elsa, on the other hand, only cares about expected values. When she thinks there’s a 50% chance that she’ll get to the treasure in 10 vs 11 timesteps, then she averages out the predictions to get that <span class="math inline">\(V(s,a) = \frac{1}{2}(\gamma^{10} + \gamma^{11})\times 100\)</span>. If Elsa takes a step and then realizes that in her new state she thinks she actually has a 50% chance of getting to the treasure in 8 timesteps and a 50% chance taking 11 timesteps, then she wouldn’t need to update the value of the previous <span class="math inline">\((s,a)\)</span> pair she was at because she guessed the right expected value. Meanwhile, Dobby would be hastily correcting for his TD error.</p>
-<p>Baby Dobby and baby Elsa start off in the world with their predictions initialized such that the distributions that Dobby predicts for each state-action pair have the same expected value as the values that Elsa initially predicts. Now, we’ll let Dobby and Elsa interact with the world by picking some action, then seeing a reward and transitioning to a new state.</p>
-<p>In math: Dobby has some distribution function <span class="math inline">\(Z : \mathcal{X} \times \mathcal{A} \rightarrow \mathcal{P}(\mathbb{R})\)</span>. Elsa has a value function <span class="math inline">\(Q : \mathcal{X} \times \mathcal{A} \rightarrow \mathbb{R}\)</span>. We assume <span class="math inline">\(Z_0\)</span> and <span class="math inline">\(Q_0\)</span> are initialized such that <span class="math inline">\(\mathbb{E}(Z_0(x,a)) = Q_0(x,a) \quad \forall x, a\)</span>.</p>
-<p><img src="../images/trajectories.png" width="80%" /></p>
+<p>Let’s consider two RL agents: Distributional Dobby predicts probability distributions, and Expected Elsa predicts expectations. Baby Dobby and baby Elsa start off in the world with their predictions initialized such that the distributions that Dobby predicts for each state-action pair have the same expected value as the values that Elsa initially predicts. Now, we’ll let Dobby and Elsa interact with the world by picking some action, then seeing a reward and transitioning to a new state.</p>
 <p>In our thought experiment, we <em>couple</em> the trajectories of Dobby and Elsa so that if they agree on the same optimal policy, they’ll take the same trajectory through the MDP. For example, if both are doing epsilon-greedy action selection, then they’ll always either both pick the optimal action, or both pick the same suboptimal action. Assuming they pick the same action, they’ll also then transition to the same next state and see the same reward. They then update their predictions according to some distributional and expected update rule, and repeat this ad infinitum. In this setup, given equivalent intializations, if the two agents always agree on the optimal policy after every update, they will experience the same trajectory in the MDP, and in this sense be behaviourally equivalent.</p>
-<p><img src="../images/updates.png" width="80%" /></p>
 <p>What determines whether the two agents agree on the optimal policy is how they update their predictions after each step in the MDP. We’re interested in analogous update rules: for example, if Elsa uses the Bellman update, Dobby will use the distributional Bellman update. If for some distributional update rule and find an expectation-based update rule that induces behavioural equivalence, then we can say that distributional algorithms using that update rule should behave like traditional RL algorithms, with any observed empirical differences coming from random seeds and initialization variability. It’s common in RL for the same algorithm to attain wildly different results for different random seeds, so proving mathematically that two algorithms are equivalent is a pretty powerful statement.</p>
 <h1 id="so-when-does-the-distributional-perspective-make-a-difference">So… when does the distributional perspective make a difference?</h1>
-<p>
-Findings are summarized in the following table, which can be interpreted as follows. The first column indicates how the agent is representing the value/distribution function: tabular/linear/nonlinear. The second column describes the update rules of our distributional agent and, if one exists, its equivalent expected update. For example, in the tabular setting we observe that the distributional bellman operator and the expected bellman operator are equivalent in the sense described above. That is, if Dobby updates with <span class="math inline">\(T^\pi_D\)</span> and Elsa updates with <span class="math inline">\(T^\pi\)</span>, then under suitable initializations they’ll both always agree on the optimal policy – hence the check mark in the third column. An ‘x’ indicates that there exist some distributional updates in the second column for which no equivalent expected update exists – not that it’s necessarily the case that every distributional update rule in this class has no expected equivalent. For example, one could produce a silly nonlinear distribution function approximator which first computes its predicted expected value <span class="math inline">\(\mu\)</span>, then outputs a <span class="math inline">\(\mathcal{N}(\mu, 1)\)</span> distribution, and attempts to minimize
-</p>
-<p>
-</p>
-<table style="border:2px black; padding: 2px; text-align: center;" frame="box" width="100%">
-<tr>
-<th>
-Setting
-</th>
-<th>
-Update Rule
-</th>
-<th>
-Equivalent?
-</th>
-</tr>
-<tr>
-<td>
-Tabular
-</td>
-<td>
-<span class="math inline">\(\begin{equation*}  Z_{t+1}:= T^\pi_\mathcal{D} Z_t \quad Q_{t+1} := T^\pi Q_t,  \end{equation*}\)</span>
-</td>
-<td>
-✔
-</tr>
-<tr>
-<td>
-Tabular
-</td>
-<td>
-<p><span class="math inline">\(\begin{equation*}  \begin{array}{ll} P_{Z_{t+1}}(x, a) :=  (1 - \alpha_t) P_{Z_t}(x, a) + \alpha_t P_{Z_t'}(x_t, a_t) &amp; \\  Q_{t+1}(x_t, a_t) :=  (1-\alpha_t)Q_t(x_t, a_t) + \alpha_t (r_t + \gamma Q_t(x', a'))  \end{array} \end{equation*}\)</span></p>
-</td>
-<td>
-✔
-</td>
-</tr>
-<tr>
-<td>
-Tabular, categorical distribution
-</td>
-<td>
-\begin{equation*}
-  \begin{array}{ll} F_{Z_{t+1}}(x, a) :=  \small
-        F_{Z_t}(x, a) + \alpha_t' \nabla_F \ell_2^2(Z_t(x_t, a_t), Z_t'(x_t, a_t))\\
-        Q_{t+1} :=
-    (1-\alpha_t)Q_t(x_t, a_t) + \alpha_t (r_t + \gamma Q_t(x', a')) \end{array} \end{equation*}
-</td>
-<td>
-✔
-</td>
-</tr>
-<tr>
-<td>
-Tabular, categorical distribution
-</td>
-<td>
-Gradient of arbitrary distributional loss function
-</td>
-<td>
-✘
-</td>
-</tr>
-<tr>
-<td>
-Linear Approximation<span class="math inline">\(^*\)</span>
-</td>
-<td>
-<span class="math inline">\(\begin{equation*}\begin{array}{} W_{t+1} := W_t + \alpha_t \nabla_W \ell_2^2( \psi(W, \phi(x_t, a_t)), F_{Z_t'})\\  \theta_{t+1} := \theta_t + \alpha_t (\phi_t(v_t - \theta^T\phi_t))  \end{array} \end{equation*}\)</span>
-</td>
-<td>
-✔
-</td>
-</tr>
-<tr>
-<td>
-Linear Approximation
-</td>
-<td>
-Gradient of arbitrary distributional loss function
-</td>
-<td>
-✘
-</td>
-</tr>
-<tr>
-<td>
-Nonlinear Approximation
-</td>
-<td>
-General gradient update
-</td>
-<td>
-✘
-</td>
-</tr>
-</table>
 <p>We considered a few settings: tabular MDPs with both operator and stochastic updates, as well as the function approximation setting. The quick summary of our findings is that state representation matters, and so does the way we define distance between distributions.</p>
-<div style="width:300px; margin:10px; float:right; padding-left:15px; border-left: 1px solid black;">
-‘Distribution’ obtained by minimizing Cramer distance between prediction and TD target w.r.t. categorical PMF. Note negative mass. <img src="../images/pdf.png" width="100%" />
-</div>
-<p>In the tabular setting, we find that (distributional) Bellman updates, TD-mixture updates, and updates which minimize the Cramer distance between a distribution and its TD target (w.r.t. a categorical distribution’s CDF) are all equivalent to expected algorithms. Interestingly, distributional algorithms that minimize other types of distances between distributions using different parameters (for example, the Cramer distance w.r.t. the PMF of a categorical distribution) may lead to different behaviour from expected algorithms even in the tabular setting. In fact, taking gradients of the distributional TD error with respect to the PMF can actually induce weird non-probability measures that take negative values for certain outcomes.</p>
+<p>In the tabular setting, we find that (distributional) Bellman updates, TD-mixture updates, and updates which minimize the Cramer distance between a distribution and its TD target (w.r.t. a categorical distribution’s CDF) are all equivalent to expected algorithms. Interestingly, distributional algorithms that minimize other types of distances between distributions using different parameters (for example, the Cram'er distance w.r.t. the PMF of a categorical distribution) may lead to different behaviour from expected algorithms even in the tabular setting.</p>
 <p>In the function approximation setting, we find that the distributional perspective makes a big difference – particularly when non-linear function approximation is used. Whereas in the linear function approximation setting, just like in the tabular setting, minimizing the squared Cramer distance between the predicted distribution and a distributional version of the linear TD target is equivalent to vanilla linear function approximation, in non-linear function approximation even this equivalence fails to hold.</p>
-<h1 id="but-how-does-it-make-a-difference">But <em>how</em> does it make a difference?</h1>
-<p>We did a bit of empirical exploration in simple environments to explore how distributional and expected perspectives differ in controlled settings. We considered two environments: Acrobot, where an agent tries to swing a pendulum above a threshold by controlling the torque on its joints, and CartPole, where an agent attempts to balance a pole on a cart by moving the cart left and right. We considered the following algorithms: DQN (value function approximation), C51 (as in (Bellemare et al., 2017)), and S51 (&lt; a href=“https://arxiv.org/pdf/1902.03149.pdf” &gt;Bellemare et al., 2019</a>) (minimizes the Cramer distance between target and prediction).</p>
-<p>Performance of linearized versions of algorithms using the Fourier basis (acrobot left, cartpole right):</p>
-<p><img src="../images/acrobot_fourier_all.png" width="40%" /> <img src="../images/cartpole_fourier_all_with_inset.png" width="40%" /></p>
-<p>Effect of basis order on performance of C51 (acrobot left, cartpole right):</p>
-<p><img src="../images/acrobot_varying_orders.png" width="40%" /> <img src="../images/cartpole_varying_orders.png" width="40%" /></p>
-<p>Effect of different algorithms with deep feature representations (acrobot left, cartpole right):</p>
-<p><img src="../images/acrobot_deep.png" width="40%" /> <img src="../images/cartpole_deep.png" width="40%" /></p>
-<h1 id="conclusions">Conclusions</h1>
-I’ve thrown a ton of tables and plots at the reader, but the takeaway from this paper can really be summarized in two key points.
-<ul>
-<li>
-In most settings (i.e. tabular and special cases of linear function approximation), distributional and expectation based algorithms are exactly the same. That is, if you give me a distributional algorithm, I can come up with an algorithm that only looks at expectations which, provided it’s initialized correctly, will experience exactly the same behaviour as the distributional algorithm.
-</li>
-<li>
-The distributional perspective provides benefits in the deep RL setting, although the exact mechanics of this are not yet understood. It looks like function approximators only really benefit from distributions in the deep RL setting, based on the preliminary experiments in our paper. It looks like what we’re seeing is mostly an auxiliary tasks effect improving intermediate state representations, but it’s up to future work to verify this.
-</li>
-</ul>
+<p>We then took a closer look at the differences between linear and non-linear function approximation.</p>
 </div></div>
 
     <hr>

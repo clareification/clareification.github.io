@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -111,7 +100,7 @@ The continuum hypothesis
 </h2>
 <p>We’re going to need to start off with a few definitions. A set <span class="math inline">\(S\)</span> is transitive if any element of <span class="math inline">\(S\)</span> is also a subset of <span class="math inline">\(S\)</span>. For example <span class="math inline">\(\emptyset\)</span> is trivially transitive. Also, <span class="math inline">\(\{\emptyset \}\)</span> and <span class="math inline">\(\{ \{ \emptyset \}, \emptyset \}\)</span> are transitive. It’s well-ordered if it is linearly ordered (every element is bigger or smaller than any other element) and has a least element. We call a set an ordinal if it is transitive and well-ordered. We can think of ordinals as generalizing the notion of numbers. For example, we can think of <span class="math inline">\(\emptyset\)</span> as 0, <span class="math inline">\(\{\emptyset \}\)</span> as 1, and so on by saying <span class="math inline">\(n+1 = n \cup \{n\}\)</span>. In fact, ordinals are better than natural numbers because we can also have infinite ordinals. The first infinite ordinal, <span class="math inline">\(\omega\)</span>, is defined as <span class="math inline">\(\cup_{n \in \mathbb{N}} \bar{n}\)</span> (with <span class="math inline">\(\bar{n}\)</span> denoting the ordinal corresponding to <span class="math inline">\(n\)</span>). We can get infinite ordinals that are enormously bigger than <span class="math inline">\(\omega\)</span>, although it’s difficult to intuitively think of what it means for one infinity be ‘a lot bigger’ than another infinity.</p>
 <p>We can now define a cardinal. While people in quantitative fields sometimes like to talk about the ‘cardinality’ of a set of things, they generally don’t realize that they’re referring to a very powerful mathematical notion (although usually the cardinalities they talk about are the boring ones). A cardinal is an ordinal that is not equinumerous with any smaller ordinal. Finite numbers are all cardinals, because there is no way of constructing a bijetion between, for example, five and seventy-two. Similarly, any ordinal smaller than <span class="math inline">\(\omega\)</span> is finite, and finite numbers are smaller than infinity so we can’t construct a bijection. There is, however, a way of constructing a bijection between <span class="math inline">\(\omega\)</span> and <span class="math inline">\(\omega + 1\)</span>. So <span class="math inline">\(\omega + 1\)</span> is not a cardinal. There are a few helpful theorems that I’ll quickly cover.</p>
-<ol style="list-style-type: decimal">
+<ol type="1">
 <li><p>Let <span class="math inline">\(P(X)\)</span> denote the powerset of a set <span class="math inline">\(X\)</span>. If <span class="math inline">\(\kappa\)</span> is a cardinal, then <span class="math inline">\(P(\kappa)\)</span> is also a cardinal, and <span class="math inline">\(P(\kappa) &gt; \kappa\)</span>.</p></li>
 <li><p>If <span class="math inline">\(\kappa\)</span> is a cardinal, then there exists another cardinal <span class="math inline">\(\kappa'\)</span> with <span class="math inline">\(\kappa' &gt; \kappa\)</span>.</p></li>
 </ol>

@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -123,20 +112,22 @@ Causal graphical models are the easiest notion of causality to visualize. They t
 <p>These models are cool because they combine intuitive notions of causality with graphical structures that are easy to write algorithms for. Causal dependences can be tested as properties of a graph, and computer science has a massive repertoire of algorithms to check properties of graphs, so causal graphical models are generally easy to do computations with.</p>
 <h1 id="structural-equation-models">Structural Equation Models</h1>
 <p>Structural equation models describe causal structures by giving equations that define the relationships between variables. In a causal interpretation of these models, we could say that the left hand side of the equation is causally dependent on the right hand side. For example, if I’m describing a linear relationship between variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, then the equation</p>
-<p><span class="math display">\[ X = 2Y + \epsilon_X \]</span> where <span class="math inline">\(\epsilon_X\)</span> is some noise term, has a different semantic interpretation than the equation</p>
+<p><span class="math display">\[ X = 2Y + \epsilon_X \]</span>
+where <span class="math inline">\(\epsilon_X\)</span> is some noise term, has a different semantic interpretation than the equation</p>
 <p><span class="math display">\[Y = \frac{1}{2} X + \epsilon_Y\]</span></p>
 <p>even though in principle they can both describe the same probability distribution. Using structural equation models makes sense when you’re an economist who already knows what the causal structure of the problem is and what the variables are, and just want to understand how changing one variable affects another by plugging in your equations.</p>
 <h1 id="potential-outcomes">Potential Outcomes</h1>
 <p>“Theoretical infatuation”</p>
 <p>“nonscientific ad hockery”</p>
-<p>“bad practical advice” -Rubin, 2009</p>
-<p>Some statisticians take moral offense to the causal modeling approaches described above. SEMs assume that the modeler knows the causal relationships between variables in advance, and there’s some debate over whether the parameters learned by SEMs can really be interpreted as ‘causal’ given that they depend on the modeler’s assumptions about the system. They propose instead the Potential Outcomes framework. Instead of interpreting causality as arrows <span class="math inline">\(X \rightarrow Y\)</span>, PO treats causal effects as changes to a set of counterfactual distribution on <span class="math inline">\(Y\)</span>, <span class="math inline">\(Y_x\)</span>, indexed by possible values of <span class="math inline">\(X=x\)</span>. If <span class="math inline">\(Y\)</span> is independent of <span class="math inline">\(X\)</span>, then the law of <span class="math inline">\(Y_x\)</span> is the law of <span class="math inline">\(Y\)</span>. Judea Pearl claims that PO and SEMs are logically equivalent – any statement made in the language of potential outcomes can be reformulated into a structural equation model and vice versa – but I haven’t read the paper that verifies this.</p>
+<p>“bad practical advice”
+-Rubin, 2009</p>
+<p>Some statisticnas take moral offense to the causal modeling approaches described above. SEMs assume that the modeler knows the causal relationships between variables in advance, and there’s some debate over whether the parameters learned by SEMs can really be interpreted as ‘causal’ given that they depend on the modeler’s assumptions about the system. They propose instead the Potential Outcomes framework. Instead of interpreting causality as arrows <span class="math inline">\(X \rightarrow Y\)</span>, PO treats causal effects as changes to a set of counterfactual distribution on <span class="math inline">\(Y\)</span>, <span class="math inline">\(Y_x\)</span>, indexed by possible values of <span class="math inline">\(X=x\)</span>. If <span class="math inline">\(Y\)</span> is independent of <span class="math inline">\(X\)</span>, then the law of <span class="math inline">\(Y_x\)</span> is the law of <span class="math inline">\(Y\)</span>. Judea Pearl claims that PO and SEMs are logically equivalent – any statement made in the language of potential outcomes can be reformulated into a structural equation model and vice versa – but I haven’t read the paper that verifies this.</p>
 <h1 id="invariant-causal-predictors">Invariant Causal Predictors</h1>
 <p>An approach to capturing notions of causality from data is to take the assumption that causal mechanisms are invariant, and leverage it in the regression setting to determine causal variables. This idea is explained in great detail in a <a href="https://arxiv.org/abs/1812.08233">tutorial by Peter Buhlmann</a> and also in a recent paper by <a href="https://arxiv.org/abs/1907.02893">Martin Arjovsky</a>.</p>
 <p>The invariance-as-causality camp tackles the problem of finding causal relationships between inputs <span class="math inline">\(X\)</span> and a particular quantity of interest <span class="math inline">\(Y\)</span>. We assume that <span class="math inline">\(Y\)</span> is some function of <span class="math inline">\(X\)</span>, and we further assume that we’ve been able to collect data in many different settings, called environments <span class="math inline">\(\mathcal{E}\)</span>, so that we can partition <span class="math inline">\(X\)</span> into <span class="math inline">\(\cup_{e \in \mathcal{E}} X^e\)</span>. It is implicitly assumed that some manipulation has occurred in each of these environments, so that <span class="math inline">\(P(Y|X^e) \neq P(Y|X^{e'})\)</span>. However, the claim is that any function <span class="math inline">\(f\)</span> of <span class="math inline">\(X\)</span> satisfying <span class="math inline">\(P(Y|f(X^e)) = P(Y|f(X^{e'}))\)</span> is capturing some causal property of the relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>.</p>
 <p>This approach has some drawbacks in its reliance on having an informative set of environments and also not being able to provide any guarantees that the invariant predictors across <span class="math inline">\(\mathcal{E}\)</span> are actually causal predictors unless the environments satisfy certain assumptions. However it’s an interesting take on causality that lends itself well to the machine learning setting.</p>
 <h1 id="conclusions">Conclusions</h1>
-<p>As we’ve seen, causality is a messy concept and there are many ways to go about mathematizing it. If you want to learn more there are two fairly decisive textbooks on the topic: Causality by Judea Pearl, and Elements of Causal Inference by Jonas Peters, Dominik Janzing, and Bernhard Schölkopf. I found Elements of Causal Inference to be a more engaging pedagogical introduction because it has more exercises to try out, but I recommend giving both a look because they take very different perspectives on causality. I might write some more blog posts going into more technical detail on causal inference later, but given my blogging frequency the curious reader should probably give the other resources a read first.</p>
+<p>As we’ve seen, causality is a messy concept and there are many ways to go about mathematizing it. If you want to learn more there are two fairly decisive textbooks on the topic: Causality by Judea Pearl, and Elements of Causal Inference by Jonas Peters, Dominik Janzing, and Bernhard Schölkop. I found Elements of Causal Inference to be a more engaging pedagogical introduction because it has more exercises to try out, but I recommend giving both a look because they take very different perspectives on causality. I might write some more blog posts going into more technical detail on causal inference later, but given my blogging frequency the curious reader should probably give the other resources a read first.</p>
 </div></div>
 
     <hr>

@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -105,18 +94,19 @@
 </div>
 <div class="container">
 <h1>Auxiliary tasks in RL</h1>
-<h2 id="introduction">Introduction</h2>
+<p>##Introduction</p>
 <p>One of the most fundamental problems in reinforcement learning (RL) is how to learn a good <a href="http://incompleteideas.net/book/first/ebook/node34.html">value function</a>. We’ve gotten pretty good as a community at getting agents to learn good value functions for some domains, like Atari games or robot control simulators, but we still have a lot of room for improvement. There are hundreds if not thousands of papers coming out every year with new tricks to learn better value functions that let agents perform even better on these tasks.</p>
 <p>Intuitively, you might think that the best way to figure out how good an action is would be to laser-focus on <em>only</em> the components of your input that tell you how much reward you’re going to receive in the future. If you’re learning how to play soccer for the first time, for example, you should pay attention to the ball. You don’t want to concurrently try to learn how to take a penalty kick and estimate the number of dandelions behind the net.</p>
 <p>Estimating the number of dandelions behind the net is an example of what the RL community calls an <em>auxiliary task</em>. It’s not your main goal, but you’re still using it as a learning signal while you’re messing about trying to figure out how your environment works. Auxiliary tasks have been shown to significantly improve agent performance in reinforcement learning across a huge range of domains. Typically these tasks are chosen to be a bit more useful than counting dandelions on a soccer pitch: a better analogy might be learning to move the ball from one side of the pitch to the other, or learning to predict which direction a player will run. If you were dropped onto a soccer pitch with no concept of “hand ball”, “goal”, or “opposite team”, it would take a lot of random running about before you discovered that putting a ball into one of the nets gives you a point. Learning to control parts of the game will likely help you once you do figure out that putting a ball in the net earns you a point, since you don’t now need to learn how to kick the ball from scratch.</p>
 <p>But how does trying to predict something other than your main objective help deep RL agents? The answer isn’t super clear. The general consensus in the community is learning with auxiliary tasks leads to better representations (outputs of intermediate layers of a neural network), although what makes a representation better seems to follow a circular definition of “it leads to improved performance”. This isn’t a super satisfying definition, so in our (joint work with Mark Rowland, Georg Ostrovski, and Will Dabney) recent <a href="https://arxiv.org/abs/2102.13089">paper</a>, we tried to dig into what’s happening in agents’ representations that might be leading to performance gains.</p>
-<h2 id="learning-dynamics">Learning Dynamics</h2>
-<p>We did this by analyzing an idealized model of representation learning. There are a lot of different value-learning algorithms in RL, but we’re going to focus our analysis on <a href="http://incompleteideas.net/book/first/ebook/node60.html">temporal difference learning</a> in the policy evaluation setting (i.e. the agent is just trying to figure out the value <span class="math inline">\(V^\pi\)</span> of a fixed action selection rule <span class="math inline">\(\pi\)</span>). Even more specifically, we’re going to focus on TD(0) updates, which update the value function at time <span class="math inline">\(t\)</span>, <span class="math inline">\(V_t\)</span>, based on the observed reward and the expected value at the next state.</p>
+<p>##Learning Dynamics</p>
+<p>We did this by analyzing an idealized model of representation learning.
+There are a lot of different value-learning algorithms in RL, but we’re going to focus our analysis on <a href="http://incompleteideas.net/book/first/ebook/node60.html">temporal difference learning</a> in the policy evaluation setting (i.e. the agent is just trying to figure out the value <span class="math inline">\(V^\pi\)</span> of a fixed action selection rule <span class="math inline">\(\pi\)</span>). Even more specifically, we’re going to focus on TD(0) updates, which update the value function at time <span class="math inline">\(t\)</span>, <span class="math inline">\(V_t\)</span>, based on the observed reward and the expected value at the next state.</p>
 <p><span class="math display">\[ V_{t+1}(x) = V_t(x) + \alpha( R^{\pi}(x) + \gamma \mathbb{E}_{x' \sim P^\pi{x'|x}} V_{t}(x') - V_t(x)) \]</span></p>
 <p>In matrix notation, we write this update as follows, where <span class="math inline">\(V_{t}\)</span> refers to the vector representation of the value function:</p>
 <p><span class="math display">\[V_{t+1} = V_t + \alpha(R^{\pi} + \gamma P^\pi V_t -  V_t) \]</span></p>
 <p>We’re going to focus on the learning dynamics induced by this update rule. By learning dynamics, we’re referring to how the value function changes over time. We’re going to make a simplifying assumption and focus on <em>continuous-time</em> dynamics, where we model the discrete update described above as a continous time system whose time derivative looks as follows:</p>
-\begin{equation} \partial_t V_t = R + \gamma P^\pi V_t - V_t \end{equation}
+<p><span class="math display">\[\begin{equation} \partial_t V_t = R + \gamma P^\pi V_t - V_t \end{equation}\]</span></p>
 <p>We can visualize this system for a simple two-state MDP to get a sense of how the temporal difference updates compare to performing regression on the target value function <span class="math inline">\(V^\pi(x)\)</span> directly.</p>
 <div class="figure" style="width:40%; margin-left:3em; float:right;">
 <img src="../images/ex-TDMC.png" width="90%" /> <br />

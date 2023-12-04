@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -123,11 +112,13 @@
 <p><span class="math display">\[H(p) = -\sum_{i=1}^n p(x_i) \log p(x_i) \]</span></p>
 <p>If we calculate this for the distribution we defined above, then we see something interesting.</p>
 <p><span class="math display">\[H(P) = 1.97 \approx 2 = \frac{\text{len(code)}}{\text{len(original message)}} \]</span></p>
-<p>Coincidence? Not a chance! Let’s go back to the Huffman code for our message. The code for ‘o’ is 0, which has length <span class="math inline">\(1 \approx -\log_2 (\frac{5}{11})\)</span>. Similarly, the average code length for the letters that appear once is <span class="math inline">\(\frac{11}{3} \approx -\log_2 \frac{1}{11}\)</span>. Notice a pattern here? The entropy of the distribution is telling us (up to a rounding error) the average number of bits it will take to encode characters sampled from that distribution given an optimal code! In fact, Shannon figured out in the 1950s that you can use the entropy of a distribution to get a lower bound on the length of the optimal coding for it (see e.g. <a href="https://www.cs.toronto.edu/~radford/csc310.F11/week3.pdf"> here for a proof</a>). This blog post is getting pretty long so I won’t go into that proof here, but it’s quite neat.</p>
-<p><b>Key takeaways.</b> The entropy of a probability distribution gives you an idea of how much information (measured as the average codeword length of an optimal encoding of the items in the distributiion) it takes to describe samples from that distribution. Because the logarithm tells you how long a string needs to be to enumerate a set of a given size, it appears in the formula for entropy as a measure of optimal codeword length. In probability distributions where only one event happens frequently (i.e. <i> predictable distributions </i>), we get a small average codeword length because we can use one bit to describe that event. In distributions where many possible events happen frequently (i.e. <i>unpredictable</i> or <i>chaotic</i> settings) we need longer codewords to be able to enumerate all of the possible events. This is why people use entropy to measure the chaos in a system.</p>
+<p>Coincidence? Not a chance! Let’s go back to the Huffman code for our message. The code for ‘o’ is 0, which has length <span class="math inline">\(1 \approx -\log_2 (\frac{5}{11})\)</span>. Similarly, the average code length for the letters that appear once is <span class="math inline">\(\frac{11}{3} \approx -\log_2 \frac{1}{11}\)</span>. Notice a pattern here? The entropy of the distribution is telling us (up to a rounding error) the average number of bits it will take to encode characters sampled from that distribution given an optimal code! In fact, Shannon figured out in the 1950s that you can use the entropy of a distribution to get a lower bound on the length of the optimal coding for it (see e.g. <a href="https://www.cs.toronto.edu/~radford/csc310.F11/week3.pdf"> here for a proof</a>). This blog post is getting pretty long so I won’t go into that proof here, but it’s quite neat.</p>
+<p><b>Key takeaways.</b> The entropy of a probability distribution gives you an idea of how much information (measured as the average codeword length of an optimal encoding of the items in the distributiion) it takes to describe samples from that distribution. Because the logarithm tells you how long a string needs to be to enumerate a set of a given size, it appears in the formula for entropy as a measure of optimal codeword length. In probability distributions where only one event happens frequently (i.e. <i> predictable distributions </i>), we get a small average codeword length because we can use one bit to describe that event. In distributions where many possible events happen frequently (i.e. <i>unpredictable</i> or <i>chaotic</i> settings) we need longer codewords to be able to enumerate all of the possible events. This is why people use entropy to measure the chaos in a system.</p>
 <p>If you found this post interesting, I’ve included additional reading material below. Otherwise, happy quarantine!</p>
 <hr />
-<p><b> Footnotes </b> 1. The height of a full binary tree with <span class="math inline">\(2^n\)</span> leaf nodes is <span class="math inline">\(n+1\)</span>. We can interpret the binary tree as implicitly encoding each of its leaf nodes with a binary number by travelling from the root to the leaf, and putting a 1 down for each left edge, and a 0 for each right edge. 2. A proof of the optimality of the Huffman code can be found <a href="https://www.cs.toronto.edu/~radford/csc310.S02/week3b.pdf">here</a>.</p>
+<p><b> Footnotes </b>
+1. The height of a full binary tree with <span class="math inline">\(2^n\)</span> leaf nodes is <span class="math inline">\(n+1\)</span>. We can interpret the binary tree as implicitly encoding each of its leaf nodes with a binary number by travelling from the root to the leaf, and putting a 1 down for each left edge, and a 0 for each right edge.
+2. A proof of the optimality of the Huffman code can be found <a href="https://www.cs.toronto.edu/~radford/csc310.S02/week3b.pdf">here</a>.</p>
 <p><b> Background reading </b></p>
 <ul>
 <li>Calculus: <a href="https://www.khanacademy.org/math/differential-calculus"> Khan academy </a> will cover the basics of derivatives and integrals, to the level needed to understand this post.</li>

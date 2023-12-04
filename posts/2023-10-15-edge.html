@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/ox.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    Posted on October 15, 2023
+</div>
+<div class="container">
+<h1>Deep dive into the edge of stability</h1>
+<h1 id="deep-dive-the-edge-of-stability">Deep dive: the edge of stability</h1>
+<p>There is a fascinating phenomenon that occurs at parties: initially, when there are only a few guests, the volume of the room starts out low; over time as people more and more people arrive and more and more beers are emptied, people start to talk louder and louder, until the volume of the room stabilizes at a steady state corresponding to the loudest volume people can comfortably speak at, and tends to stay at this level until people get too drunk, tired, or hoarse and go home. This phenomenon has a number of intriguing properties: the steady-state volume is almost always a bit louder than anyone would prefer, and yet this inexorable rise in the ambient noise levels occurs nonetheless. The phenomenon is also self-stabilizing, in that there is a maximum value above which any deviations are sharply penalized: barring nightclubs, most venues that require screaming in your conversation partner’s ear will see a great exodus of attendees, which will have the effect of reducing the volume back to the maximum tolerable level.</p>
+<p>In this blog post, I will make the argument that the noisy cocktail party presents a strikingly accurate metaphor for gradient descent in neural networks. We will see how the evolution sharpness of the local loss landscape in networks trained with gradient descent exhibits a similar trend towards increasing and then stablizing at an analogous maximum tolerable value, as determined by the step size used by the optimization algorithm. This phenomenon, termed the <em>edge of stability</em> by <a href="https://openreview.net/forum?id=jh-rTtvkGeM">Cohen et al.</a> has the potential to give us insight into generalization and optimization dynamics in neural networks, and to explain a few surprising prior observations connecting learning rates and flat minima. This has unsurprisingly made it a trendy topic among theorists who want to prove something useful for deep learning practitioners, so there’s a lot of exciting work to cover.</p>
+<p>Let’s start with the basics: what exactly <em>is</em> the “edge of stability”?</p>
+<h2 id="the-basics">The basics</h2>
+<p>The edge of stability is a regime of neural network training where the curvature of the local loss landscape is equal to 2/step size. In the case of gradient descent with learning rate <span class="math inline">\(\eta\)</span>, this means that <span class="math inline">\(\lambda_{\max}(\mathcal{H}) \approx \frac{2}{\eta}\)</span>, where <span class="math inline">\(\mathcal{H}\)</span> denotes the Hessian with respect to the loss <span class="math inline">\(\ell\)</span> of parameters <span class="math inline">\(\theta\)</span>. The “edge of stability phenomenon” refers to a two-step process observed in neural networks where</p>
+<ol type="1">
+<li>the sharpness <span class="math inline">\(\lambda_{\max}(\mathcal{H})\)</span> progressively increases until</li>
+<li>it stabilizes at value at or just above <span class="math inline">\(\frac{2}{\eta}\)</span>, at which point the loss after each optimizer step decreases non-monotonically.</li>
+</ol>
+<p>In the case of a quadratic loss function, a learning rate smaller than 2/step size would result in stable consistent progress to reduce the objective function; a learning rate greater than 2/step size would (and indeed, as Cohen et al. show, does quickly) diverge. The fact that loss functions are not quadratic with respect to neural network parameters means that, rather than diverging, gradient descent just follows a bumpy downward trajectory in practice.</p>
+<p>Cohen et al. weren’t the first deep learning researchers to notice that early training dynamics of neural networks look very different from, and can heavily influence, later dynamics: the <a href="https://openreview.net/forum?id=r1g87C4KwB">break-even point”</a> noted by Jastrzebski and collection of researchers with equally unpronouncable names was closely connected observation that the learning rate used early in training determines the curvature of the region of the loss landscape that gradient descent converges to; similarly, <a href="https://arxiv.org/abs/2003.02218">Lewkowycz et al.</a> noted that if the curvature of the loss landscape is too large relative to the step size, gradient descent will sometimes “catapault” to a region of lower curvature after initially being destabilized, rather than completely diverging.</p>
+<h2 id="self-stabilization-and-implicit-regularization">Self-stabilization and implicit regularization</h2>
+<p>I stumbled upon the edge of stability paper after having read two papers studying the implicit regularization of <a href>finite-step-size</a> <a href>(stochastic)</a> gradient descent on the curvature of the loss landscape. After having read these papers, I was under the impression that increasing the learning rate (or batch size, in the case of stochastic GD) led to increased flatness of the local minimum to which optimization converged because of an implicit regularization effect.
+Both papers applied a similar approach, starting by approximating finite-step-size gradient descent</p>
+<p><span class="math display">\[ \theta_t := \dot{\tilde{\theta_t}} = \nabla_\theta \ell(\tilde{\theta_t})\]</span></p>
+<p>with a gradient flow</p>
+<p><span class="math display">\[ \tilde{\theta_t} := \dot{\tilde{\theta_t}} = \nabla_\theta \ell(\tilde{\theta_t})\]</span></p>
+<p>then approximating the difference between the gradient flow solution and the exact finite step-size updates with a second-order taylor expansion to get</p>
+<p><span class="math display">\[ \theta_t - \tilde{\theta}_t \approx \frac{1}{2} \| \nabla_\theta \ell(\theta_0) \|^2 t^2\]</span></p>
+<p>and finally showing that there is another gradient flow <span class="math inline">\(\hat{\theta}_t\)</span> defined by</p>
+<p><span class="math display">\[ \partial_t \hat{\theta_t} = \nabla ( \ell(\theta_t) + \lambda \| \nabla_\theta \ell(\theta_t)\|^2)\]</span>
+which zeros out the error in this second-order approximation. It turns out that the exact coefficient <span class="math inline">\(\lambda\)</span> on the gradient penalty is proportional to the step size of gradient descent.</p>
+<p>So we basically have one set of papers which say that there’s a natural tendency for finite-step-size gradient descent to regularize the gradient norm, and a second set of papers which say that there’s a tendency for gradient descent to increase the maximum eigenvalue of the Hessian up to some value proportional to the inverse of the step size. Two different notions of sharpness, two different analysis methodologies, but two results that both say the sharpness should be monotone decreasing in the step size. What gives?</p>
+<p>I don’t know if there’s necessarily a deep and profound connection between the results described above, but there is a straightforward one. The gradient norm at a local minimum is zero by definition, but if the gradient is changing very quickly near this minimum, then its norm will probably be a lot larger at nearby points. As a result, a large maximal Hessian eigenvalue will end up being correlated with a large gradient norm in a lot of optimization problems. Provided the optimizer step size is too big to converge to the sharp local minimum, it will end up just bouncing around in the region of higher curvature and this correlation will stay in place. So it shouldn’t be surprising that similar results concerning the gradient norm and maximal Hessian eigenvalue exist: they are subtly different but correlated aspects of the optimization process.</p>
+<h2 id="why-does-sharpness-increase-in-the-first-place">Why does sharpness increase in the first place?</h2>
+<p>This is something that I don’t think we yet have a great answer to. Most theoretical analyses I’ve seen of this phenomenon focus principally on the behaviour of optimization <em>after</em> the sharpness has already increased, and make some assumption that the gradients early in training have some inherent bias that increases the sharpness of the Hessian. In some cases weaker assumptions are able to produce a similar end result, for example <a href="https://proceedings.neurips.cc/paper_files/paper/2022/hash/40bb79c081828bebdc39d65a82367246-Abstract-Conference.html">Wang et al.</a> assume that the Hessian sharpness is proportionalto the norm of the network’s output weights, then show that the output weight norm increases and so the Hessian sharpness must increase as well. This seems consistent with similar observations I and others have made that parameter norm tends to increase over time without explicit regularization, which would, all else being equal, increase the maximum eigenvalue of the Hessian. It might be that the reason for the increase in the spectral norm of the Hessian is actually most easily explained by an entropy maximization argument: for example, it might simply be that the volume of parameter space with a given sharpness increases with the sharpness value, and so even following a random walk we would expect the Hessian norm to increase over time.</p>
+<p><a href="https://arxiv.org/abs/2210.04860">Agarwala et al.</a> provide the most compelling explanation for progressive sharpening that I’ve been able to find. This paper explicitly uses the equivalence between the Hessian and the gradient norm, and also uses the trick of only looking at every other step of gradient descent so that they can ignore oscillations in the direction of maximal sharpness. They look at just about the simplest nonlinear learning problem imaginable: optimizing a quadratic <span class="math inline">\(\ell(\theta) = \frac{1}{2}[\theta^\top Q \theta - E]\)</span>, where <span class="math inline">\(Q \in \mathbb{R}^{P \times P}\)</span>, and is symmetric (so it only has real eigenvalues). They were able to show that edge of stability dynamics can appear in this model if the geometry of the loss, i.e. the eigenvalues of <span class="math inline">\(Q\)</span>, satisfied certain properties and the learning rate was in a particular range. Depending on the eigenvalue distribution, they could either obtain edge of stability dynamics or recover the catapult mechanism, which I thought was interesting. However, all of this comes with the massive caveat that this is a tiny tiny system that is missing a lot of the nonlinear complexities of neural networks.</p>
+<p>To get closer to the real world, in a higher-dimensional version of this model they apply a limiting argument to show that under some assumptions, for sufficiently high dimensional, randomly generated quadratic problems, the expected value of the second derivative of the NTK’s spectral norm is positive and equal to the variance of the loss, while its second deritavie is zero. In other words: at least at initialization, the sharpness of the loss landscape increases under gradient flow dynamics. The paper also looks at quadratic approximations of neural network training but these looked like they produced very different dynamics from the real optimization trajectories. So overall, it’s interesting that the dynamics of gradient descent seem like they tend to push up sharpness, but I don’t think we can decisively say that this increase happens for the exact same reason in quadratic models and in neural networks.</p>
+<h2 id="why-doesnt-sharpness-increase-indefinitely">Why doesn’t sharpness increase indefinitely?</h2>
+<p>Although I haven’t found an entirely satisfying explanation for why sharpness in neural networks increases in the first place, if we assume that it does then there are a number of really interesting theoretical results trying to explain why it levels off at some large but finite value rather than diverging. <a href="https://arxiv.org/abs/2209.15594">Damian et al.</a> identify a self-stabilizing property of gradient descent dynamics which, although it involves a pretty hairy derivation using a third-order Taylor expansion of the optimization dynamics that takes immense mental fortitude to follow, provides what I think are some useful insights into gradient descent dynamics. The result of this analysis is that the gradient of the sharpness, <span class="math inline">\(\nabla S(\theta)\)</span> is exactly equal to the third-order term you get from applying the third-order taylor expansion to the principal eigenvector of the Hessian. So what you get in the end is a self-stabilizing process: if the parameters diverge too far in the direction of the top eigenvector of the Hessian, then eventually the third order term will outweigh the lower order terms in the expansion and drive sharpness down.</p>
+<p>This analysis results in a concise 4-stage characterization of learning, similar to those proposed by <a href="https://arxiv.org/abs/2207.12678">Li et al.</a> in their work that uses output norm weight as a proxy for sharpness. In <strong>phase 1</strong>, sharpness monotonically increases (this is the least satisfying piece of the analysis – they just assume that whatever gradient descent does normally biases towards increasing sharpness) until it reaches <span class="math inline">\(\frac{2}{\eta}\)</span>. In <strong>phase 2</strong>, sharpness passes the magical <span class="math inline">\(\frac{2}{\eta}\)</span> threshold and chaos ensues, with the parameters diverging in the direction of the top eigenvector of the hessian. In <strong>phase 3</strong> this seemingly-uncontrolled growth becomes large enough that the third-order term in the Taylor expansion of the gradient descent dynamics starts to kick in, and this drives the sharpness back down. Finally, <strong>phase 4</strong> denotes the return to stability, as sharpness drops below <span class="math inline">\(\frac{2}{\eta}\)</span> and the now-stabilized gradient updates have the effect of reducing the norm of the parameters.</p>
+<p>This is a simplified analysis that obviously has to make a lot of assumptions about the structure of the loss landscape and the effect of higher-order terms in the learning dynamics. However, the paper does compare their predicted dynamics to what is actually obtained by not-quite-trivial neural networks (3-layer CNN + MLPs and a 2-layer transformer) and get reasonable concordance between prediction and observation. I assume this choice of layers was partially due to the observation that third-order effects drive self-stabilization, and you need this many layers to observe nontrivial higher order effects. This assumption is borne out by <a href="https://arxiv.org/pdf/2210.03294.pdf">Zhu et al.</a> who consider what is probably the simplest learning problem in which anyone will ever manage to induce edge of stability dynamics: <span class="math inline">\(\ell(x, y) = \frac{1}{2}(1 - x^2y^2)^2\)</span>. I definitely recommend giving the paper a look – it has great visualizations and the theoretical results involve hilariously large constants. If you’re busy, the TL;DR is that they are able to give a precise characterization of the dynamics of this learning problem, and show that it exhibits edge-of-stability behaviour under suitable initializations and step sizes.</p>
+<h2 id="extensions">Extensions</h2>
+<p>Obviously, understanding the behaviour of gradient descent is relevant for deep learning researchers since all of our algorithms are basically variants on SGD. However, few people use vanilla, fixed-step-size SGD as it is normally taught in an intro to ML course – and we definitely don’t use full-batch GD. So a big question I and I think a lot of other people had after reading the original edge of stability paper was whether something analogous would happen in adaptive step size optimizers. Lo and behold, in 2022 Cohen (with a different et al. this time) showed that you can get an analogous result for adam. The spirit of the finding is the same: sharpness increases until it breaks your optimizer, and then it stabilizes. However, analyzing it requires a bit more work because of all of the bells and whistles that get thrown into adaptive optimizers.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>

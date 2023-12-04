@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="./css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="./pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="./archive.html">Archive</a>
+                        <a href="./archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="./contact.html">Contact</a>
@@ -100,16 +89,19 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><style>
+    <div class="container">
+<!-- Main Content -->
+ <div class="container"><style>
 .post-preview:nth-of-type(1n+4){display:none;}
 </style>
-
+<div style="float:none; clear:both; width:70%; float:left;">
 <h2>About</h2>
-<div style="float:none; clear:both">
-<div style="font-size:18px;margin-bottom:20px; width:70%; float:left;">
+
+<div style="margin-bottom:20px; ">
 <p> Hello there! I'm a research scientist at <a href="https://deepmind.com">DeepMind</a>, where I work on reinforcement learning and representation learning. 
-In my spare time, I <a href="./archive.html">blog</a> about things that interest me.</p></div> <div style="float:right; width:20%; padding-right:10px; margin-left:20px; margin-right:auto;"> <img style="width:80%; height:90%;border-radius:50%;" src="./images/compressed_me.jpg" /></div>
+In my spare time, I <a href="./archive.html">blog</a> about things that interest me.</p></div> 
 </div>
+<div style="float:right; width:20%; padding-right:10px; margin-left:20px; margin-right:auto;"> <img style="width:80%; height:90%;border-radius:50%;" src="./images/compressed_me.jpg" /></div>
 <div style="clear:both"></div>
 <hr>
 <h2>Some Publications</h2>
@@ -122,310 +114,222 @@ In my spare time, I <a href="./archive.html">blog</a> about things that interest
 <p><b>On The Effect of Auxiliary Tasks on Representation Dynamics</b>  Clare Lyle*, Mark Rowland*, Georg Ostrovski, Will Dabney, AISTATS 2021. <a href="https://arxiv.org/abs/2102.13089">(arXiv link)</a>.</p>
 <hr />
 <h2>Talks</h2>
-I've given a few talks during my PhD. Most of these weren't recorded, but the slides might still be useful to give a narrative overview of some of the projects I've worked on.
+I've given a few talks over the years. Most of these weren't recorded, but the slides might still be useful to give a narrative overview of some of the projects I've worked on.
 
 <p> </p>
 <ul>
-	<li><b>Simons Institute Workshop on Theory of Deep RL</b>, October 2020. Invariant Prediction for Generalization in RL | <a href="https://simons.berkeley.edu/talks/tbd-212">Talk recording</a> | <a href="./files/simons.pdf" download="simons.pdf">Slides</a></li>
-	<li><b>GenU Workshop</b>, October 2021. Bayesian Model Selection and Generalization in Deep Learning | <a href="./files/bayesian.pdf" download="genU.pdf">Slides</a></li>
-	<li><b>G-Research ML College</b>,  November 2021. The Many Faces of Model Selection | <a href="./files/model.pdf" download="model.pdf">Slides</a></li>
-	<li><b>OxCSML Group</b>, December 2021. Representation Dynamics and Feature Collapse in RL | <a href="./files/collapse.pdf" download="collapse.pdf">Slides</a></li>
+    <li><b> Conference on Lifelong Learning Agents Keynote</b>, August 2023. Why do neural networks lose plasticity? | <a href="https://www.youtube.com/watch?v=1EwKYesnKAA"> Recording.</a></li>
+    <li><b>OxCSML Group</b>, December 2021. Representation Dynamics and Feature Collapse in RL | <a href="./files/collapse.pdf" download="collapse.pdf">Slides</a></li>
+    <li><b>G-Research ML College</b>,  November 2021. The Many Faces of Model Selection | <a href="./files/model.pdf" download="model.pdf">Slides</a></li>
+    <li><b>GenU Workshop</b>, October 2021. Bayesian Model Selection and Generalization in Deep Learning | <a href="./files/bayesian.pdf" download="genU.pdf">Slides</a></li>
+	<li><b>Simons Institute Workshop on Theory of Deep RL</b>, October 2020. Invariant Prediction for Generalization in RL | <a href="https://simons.berkeley.edu/talks/tbd-212">Talk recording</a> | <a href="./files/simons.pdf" download="simons.pdf">Slides</a></li>	
 </ul>
 <hr />
 <h2>Blog</h2>
 <b>Warning!</b> This blog is not optimized for mobile devices and contains a lot of long equations that will be a pain to view on your phone. Unless you enjoy suffering, I strongly recommend reading it on large screens only.
 
-<link href="./css/previews.css" rel="stylesheet">
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="col-lg-8 col-md-10">
+        
+            <div class="post-preview">
+                <a href="./posts/2023-10-15-edge.html">
+                    <p class="post-title">
+                       <b>Deep dive into the edge of stability</b> | Making loss landscapes trendy again.
+                    </p>
+                </a>
+            </div>
+        
+            <div class="post-preview">
+                <a href="./posts/2023-08-27-llm-understanding.html">
+                    <p class="post-title">
+                       <b>Evaluating understanding in LLMs</b> | It's surprisingly hard.
+                    </p>
+                </a>
+            </div>
         
             <div class="post-preview">
                 <a href="./posts/2023-01-29-adam.html">
-                    <h2 class="post-title">
-                        When do adaptive optimizers fail to generalize?
-                    </h2>
-                    <h3 class="post-subtitle">
-                        A case study
-                    </h3>
+                    <p class="post-title">
+                       <b>When do adaptive optimizers fail to generalize?</b> | A case study
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on January 29, 2023</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2022-07-30-deep-learning.html">
-                    <h2 class="post-title">
-                        Do we know why deep learning generalizes yet?
-                    </h2>
-                    <h3 class="post-subtitle">
-                        It depends on your epistemology.
-                    </h3>
+                    <p class="post-title">
+                       <b>Do we know why deep learning generalizes yet?</b> | It depends on your epistemology.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on July 30, 2022</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2021-12-18-offline.html">
-                    <h2 class="post-title">
-                        The Importance of Making Mistakes in RL
-                    </h2>
-                    <h3 class="post-subtitle">
-                        A tale of two NeurIPS papers
-                    </h3>
+                    <p class="post-title">
+                       <b>The Importance of Making Mistakes in RL</b> | A tale of two NeurIPS papers
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on December 18, 2021</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2021-09-25-scholarship.html">
-                    <h2 class="post-title">
-                        How to Win Scholarships and Influence Donors
-                    </h2>
-                    <h3 class="post-subtitle">
-                        All of my thoughts on scholarships in one place
-                    </h3>
+                    <p class="post-title">
+                       <b>How to Win Scholarships and Influence Donors</b> | All of my thoughts on scholarships in one place
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on September 25, 2021</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2021-04-03-aistats.html">
-                    <h2 class="post-title">
-                        Auxiliary tasks in RL
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Maybe the real reward was the representation we learned along the way.
-                    </h3>
+                    <p class="post-title">
+                       <b>Auxiliary tasks in RL</b> | Maybe the real reward was the representation we learned along the way.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on April  3, 2021</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2020-11-05-energy.html">
-                    <h2 class="post-title">
-                        How do people work? Part 1: energy
-                    </h2>
-                    <h3 class="post-subtitle">
-                        From muffins to marathons
-                    </h3>
+                    <p class="post-title">
+                       <b>Power to the people, but how?</b> | From muffins to marathons
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on November  5, 2020</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2020-10-30-bayesian.html">
-                    <h2 class="post-title">
-                        A Bayesian Perspective on Training Speed and Model Selection
-                    </h2>
-                    <h3 class="post-subtitle">
-                        As presented at NeurIPS 2020
-                    </h3>
+                    <p class="post-title">
+                       <b>A Bayesian Perspective on Training Speed and Model Selection</b> | As presented at NeurIPS 2020
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on October 30, 2020</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2020-10-05-atoms.html">
-                    <h2 class="post-title">
-                        Why I'm Learning Biology
-                    </h2>
-                    <h3 class="post-subtitle">
-                        And why yoou should too
-                    </h3>
+                    <p class="post-title">
+                       <b>Why I'm Learning Biology</b> | And why yoou should too
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on October  5, 2020</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2020-07-11-icml.html">
-                    <h2 class="post-title">
-                        Causality, Generalization, and Reinforcement Learning
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Oh my!
-                    </h3>
+                    <p class="post-title">
+                       <b>Causality, Generalization, and Reinforcement Learning</b> | Oh my!
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on July 11, 2020</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2020-04-20-logs.html">
-                    <h2 class="post-title">
-                        In praise of the logarithm
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Why are logarithms so magical?
-                    </h3>
+                    <p class="post-title">
+                       <b>In praise of the logarithm</b> | Why are logarithms so magical?
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on April 20, 2020</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2019-08-09-causality1.html">
-                    <h2 class="post-title">
-                        Causality
-                    </h2>
-                    <h3 class="post-subtitle">
-                        If causation isn't correlation, then what is it?
-                    </h3>
+                    <p class="post-title">
+                       <b>Causality</b> | If causation isn't correlation, then what is it?
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on August  9, 2019</p>
-            </div>
-        
-            <div class="post-preview">
-                <a href="./posts/2019-04-09-pacbayes.html">
-                    <h2 class="post-title">
-                        An imPACtful, BAYESic result
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Puns are great.
-                    </h3>
-                </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on April  9, 2019</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2019-02-08-aaai.html">
-                    <h2 class="post-title">
-                        What makes the distributional perspective on RL different?
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Stuff I did in 2018
-                    </h3>
+                    <p class="post-title">
+                       <b>What makes the distributional perspective on RL different?</b> | Stuff I did in 2018
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on February  8, 2019</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2018-11-11-graphical-models.html">
-                    <h2 class="post-title">
-                        Graphical Models
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Why I shouldn't quit my PhD to enter the coffee business.
-                    </h3>
+                    <p class="post-title">
+                       <b>Probabilistic Graphical Models</b> | Why I shouldn't quit my PhD to go into the coffee business.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on November 11, 2018</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2018-11-10-grad-school.html">
-                    <h2 class="post-title">
-                        Reflections on my first month in grad school
-                    </h2>
-                    <h3 class="post-subtitle">
-                        DPhil life
-                    </h3>
+                    <p class="post-title">
+                       <b>Reflections on my first month in grad school</b> | DPhil life
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on November 10, 2018</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2017-05-25-settheory2.html">
-                    <h2 class="post-title">
-                        A semi-coherent summary of set theory pt 2
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Or how set theorists are bad at naming things
-                    </h3>
+                    <p class="post-title">
+                       <b>A semi-coherent summary of set theory pt 2</b> | Or how set theorists are bad at naming things
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on May 25, 2017</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2017-05-20-settheory.html">
-                    <h2 class="post-title">
-                        A semi-coherent summary of set theory
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Or why math really really needs rules
-                    </h3>
+                    <p class="post-title">
+                       <b>A semi-coherent summary of set theory</b> | Or why math really really needs rules
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on May 20, 2017</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2017-05-14-oxfordweek1.html">
-                    <h2 class="post-title">
-                        Week 1 in Oxford
-                    </h2>
-                    <h3 class="post-subtitle">
-                        I'm in Oxford!
-                    </h3>
+                    <p class="post-title">
+                       <b>Week 1 in Oxford</b> | I'm in Oxford!
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on May 14, 2017</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2016-09-06-backtoschool.html">
-                    <h2 class="post-title">
-                        School starts, as do the cool proofs
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Infinity is still really cool.
-                    </h3>
+                    <p class="post-title">
+                       <b>School starts, as do the cool proofs</b> | Infinity is still really cool.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on September  6, 2016</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2016-08-21-value.html">
-                    <h2 class="post-title">
-                        What Work is Worth
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Or, how getting grossed out by blood was possibly the most profitable personality trait I ended up with.
-                    </h3>
+                    <p class="post-title">
+                       <b>What Work is Worth</b> | Or, how getting grossed out by blood was possibly the most profitable personality trait I ended up with.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on August 21, 2016</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2016-06-06-firstday.html">
-                    <h2 class="post-title">
-                        First Week at Microsoft
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Or how I installed more microsoft products in two days than I had in the last two years.
-                    </h3>
+                    <p class="post-title">
+                       <b>First Week at Microsoft</b> | Or how I installed more microsoft products in two days than I had in the last two years.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on June  6, 2016</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2016-05-25-stuff.html">
-                    <h2 class="post-title">
-                        On Entering the Real World
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Or, on getting a job at a big tech company.
-                    </h3>
+                    <p class="post-title">
+                       <b>On Entering the Real World</b> | Or, on getting a job at a big tech company.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on May 25, 2016</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2016-05-16-introtoinfinity.html">
-                    <h2 class="post-title">
-                        A gentle introduction to infinities
-                    </h2>
-                    <h3 class="post-subtitle">
-                        Infinity is bigger than you think.
-                    </h3>
+                    <p class="post-title">
+                       <b>A gentle introduction to infinities</b> | Infinity is bigger than you think.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on May 16, 2016</p>
             </div>
         
             <div class="post-preview">
                 <a href="./posts/2016-04-28-firstyearproofs.html">
-                    <h2 class="post-title">
-                        A round-up of my favourite proofs from introductory math courses
-                    </h2>
-                    <h3 class="post-subtitle">
-                        I spent a lot of time proving things this year.
-                    </h3>
+                    <p class="post-title">
+                       <b>A round-up of my favourite proofs from introductory math courses</b> | I spent a lot of time proving things this year.
+                    </p>
                 </a>
-                <p class="post-meta">Posted by <a href="#">Clare</a> on April 28, 2016</p>
             </div>
             
             <ul class="pager">
@@ -436,6 +340,9 @@ I've given a few talks during my PhD. Most of these weren't recorded, but the sl
         </div>
     </div>
 </div>
+
+</div>
+
 </div>
 
     <hr>

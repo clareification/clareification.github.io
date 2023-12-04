@@ -10,7 +10,7 @@
     <meta name="author" content>
 
     <title>Clare Lyle</title>
-    <link rel="icon" href="./images/ox.png" sizes="32x32" />
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.css" rel="stylesheet">
 
@@ -28,17 +28,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-93569319-1"></script>
-    <script>
-    window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-93569319-1');
-    </script>
-
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
@@ -71,7 +60,7 @@
                         <a href="../pubs.html">Publications</a>
                     </li>
                     <li>
-                        <a href="../archive.html">Archive</a>
+                        <a href="../archive.html">Blog</a>
                     </li>
                     <li>
                         <a href="../contact.html">Contact</a>
@@ -112,13 +101,13 @@
 <p>Hold up a second, why do I need rules? Why can’t we just say “A set is a collection of objects” and be done with it?</p>
 <p>Well, we could. But as Bertrand Russel pointed out, we’d end up with a nasty paradox, and mathematicians tend to dislike those.</p>
 <p>Russell’s paradox goes as follows: we say that sets are just things that contain other things. So then a set is a thing, which means sets can contain other sets. Furthermore, under this definition there’s nothing stopping a set from containing itself. This might seem a bit unintuitive at first, but we can define things that contain themselves all the time in programming languages. For example, consider the following python code:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">a <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="op">;</span>
-
-a[<span class="dv">2</span>] <span class="op">=</span> a<span class="op">;</span>
-
-<span class="bu">print</span>(a)<span class="op">;</span>
-
-<span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>,<span class="dv">2</span>,[...]]</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> [<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]<span class="op">;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>a[<span class="dv">2</span>] <span class="op">=</span> a<span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(a)<span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> [<span class="dv">1</span>,<span class="dv">2</span>,[...]]</span></code></pre></div>
 <p>a is an array that contains the elements 1, 2, and a. This is perfectly valid computer code. So why do we run into an issue with sets?</p>
 <p>To see where the issue arises, try to define “the collection of all sets that don’t contain themselves”. OK, this is a collection of things so it’s a set. But does it belong to itself? I’ll let you work that out.</p>
 <p>So to avoid that messiness, we really will need a few axioms to specify when a collection of objects is a ‘set’. For starters, we won’t let sets be members of themselves. We also want to be able to say whether two sets are equal, so we’ll use the obvious definition that two sets are equal if and only if any member of one set is a member of the other set. Now, we also want to be able to pair sets together, to take unions, and to take power sets (the powerset of a set A is the set whose elements are all the subsets of A). We’ll also need the following;</p>
