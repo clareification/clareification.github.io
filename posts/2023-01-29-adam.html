@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,11 +90,13 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on January 29, 2023
 </div>
 <div class="container">
-<h1>When do adaptive optimizers fail to generalize?</h1>
+<h2>When do adaptive optimizers fail to generalize?</h2>
+<p><em>A case study</em></p>
+<p></p>
 <p>There are many reasons to use an adaptive optimizer in machine learning, such as simpler hyperparameter tuning and faster convergence, but improved generalization is usually not one of them. While there have been mixed empirical results concerning whether adam or sgd tends to find solutions that generalize better in deep neural networks, the overall theoretical consensus seems to be that adam is prone to larger generalization gaps than gradient descent. But why should adaptive learning rates lead to solutions that generalize worse? As it turns out, it’s quite easy to construct a simple learning problem where gradient descent finds a solution that generalizes better than adam. This example should provide some intuition about the failure modes of adaptive learning rates and how they might arise in more interesting problems.</p>
 <p>The regime of interest is simple: we consider a linear regression problem of <span class="math inline">\(n\)</span> data points <span class="math inline">\(\boldsymbol{x}_i \in \mathbb{R}^{n+1}\)</span>. Letting <span class="math inline">\(e_i\)</span> denote the <span class="math inline">\(i^{th}\)</span> basis vector, we define each data point <span class="math inline">\(\boldsymbol{x}_i, i=1\dots n\)</span> as <span class="math inline">\(e_i + y_i e_{n+1}\)</span>, where <span class="math inline">\(y_i \sim \mathcal{N}(0, 1)\)</span>. We set regression targets equal to <span class="math inline">\(y_i\)</span>, and look for a set of weights <span class="math inline">\(w\)</span> such that <span class="math inline">\(\langle w, \boldsymbol{x}_i \rangle = y_i \; \forall i\)</span>. This is an over-parameterized linear regression problem, and so there are infinitely many solutions. These solutions have the interpretation of being some combination of two archetype solutions: the first is what I’ll call the ‘generalizing’ solution, and is of the form <span class="math inline">\(w_G = (0, \dots, 0, 1)\)</span>. The second is the ‘memorizing’ solution <span class="math inline">\(w_M\)</span> and has the form <span class="math inline">\(\frac{1}{y_1}, \dots, \frac{1}{y_n}, 0\)</span>.</p>
 <p>This problem is constructed to clearly distinguish between features that generalize between data points and features which `memorize’, and only contain data relevant to the data point where they are active. Here the feature <span class="math inline">\(e_{n+1}\)</span> is constructed to contain all of the generalizable information between datapoints. While it doesn’t necessarily make sense to imagine how <span class="math inline">\(w_G\)</span> will generalize to new data, we note that for a subset <span class="math inline">\(S = \{x_{i_1}, \dots, x_{i_k}\} \subset \boldsymbol{X}\)</span>, the induced memorizing solution <span class="math inline">\(w_M^S = \sum_{i_k} \frac{1}{y_{i_k}} e_{i_k}\)</span> would obtain generalization error equal to <span class="math display">\[\sum_{y_i \in S^C} y_i^2 \]</span> on the remaining data points.</p>
@@ -136,10 +139,18 @@ when <span class="math inline">\(w=0\)</span>, this becomes
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -147,7 +158,7 @@ when <span class="math inline">\(w=0\)</span>, this becomes
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -155,7 +166,7 @@ when <span class="math inline">\(w=0\)</span>, this becomes
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

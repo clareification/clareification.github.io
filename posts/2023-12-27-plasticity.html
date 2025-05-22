@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,17 +90,18 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on December 27, 2023
 </div>
 <div class="container">
-<h1>Can you train a neural network forever?</h1>
+<h2>Can you train a neural network forever?</h2>
+<p><em>Understanding trainability in neural networks</em></p>
+<p></p>
 <p>One inauspicious day during my PhD, I ran an experiment. Following in the footsteps of <a href="https://arxiv.org/abs/1611.03530">Zhang et al.</a>, I tried training a neural network on a set of random labels of the MNIST dataset. It took a while, but eventually the network was able to fit the labels, getting 100% accuracy on this wholly contrived task.</p>
 <div class="figure" style="width:30%; margin-left:3em; float:right;">
 <img width="100%" src="../images/mnist_memorization.png" /> <span style="font-size:14px; align:center;">Memorizing a series of random labels results in progressively worse performance (red lines indicate label re-randomizations).</span>
 </div>
-<div clear="none">
-
+<div data-clear="none">
 <p>Then I went a little off-script.</p>
 <p>I re-shuffled the labels and continued training. I repeated this process 20 times, fitting one set of random labels, then picking up from where the optimization process left off and fitting another set. And another. And another. Like Sysiphus, cursed to push a boulder up a mountain, day after day for eternity, my poor neural network was forced by heavy-ball momentum down a loss landscape, for as long as I set <span class="math inline">\(\texttt{iterations}\)</span> in my code<a href="#fn1"><span class="math inline">\(^1\)</span></a>. Unlike Sysiphus, however, my neural network was clearly not up to the task of repeating this process indefinitely. After a couple of random shuffles, my learning curves went from sharp drops to gentle inclines to plateaus as flat and vast as the Eurasian steppes. The network wasn’t learning anything.</p>
 <h2 id="teaching-old-neural-networks-new-tricks">Teaching old neural networks new tricks</h2>
@@ -196,6 +198,7 @@ Deep RL algorithms perform worse over time when trained on a sequence of tasks <
 <p><strong>Footnotes</strong></p>
 <p><a name="fn1"></a>1. There are many resources for PhD students struggling with their mental health. I personally believe that an under-appreciated strategy for deep learning PhDs is to analogize themselves to Greek gods as frequently as their schedule allows. There is something empowering in the thought that you are to neural networks what Greek deities were to mortal men at times when Reviewer 2 is calling your paper a waste of bandwidth to host on arxiv.</p>
 <p><a name="fn2"></a>2. I don’t really mean local minima in the strict sense here, but rather loss landscape regions that resemble the Canadian Prairies in their flatness and lack of interesting features, and from which it is very difficult to get out via gradient descent.</p>
+</div>
 </div></div>
 
     <hr>
@@ -207,10 +210,18 @@ Deep RL algorithms perform worse over time when trained on a sequence of tasks <
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -218,7 +229,7 @@ Deep RL algorithms perform worse over time when trained on a sequence of tasks <
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -226,7 +237,7 @@ Deep RL algorithms perform worse over time when trained on a sequence of tasks <
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

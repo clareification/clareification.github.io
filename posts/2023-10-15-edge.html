@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,11 +90,13 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on October 15, 2023
 </div>
 <div class="container">
-<h1>Deep dive into the edge of stability</h1>
+<h2>Deep dive into the edge of stability</h2>
+<p><em>Making loss landscapes trendy again.</em></p>
+<p></p>
 <p>There is a fascinating phenomenon that occurs at parties: initially, when there are only a few guests, the volume of the room starts out low; over time as people more and more people arrive and more and more beers are emptied, people start to talk louder and louder, until the volume of the room stabilizes at a steady state corresponding to the loudest volume people can comfortably speak at, and tends to stay at this level until people get too drunk, tired, or hoarse and go home. This phenomenon has a number of intriguing properties: the steady-state volume is almost always a bit louder than anyone would prefer, and yet this inexorable rise in the ambient noise levels occurs nonetheless. The phenomenon is also self-stabilizing, in that there is a maximum value above which any deviations are sharply penalized: barring nightclubs, most venues that require screaming in your conversation partner’s ear will see a great exodus of attendees, which will have the effect of reducing the volume back to the maximum tolerable level.</p>
 <p>In this blog post, I will make the argument that the noisy cocktail party presents a strikingly accurate metaphor for gradient descent in neural networks. We will see how the evolution sharpness of the local loss landscape in networks trained with gradient descent exhibits a similar trend towards increasing and then stablizing at an analogous maximum tolerable value, as determined by the step size used by the optimization algorithm. This phenomenon, termed the <em>edge of stability</em> by <a href="https://openreview.net/forum?id=jh-rTtvkGeM">Cohen et al.</a> has the potential to give us insight into generalization and optimization dynamics in neural networks, and to explain a few surprising prior observations connecting learning rates and flat minima. This has unsurprisingly made it a trendy topic among theorists who want to prove something useful for deep learning practitioners, so there’s a lot of exciting work to cover.</p>
 <p>Let’s start with the basics: what exactly <em>is</em> the “edge of stability”?</p>
@@ -139,10 +142,18 @@ which zeros out the error in this second-order approximation. It turns out that 
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -150,7 +161,7 @@ which zeros out the error in this second-order approximation. It turns out that 
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -158,7 +169,7 @@ which zeros out the error in this second-order approximation. It turns out that 
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

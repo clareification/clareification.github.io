@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,11 +90,13 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on February  8, 2019
 </div>
 <div class="container">
-<h1>What makes the distributional perspective on RL different?</h1>
+<h2>What makes the distributional perspective on RL different?</h2>
+<p><em>Stuff I did in 2018</em></p>
+<p></p>
 <p>Who wants to be average? Or rather, who wants to learn to predict an average? This was an idea explored in a 2017 paper called <a href="https://arxiv.org/abs/1707.06887">a distributional perspective on reinforcement learning</a>. It proposed that instead of just learning to predict the expected value of state-action pairs, RL agents should learn to predict the probability distribution of te random variable corresponding to the return. This idea was justified by a proof of the convergence of a distributional analogue of the Bellman operator, and empirical results in atari showing that the C51 algorithm, which predicted distributions, outperformed DQN in most tasks.</p>
 <p>But the empirical evidence was far from conclusive and theoretical results justifying the claimed improved performance were scarce. Over the following year, more analysis followed, leading to improved empirical performance and richer theoretical understanding of distributional RL algorithms. However, one question hung ominously in the distance.</p>
 <p><em>Why does distributional RL work?</em></p>
@@ -131,10 +134,18 @@ Notice the expected values? We’re going to lift this operator to act on functi
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -142,7 +153,7 @@ Notice the expected values? We’re going to lift this operator to act on functi
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -150,7 +161,7 @@ Notice the expected values? We’re going to lift this operator to act on functi
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

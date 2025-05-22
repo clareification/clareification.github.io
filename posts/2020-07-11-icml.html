@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,11 +90,13 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on July 11, 2020
 </div>
 <div class="container">
-<h1>Causality, Generalization, and Reinforcement Learning</h1>
+<h2>Causality, Generalization, and Reinforcement Learning</h2>
+<p><em>Oh my!</em></p>
+<p></p>
 <p>Reinforcement learning has a generalization problem.</p>
 <p>To be more precise, RL has a <em>lack of generalization</em> problem. The RL objective is to maximize cumulative discounted reward in an environment, and over the years algorithms have gotten better and better at doing so in a variety of tasks. However, research has focused on maximizing returns in a <em>single</em> environment. This yields agents vulnerable to failure when the environment changes even slightly, and leaves the community in a position where we have more superhuman Atari-playing neural networks than we could possibly need, but (without training on thousands of environments) no agents that are robust to a change in the colour scheme of the game they were trained on.</p>
 <div data-align="center">
@@ -138,10 +141,18 @@ What’s really great about this state abstraction is that it’s going to be ro
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -149,7 +160,7 @@ What’s really great about this state abstraction is that it’s going to be ro
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -157,7 +168,7 @@ What’s really great about this state abstraction is that it’s going to be ro
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

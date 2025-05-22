@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,11 +90,13 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on April 20, 2020
 </div>
 <div class="container">
-<h1>In praise of the logarithm</h1>
+<h2>In praise of the logarithm</h2>
+<p><em>Why are logarithms so magical?</em></p>
+<p></p>
 <p><em>A note: this post is mostly aimed at precocious high school students and early undergraduates. If you arrived here from ML twitter, you’ll probably find the content pretty elementary compared to some of my other stuff.</em></p>
 <p>Logarithms are magic.</p>
 <p>At first glance, the logarithm wouldn’t necessarily strike you as a particularly significant function. The grade school introduction to the logarithm is thoroughly uninspiring: the logarithm (base c) of x is the power you need to raise c to in order to get x. For example <span class="math inline">\(\log_2 ( 8) = 3\)</span>, because <span class="math inline">\(2^3 = 8\)</span>. If you were like me, after you learned this fact you then had to compute a bunch of logarithms by hand, and to solve word problems about the doubling time of investments. If you went on to learn computer science, you probably saw logarithms again when you talked about the running time of binary search. You probably also came across them in chemistry and physics, where they were used in the formulas for the entropy of a system. You might have been told that entropy describes how chaotic a system is, but if your lectures were anything like mine you probably didn’t dive deep into why, in all the mathematical universe, the logarithm is the function that best describes chaos. This entropy idea might also have come up again when you had lectures on information theory and compression, where it described how predictable a string was.</p>
@@ -136,10 +139,18 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -147,7 +158,7 @@
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -155,7 +166,7 @@
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>

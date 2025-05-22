@@ -19,6 +19,7 @@
 
     <!-- Custom Fonts -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
 
@@ -74,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:100px">
+    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -89,14 +90,14 @@
     </header>
 
     <!-- Main Content -->
-    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 10%">
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
     Posted on March 30, 2025
 </div>
 <div class="container">
-<h1>Paper review: Auditing language models for hidden objectives</h1>
-<h3>What's in an objective?</h3>
+<h2>Paper review: Auditing language models for hidden objectives</h2>
+<p><em>What's in an objective?</em></p>
 <p></p>
-<p>A couple of weeks ago, a paper caught my attention while I was browsing twitter. The tweet advertising the paper had a catchy teaser and an aesthetically pleasing picture, so naturally I immediately downloaded the paper from arxiv and started reading.</p>
+<p>A couple of weeks ago, a <a href="https://www.anthropic.com/research/auditing-hidden-objectives">paper</a> caught my attention while I was browsing twitter. The tweet advertising the paper had a catchy teaser and an aesthetically pleasing picture, so naturally I immediately downloaded the paper from arxiv and started reading.</p>
 <p>The paper proposed the following procedure: finetune an LLM so that it knows about common reward model biases, RLHF it to reward responses that exploit a subset of those biases, then see if this process also increases its likelihood of exploiting other biases that it knows about but which weren’t in the RLHF dataset. Not to spoil the ending for those of you who haven’t clicked on the link in the first sentence yet, but it does. I thought this was an elegant approach for testing whether an LLM’s knowledge about known reward model biases could leak into its behaviour after fine-tuning on preferences that exhibit these biases <em>even if these biases are never made explicit during training</em>. I also fundamentally disagreed with the claim that this procedure showed that the LLM had acquired an objective of duping the reward model. In the rest of this blog post, I’ll explain why.</p>
 <p>(Yes, yes, I know that the main point of the paper was to show what kinds of auditing techniques could uncover this property of the model. You can skip the next section if you just want details on the paper itself. But as long as I’m footing the bill for this domain name, I’ll use it to post all of the philosophical rambling I like.)</p>
 <p><strong>Philosophical navel-gazing (skip if you just want the paper review): What’s in a goal?</strong></p>
@@ -156,10 +157,18 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <ul class="list-inline text-center">
                         <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="http://twitter.com/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -167,7 +176,7 @@
                             <a href="http://linkedin.com/in/clarelyle">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
@@ -175,7 +184,7 @@
                             <a href="http://github.com/clareification">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
-                                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
                                 </span>
                             </a>
                         </li>
