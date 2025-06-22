@@ -75,7 +75,7 @@
 
     <!-- Page Header -->
     <!-- Set your background image for this header on the line below. -->
-    <header class="intro-header" style="background-image: url('/images/seattle.jpg'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:70px">
         <div class="container">
             <!-- <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
@@ -170,7 +170,12 @@ And now we just note that <span class="math inline">\(\frac{\partial {f}}{\parti
 =\mathbf{J}_\theta \cdot_{n,d} \mathbf{H}_f \cdot_{n,d} \mathbf{J}_\theta + \delta_\ell \cdot \mathbf{H}_\theta \; .
 \]</span></p>
 <p>So we have decomposed the Hessian into two terms. The first of these, containing the <span class="math inline">\(\mathbf{H}_f\)</span> term is positive semi-definite and (comparatively) easy to compute as it doesn’t contain any second derivatives with respect to network parameters. The second matrix, by contrast, requires computing the network output Hessian with respect to parameters <span class="math inline">\(\mathbf{H}_\theta\)</span>, and has the impudence to also contain negative eigenvalues.</p>
-<p><img src="../images/wicked.jpeg" style="margin-left: auto; margin-right: auto;float:clear;" /><br /><span style="font-size:13px">Tthe two components of our Hessian decomposition exhibit varying degrees of “fitting convex optimization experts’ ideas of what a loss landscape should look like” and “being possible to physically compute on modern computers”. Much like Elphaba, the unnamed matrix which isn’t the Gauss-Newton matrix is frequently overlooked and misunderstood despite playing an integral role in the training dynamics of… Oz (there are limits to how far one can take a metaphor relating popular culture to second-order optimization methods, unfortunately).</p>
+<center>
+<img src="../images/wicked.jpeg" style="margin-left: auto; margin-right: auto;float:clear;" /><br />
+<div style="font-size:13px;width=60%;">
+The two components of our Hessian decomposition exhibit varying degrees of “fitting convex optimization experts’ ideas of what a loss landscape should look like” and “being possible to physically compute on modern computers”. Much like Elphaba, the unnamed matrix which isn’t the Gauss-Newton matrix is frequently overlooked and misunderstood despite playing an integral role in the training dynamics of… Oz (there are limits to how far one can take a metaphor relating popular culture to second-order optimization methods, unfortunately).
+</div>
+</center>
 <p>The first matrix is also known as the Gauss-Newton matrix, and has a lot of interesting connections to information geometry via the Fisher information matrix, which I might write up as an addendum to this blog post at some point. Much like Elphaba to Galinda, the second matrix is powerful and misunderstood – while it is inconvenient for convex approximations of the local loss landscape, it contains all of the non-convexity of the neural network and is essentially describing the feature-learning component of the dynamics. As the field is beginning to learn, feature learning is actually quite an important component of neural network training.</p>
 <p>So that about wraps up this post, which turned into a bit of a scattered collection of observations about first and second derivatives. I hope it was vaguely useful to give some intuition of why a lot of approximate second-order methods end up computing an outer product of gradients instead of the second derivative; perhaps one day in the future I’ll come back to this and write an actually rigorous version of the derivation.</p>
 </div></div>
