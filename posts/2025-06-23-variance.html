@@ -101,7 +101,7 @@
 <p>The first moment <span class="math inline">\(\mu_1\)</span>, i.e. the mean <span class="math inline">\(\mathbb{E}[X]\)</span> is straightforward to estimate from samples as</p>
 <p><span class="math display">\[\widehat{\mu_1} = \frac{1}{n} \sum_{i=1}^n x_i\]</span></p>
 <p>For the second moment, i.e. <span class="math inline">\(\mathbb{E}_{X \sim P}[X^2]\)</span> (this doesn’t have a standardized notation like the mean, so I’ll call it <span class="math inline">\(\mu_2\)</span> for ‘moment 2’) we also have the straightforward estimator</p>
-<p><span class="math display">\[\widehat{\mu_2} = \frac{1}{n} \sum_{i=1}^n x_i\]</span></p>
+<p><span class="math display">\[\widehat{\mu_2} = \frac{1}{n} \sum_{i=1}^n x_i^2\]</span></p>
 <p>But the variance $[(X - [X])^2] sometimes catches people by surprise. Naive pattern-matching would suggest its estimator would be</p>
 <p><span class="math display">\[\widehat{\nu_2} = \frac{1}{n} \sum_{i=1}^n (x_i - \frac{1}{n}\sum_{i=1}^n x_i)^2\]</span></p>
 <p>which is in fact wrong. Well, technically I don’t know if an estimator can be <em>wrong</em> as that’s a bit of a subjective judgement, but it is definitely biased and will result in you under-estimating the actual variance. There are a number of ways to show that this is wrong, but the simplest is to take <span class="math inline">\(n=1\)</span>, i.e. the case where we only have a single sample from the distribution. Then the quantity <span class="math inline">\(\frac{1}{n} \sum_{i=1}^n (x_i - \frac{1}{n}\sum_{i=1}^n x_i)^2 = 0\)</span> no matter what the distribution we are sampling from. This is not a desirable property in an estimator, so we can safely discard the naive <span class="math inline">\(\frac{1}{n}\)</span> factor.</p>

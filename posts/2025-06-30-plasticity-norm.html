@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on June 30, 2025
+</div>
+<div class="container">
+<h2>Does parameter norm growth cause networks to lose plasticity?</h2>
+<p><em>A brief clarification</em></p>
+<p></p>
+<p>The problem with writing a paper is that, once you put it out into the world, it takes on a life of its own. People can then draw whatever inferences they like from it, whether or not those were the ones you intended when you wrote it.</p>
+<p>Nowhere has this been clearer than in the papers I’ve written on plasticity loss. My understanding of why neural networks become harder to train over time has evolved a lot over the past four years, and the careful observer will see this evolution in the papers I have written. In my initial papers, I tracked a lot of correlations, e.g. between network performance at the end of a continual learning problem and parameter norm or dead units or gradient norm. I wasn’t necessarily sure what the <em>causal</em> relationship between these things was, but it seemed worthwhile to log whatever correlations might exist. Later papers were able to clarify exactly why some of these correlations existed, and why they weren’t consistent accross certain algorithm or task properties.</p>
+<p>Unfortunately, when you write a paper clarifying an observation you made in an earlier paper, it is not considered good scientific practice to add a footnote in your earlier paper noting the ambiguous or incorrect observation and pointing to the later paper that clarifies or corrects it. This means that a lot of people who read the early paper might have no idea that the later paper exists, and go on believing something that, when you looked deeper, turned out to just be a spurious correlation.</p>
+<p>This has unfortunately become the case with parameter norm and loss of plasticity, and I’m writing this blog post in a possibly-futile effort to correct it. In particular, I want to refute the following misconception:</p>
+<p><em>Neural networks lose plasticity because their parameter norm gets large, so if you find a method that doesn’t cause parameter norms to grow too much then that will help maintain plasticity through some complex, as-yet-unknown mechanism.</em></p>
+<p>My clarification is going to stand on two pillars: first, I will explain why parameter norm doesn’t cause loss of plasticity. Then, I will explain why it does.</p>
+<h1 id="prelude-scale-invariant-functions">Prelude: scale-invariant functions</h1>
+<p>Consider a “standard” feedforward ReLU network from the year 2018, back before softmax attention took off. This network would typically be composed of a few main ingredients: convolutional layers, fully-connected layers, batch or layer normalization, ReLU nonlinearities, skip connections, and maybe a softmax transform at the end to convert logits into a normalized probability distribution. In this case, the network will be viewed as a sequence of linear-homogeneous functions followed by normalization transforms. Such a network is partially <em>scale-invariant</em>, which means that multiplying the parameters by a constant (for any set of parameters that precedes a normalization layer) won’t change the network output. Scale-invariant networks have a lot of nice properties, one of which is that there exist equivalence classes of parameter-norm-learning-rate pairs which induce the same training dynamics. The mathematics behind this are actually quite cute. Essentially, given a function such that</p>
+<p><span class="math display">\[f(x) = f(\alpha x) \forall \alpha &gt; 0\]</span></p>
+<p>we have the following property of the gradient</p>
+<p><span class="math display">\[\nabla f(\alpha x) = \frac{1}{\alpha} f(x) \]</span></p>
+<p>which is straightforward to deduce from the definition of a derivative</p>
+<p><span class="math display">\[\nabla f(x) = \lim_{h \rightarrow 0} \frac{f(x + h) - f(x)}{h} = \lim_{h \rightarrow 0} \alpha \frac{f(\alpha x + \alpha h) - f(\alpha x)}{\alpha h} = \alpha \nabla f(\alpha x)\]</span></p>
+<div style="float:right; width:30%; margin-left:5%; margin-bottom:5%;">
+<img src="../images/scale-visualization.png" width="90%">
+<div style="width:80%; font-size:14px;">
+Perturbing a vector by the same angle requires a large absolute perturbation the larger the vector is. If you have a loss function that only depends on angle, this means the gradient of this function will be smaller for larger vectors, all else equal. It also means you need to take much larger steps to produce the same change in the loss.
+</div>
+</div>
+<p>This means that if we follow gradient descent from parameters <span class="math inline">\(\theta\)</span> with learning rate <span class="math inline">\(\eta\)</span> the updated function <span class="math inline">\(f(\theta + \eta \nabla \ell(\theta))\)</span> is the same as an update to the scaled parameters <span class="math inline">\(\alpha \theta\)</span> updated with learning rate <span class="math inline">\(\alpha^2 \eta\)</span>. It’s easy to picture this relationship between scale and learning rate in your head if you imagine trying to rotate the minute vs the hour hand around a clock face. The minute hand is a lot longer than the hour hand, and so you have to move it further achieve the same change in angle.</p>
+<p>The training dynamics of a neural network are much more complicated than rotating the minute and hour hands of a clock. However, with respect to parameter norm, the clock isn’t such a bad analogy. If you have a neural network that frequently normalizes features as they propagate through layers, the norm of the weight matrix preceding this normalization won’t matter for the network output, since it will be immediately rescaled anyway. What matters instead is the <em>direction</em> of the features after the weight matrix has been applied.</p>
+<h2 id="why-weight-norm-doesnt-cause-loss-of-plasticity">Why weight norm doesn’t cause loss of plasticity</h2>
+<p>In a scale-invariant network, training dynamics depend on the <em>effective</em> learning rate. Provided that a suitable ELR is maintained, the network’s training dynamics will be independent of the parameter norm. So although an obscenely large parameter norm will result in a vanishing effective learning rate and thus slower learning (imagine trying to move the minute hand on Big Ben by dropping grapes on it), “reasonable” parameter norm growth should have the same effect on plasticity as a slight reduction in the learning rate.</p>
+<p>In networks which aren’t scale-invariant, the picture is a bit murkier as now an excessively large parameter norm can directly cause pathologies in the network, for example saturated nonlinearities or divergent gradient norms. While these phenomena certainly can and do occur when parameters are too large, the causal relationship between trainability and parameter norm is more subtle than might be initially expected, as the following examples illustrate.</p>
+<p>Example 1: gradient norm spikes, network takes steps whose size is much larger than the local loss landscape sharpness can accommodate, and a period of instability emerges during which the parameter norm increases. The result will be a sudden jump in the parameter norm due to the period where the gradients were large, coupled with a potential loss in plasticity particularly if the network saturated a large fraction of its nonlinear activations in the process. This will result in the parameter norm and plasticity correlating, but not as a result of a direct causal relationship – instead, both are downstream consequences of deeper optimization problems.</p>
+<p>Example 2: a transformer is trained beyond the interpolation threshold on a classification task, and to maximize the log likelihood of the correct class, learns to saturate all softmax transformations in the network; while this is happening, the parameter norm slowly grows. Additional data is added later, but the network is slow to respond to the learning signal provided by the new data as it requires learning new attention patterns.</p>
+<p>In example 1, plasticity loss is caused by a chaotic phase of training dynamics which also cause parameter norm growth. In example 2, parameter norm growth <em>might</em> be responsible for plasticity loss if it is the reason for the saturated softmax, but it might also only play a supporting role in the unfolding dynamics, with the majority of saturation due to increases in the norm of the LN scale parameters or due to increased alignment of pre-softmax weights with the incoming features. In practice I’ve tended to observe that the last option is most common, and that while parameter norm does tend to increase alongside feature norm, alignment between features and weights tends to account for the bulk of the growth in feature norm.</p>
+<p>In short, the causal story tends to be that something about the network training dynamics, which is some combination of transient chaotic phases of training combined with more pervasive, subtle biases that lead to poor conditioning and over-saturated nonlinearities, is a root causal node which can induce both increases in the parameter norm and reduced trainability. Although parameter norm growth presents a strong correlational relationship with plasticity loss, this is mostly because the types of dynamics which lead to plasticity loss also tend to result in greater parameter norm growth.</p>
+<p>This doesn’t fully explain why so many regularization methods that reduce growth in the parameter norm also reduce plasticity loss. It’s reasonable to question whether there really is no (or at least a very weak) causal arrow between parameter norm and plasticity when empirically so many interventions that reduce the former also improve the latter. This is a reasonable point, but mostly wrong. And because the way that it is wrong is quite subtle, I think the perceived strength of the correlation in th eliterature is much greater than it actually is.</p>
+<p>In an unregularized network, parameter norm growth is a natural consequence of learning. Even if we were applying completely random updates to the network, we would expect its parameter norm to grow at a roughly <span class="math inline">\(\sqrt{t}\)</span> rate. If the underlying learning dynamics will tend to drive the network into a less plastic regime (e.g. due to excessive simplicity bias or unit saturation), then doing anything that slows down this process will make plasticity loss look better. Reducing the learning rate? Less plasticity loss. Reducing the number of steps? Less plasticity loss. These interventions will also reduce how much the parameter norm can grow for obvious reasons. However, they’re not reducing loss of plasticity <em>because</em> they limit parameter norm growth; parameter norm growth is a consequence of a more fundamental causal node that is being acted on.</p>
+<p>It’s common for siblings in a causal graph to correlate. However, this correlation is also vulnerable to Goodhart’s law. Setting a weight decay factor of 10000 will certainly prevent parameter norm growth, but at the cost of ever learning.</p>
+<h2 id="why-weight-norm-does-cause-loss-of-plasticity">Why weight norm does cause loss of plasticity</h2>
+<p>My commentary above requires a caveat. While in normal conditions the thing that is making your network untrainable is unlikely to be the magnitude of its parameters, weight norm <em>can</em> drive loss of plasticity in extreme cases. For example, if you let a neural network run unregularized for millions of steps on a highly non-stationary learning problem with lots of gradient spikes, you can reach a point where your model fails to be trainable <em>because</em> the parameter norm has become obscenely large. While the precise meaning of “obscenely large” varies between problem settings and architectures, increasing by, say, 6 orders of magnitude is usually sufficient to cause optimization problems in a neural network, as we can see in the following plot.</p>
+<center>
+<img src="../images/param-norm-plot.png" width="80%" align="center" />
+</center>
+<p><span style="font-size:12px;">Notice that the orange lines, which correspond to an unregularized network trained on a sequence of image classification tasks, exhibit enormous parameter norm growth that eventually leads to a drop-off in average performance. Figure from <a href="https://arxiv.org/abs/2402.18762">this paper</a>. </span></p>
+<p>Further, if parameter norm is too large at initialization, when gradients are quite large relative to the parameters, this can also lead to instabilities and failure to train. Parameter norms at initialization require careful calibration to make sure learning is <a href="https://arxiv.org/html/2406.06158v2">balanced</a>, <a href="https://arxiv.org/abs/1712.08969">stable</a>, and <a href="https://arxiv.org/abs/2011.14522">nontrivial</a>. So it’s definitely the case that starting out training with a large parameter norm can become problematic. Similarly, many signal propagation properties, e.g. <a href="https://arxiv.org/abs/2305.17212">rotational equilibrium</a> and <a href="https://arxiv.org/abs/1806.05393">dynamic isometry</a>, need to be introduced in the network prior to initialization in order to ensure it is sufficiently well-behaved. So although increasing parameter norm isn’t typically a causal factor in loss of plasticity, if you use a very ill-conceived initialization scheme you can certainly end up in a situation where the parameter norm is the reason why you can’t train your network.</p>
+<h2 id="so-what-should-you-think">So what should you think?</h2>
+<p>So to summarize the above: except in truly egregious situations, the increase in your parameter norm is not the reason your network is harder to train than it was when you initialized it. While weight norms can be a useful heuristic for how much the network has moved from its initialization, and thus can <em>correlate</em> with plasticity loss, the correlation is not robust and trying to minimize parameter norm growth without taking other aspects of training into account will not solve all of your network trainability problems. The most important time to pay attention to parameter norm is as a cue for how chaotic your training dynamics are – e.g. if your parameter norm spikes, you should check to see if your network is still ok as it probably just took a bunch of steps that were much larger than the curvature was suited for – and if you’ve been training for hundreds of millions of steps, in which case you want to make sure your parameter norm hasn’t changed by multiple orders of magnitude.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
