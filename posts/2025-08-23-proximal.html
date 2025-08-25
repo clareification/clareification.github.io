@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on August 23, 2025
+</div>
+<div class="container">
+<h2>A visual guide to proximal methods</h2>
+<p><em>Extra gradients</em></p>
+<p></p>
+<h2 id="proximal-methods">Proximal methods</h2>
+<p>In the RL Renaissance, PPO is now on the tip of everyone’s tongue. But the roots of the first letter in the now-widespread acronym actually derive from a much more ancient and obscure branch of optimization. In fact, PPO bears little resemblance</p>
+<p>Recall your standard gradient descent update:</p>
+<p><span class="math display">\[ x_{t+1} = x_t - \eta \nabla f(x_t) \]</span></p>
+<p>Gradient descent is simple, intuitive, and usually effective. It also has major convergence issues. These are also intuitive, and come from the fact that the naive gradient descent algorithm applies a one-size-fits-all philosophy to step size across different dimensions of the iterate. If the learning problem is ill-conditioned, (i.e. the sharpest direction is many orders of magnitude steeper than the flattest, so <span class="math inline">\(\kappa = \frac{\lambda_{\max}(\mathcal{H})}{\lambda_{\min}(\mathcal{H})})\)</span> is large), then you have to keep the learning rate small to avoid divergence, which means learning in the flat directions, where a larger step size would be optimal, will occur slowly. There’s a whole centuries-old field of (approximate) second-order optimization dedicated to fixing this problem, which essentially amounts to multiplying your gradient by some matrix so that you take larger steps along the flat directions and smaller steps on the steep ones.</p>
+<p><span class="math display">\[ x_{t+1} = x_t - \eta P(x_t) \nabla f(x_t) \]</span></p>
+<p>When <span class="math inline">\(P\)</span> is <span class="math inline">\(\mathcal{H}^{-1}\)</span>, you have Newton’s method. But there’s another class of iterative algorithm known as proximal methods which take this one step further. A proximal method performs the <em>implicit</em> update</p>
+<p><span class="math display">\[x_{t+1} = \mathrm{arg min } \;f(x) + \frac{\lambda}{2} \| x - x_{t} \|^2\]</span></p>
+<p>which when I first saw it looked a bit suspicious, because if you set <span class="math inline">\(\lambda = 0\)</span> you’ve just restated your original problem of finding the minimum of <span class="math inline">\(f(x)\)</span>, and if you could have done that easily in one step you wouldn’t have needed an optimization algorithm in the first case.</p>
+<p>In some cases, setting the <span class="math inline">\(\lambda &gt; 0\)</span> term can actually make the problem a bit easier. If <span class="math inline">\(f\)</span> is convex, for example, then <span class="math inline">\(f + \frac{\lambda}{2} \| x - x_t\|^2\)</span> will be <span class="math inline">\(\lambda\)</span>-strongly convex, which means that the larger <span class="math inline">\(\lambda\)</span> is the faster you can find an answer to the implicit definition given above.</p>
+<p>Note as well that the proximal update has another closed form, which is obtained by setting <span class="math inline">\(\nabla [ f(x) +\frac{\lambda}{2} \| x - x_{t} \|^2 ] = 0\)</span>:</p>
+<p><span class="math display">\[x_{t+1} = x_t - \frac{1}{\lambda} \nabla f(x_{t+1}) \]</span></p>
+<p>This is actually solvable in closed form if you have a way of inverting your jacobian. Even if you can’t solve it in closed form, there are a number of options available to you for approximating this update. These will be the extra- and optimistic-gradient methods alluded to in the title of this post. But before I get into how this thing is approximated, I want to take a moment to appreciate why we would want to update based on the <em>next</em> iterate’s direction of steepest descent. After all, in a changing, nonlinear optimization landscape, is it really reasonable to expect that the direction of steepest descent at some <em>other</em> point in space will be a good descent direction at your current iterate?</p>
+<p>The answer is yes, and the reason comes back to preconditioning. Recall the gradient-based version of the proximal update, but now written in a slightly more explicit format, setting <span class="math inline">\(\eta = \frac{1}{\lambda}\)</span> from before.</p>
+<p><span class="math inline">\(\begin{align}
+x_{t+1}&amp; = x_t - \eta F (x_{t+1}) \\
+x_{t+1} + \eta F(x_{t+1}) &amp;= x_t \\
+(I + \eta F)x_{t+1} &amp;= x_t \\
+x_{t+1} &amp;= (I + \eta F)^{-1} x_t
+\end{align}\)</span></p>
+<p>A popular example function in situations like this is the quadratic <span class="math inline">\(f(x) = x^\top Ax\)</span> for some symmetric positive definite matrix <span class="math inline">\(A\)</span>. In this case, we can write out our update dynamics explicitly as <span class="math inline">\((I + \eta F)^{-1} = (I + \eta A)^{-1}\)</span>. Analogously, we can write our gradient descent update as the application of the fixed matrix <span class="math inline">\((I- \eta A)\)</span>. If you took enough math courses in high school and college, you might recall that <span class="math inline">\(\frac{1}{1 + x}\)</span> is a decent approximation to <span class="math inline">\(1 - x\)</span> for small <span class="math inline">\(x\)</span>. You might also recall that <span class="math inline">\(\frac{1}{1 + \alpha x} = \sum_{t=1}^\infty (-\alpha x)^t\)</span> – this interpretation will also come in handy later in the post.</p>
+<p>Since <span class="math inline">\(A\)</span> is nice, it is diagonalizable with real eigenvalues and so we know that the spectrum of our new operator <span class="math inline">\((I - \eta A)^{-1}\)</span> will be the straightforward transform <span class="math inline">\(\lambda_i(A) \mapsto \frac{1}{1 + \eta \lambda_i}\)</span>. The function <span class="math inline">\(\frac{1}{1 + \eta x}\)</span> has the effect of squashing the eigenvalues of <span class="math inline">\(A\)</span> together, so that the operator will be a contraction for arbitrarily large step sizes <span class="math inline">\(\eta\)</span> (as opposed to the operator <span class="math inline">\(I - \eta A\)</span>, which can only take values <span class="math inline">\(\eta &lt; 2\lambda_{\max}(A))\)</span> before it becomes an expansion).</p>
+<div style="float:right; width:450px; margin-left:5%; margin-bottom:5%;">
+<img src="../images/proximal_methods_top.jpg" height="180px/">
+</div>
+<p>For example, if <span class="math inline">\(A = \mathrm{diag}(0.01, 1000)\)</span> (with a nice round condition number of 1 million), the largest stable learning rate we can use will be 0.001. Then the resulting eigenvalues of the operator <span class="math inline">\(I - \eta A\)</span> will be roughly <span class="math inline">\(1 - 1e-6, 0\)</span>. Power iteration on this operator (which is what gradient descent essentially is in this problem setting), will thus converge extremely slowly due to the ~unity eigenvalue. By contrast, the operator <span class="math inline">\((I + \eta A)^{-1}\)</span> can use a much larger value of <span class="math inline">\(\eta\)</span> has eigenvalues of approximately $ ,  (1, e^{-1000})$. Note, this isn’t as good as Newton’s method, which would rescale the eigenvalues to all be equal, but it does a pretty good job.</p>
+<p>For the quadratic <span class="math inline">\(f(x) = x^\top A x\)</span>, newton’s method applies the update <span class="math inline">\(x_1 = x_0 - A^{-1} Ax_0 = 0\)</span> which exactly solves the optimization problem in a single step. The proximal method doesn’t converge in a single step, but also doesn’t necessarily require inverting the whole <span class="math inline">\(A\)</span> matrix.</p>
+<h2 id="lets-play-a-game">Let’s play a game</h2>
+<p>So given that the proximal update seems pretty hard to compute and also doesn’t converge as fast as Newton’s method, why would anyone care about it? First, because there are some cases where a proximal update might still be easier to compute than newton’s method, making it converge faster in wall-clock time if not in iterates. And second, because there are many optimization problems that don’t involve finding a local minimum of a stationary objective – in particular, in games.</p>
+<p>While not as trendy as it used to be, the study of saddle-point-finding algorithms did make a splash in the machine learning conference circuit in the late-20-teens, back when GANs were the state of the art. Games present a lot of problems that “normal” optimization problems don’t; namely, if you have two players following best-response dynamics, you can end up in eternal cycles (for example, if you play rock paper scissors with a friend and you both follow the strategy of picking the thing that would have always beaten your opponent’s previous selection).</p>
+<p>These cycles can happen even for continuous, trivial “games” like a variant of the quadratic discussed previously: <span class="math inline">\(\max_x \min_y x^\top A y\)</span>, with <span class="math inline">\(A\)</span> as always SPD (in fact, we can make it even simpler and say <span class="math inline">\(A\)</span> is the identity). In this case, you get dynamics like the ones below, where <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> follow a perpetual elipse rather than converging to a fixed-, ideally saddle-point.</p>
+<p>In physics-speak, we need some sort of damping factor so that the trajectory spirals inward rather than cycling. It turns out, somewhat surprisingly, that various ways of approximating the proximal update rule are supremely effective at adding just such a damping factor. In the case where your dynamics follow a circle, this is easy to see in a proof by picture. Whichever direction you step along the circle, the gradient at that point will be pushing you slightly towards the origin if applied at your current position.</p>
+<div style="width:90%; margin-left:5%; margin-bottom:5%; margin-top:5%; border:1px dotted gray; padding:5px;">
+<img src="../images/optimism_intuition.png" height="280px" float="left" />
+<div>
+Proof-by-picture: if you’re traveling in a vector field of concentric circles, the one-step lookahead trick will have you make an update that pushes you slightly towards the point you’re oscillating around.
+</div>
+</div>
+<p>The linear-algebraic justification behind this is that in a game, you have a dynamical system of the form</p>
+<p><span class="math display">\[(x_{t+1}, y_{t+1}) = F(x_t, y_t)\]</span></p>
+<p>where, for example, simultaneous gradient ascent on <span class="math inline">\(x\)</span> and descent on <span class="math inline">\(y\)</span> in the game <span class="math inline">\(\max_x \min_y x^\top A y\)</span> for <span class="math inline">\(x, y \in \mathbb{R}^n\)</span> will have the form</p>
+<p><span class="math display">\[F(x_t, y_t) = A y_t, -A^\top x_t = M (x_t \oplus y_t) \quad M \in \mathbb{R}^{n \times n} \]</span></p>
+<p>where we can write <span class="math inline">\(M\)</span> as</p>
+<span class="math display">\[\begin{bmatrix}
+0 &amp; A \\
+-A^\top &amp; 0 
+\end{bmatrix}\]</span>
+<p>The problem with this setup is that <em>even if <span class="math inline">\(A\)</span> is a nice friendly SPD matrix</em>, <span class="math inline">\(M\)</span> won’t be. <span class="math inline">\(M\)</span> is skew-symmetric, which means its eigenvalues are all either purely imaginary or zero. This means that our gradient update, which has the form <span class="math inline">\((I- \eta M)(x_t \oplus y_t)\)</span>. The eigenvalues of <span class="math inline">\(I - \eta M\)</span> will look like $ _k = 1 - _k i$ where <span class="math inline">\(\sigma_k\)</span> can be any real number, and it’s easy to see that <span class="math inline">\(|1 - \eta \sigma_k i| \geq 1 \forall \sigma_k\)</span>. So our gradient descent operator is a non-contraction.</p>
+<p>By contrast, the update <span class="math inline">\((I + \eta M)^{-1}\)</span>, which is what the proximal update applies, will have eigenvalues of the form <span class="math inline">\(\frac{1}{1 + \eta \sigma_k i}\)</span>. By the same argument as we noted previously, since <span class="math inline">\(| 1 + \eta \sigma_k i| \geq 1\)</span>, its reciprocal will be inside of the unit circle for any nonzero <span class="math inline">\(\sigma_k\)</span>. As a result, while the system <span class="math inline">\(I - \eta M\)</span> will never converge for any <span class="math inline">\(\eta\)</span>, <span class="math inline">\((I + \eta M)^{-1}\)</span> will converge for essentially all <span class="math inline">\(\eta\)</span> (at least, it will converge along the dimensions that count towards the objective).</p>
+<h2 id="approximal-methods">Approximal methods</h2>
+In the world of big neural networks, one learns quickly to never invert a matrix unless absolutely necessary, and even in such cases to use iterative methods instead of the explicit computation. Fortunately for us, there already exist multiple methods for approximating the proximal update: extra- and optimistic gradients.
+<div style="float:right; width:450px; margin-left:5%; margin-bottom:5%; margin-top:5%;">
+<img src="../images/proximal_methods_bottom.jpg" height="180px/">
+</div>
+<p><strong>Extra, extra!</strong> For the small population of basketball players who read obscure blog posts on saddle point optimization, the extra-gradient method can be roughly interpreted as a fake-step. You <em>pretend</em> to take a gradient step, then look at how the loss landscape has changed in response, then take your real step based on your updated information.</p>
+<p><span class="math display">\[x_{t+\frac{1}{2}} = x_t - \eta \nabla f(x_t) \]</span>
+<span class="math display">\[x_{t+1} = x_t - \eta \nabla f(x_{t + \frac{1}{2}})\]</span></p>
+<p>There are a couple of ways of interpreting this update rule. One is to view it as one step further down a continuum between gradient and proximal updates (this only holds exactly when the gradient function is linear, otherwise you have to mumble `first order Taylor approximation’ whenever anyone sees you do it):</p>
+<p><span class="math display">\[x_{t+1} = x_t - \eta \nabla f(x_t - \eta \nabla f(x_t)) = x_t - \eta J (x_t - \eta J x_t) = x_t - \eta Jx_t + \eta^2 J^2 x_t = \sum_{t=0}^2 (-\eta \nabla f)^t x_t\]</span></p>
+<p>But is this really enough to guarantee convergence? Let’s revisit the skew-symmetric update of the <span class="math inline">\(\min_x \max_y x^\top A y\)</span> game. In this case, we have a linear dynamical system with dynamics</p>
+<p><span class="math display">\[x_{t+1} = x_t - \eta A x_t + \eta^2 A^2 x_t  \quad x_{t+1} = y_t - \eta A^\top y_t + \eta^2 (A^2)^\top y_t \]</span></p>
+<p>or in other words, we have the update <span class="math inline">\((I - \eta M + \eta^2M^2)\)</span>. This update has eigenvalues <span class="math inline">\((1 - \eta \sigma_k i - \eta^2\sigma_k^2)\)</span>, for which we have</p>
+<p><span class="math inline">\(|(1 - \eta \sigma_k i - \eta^2\sigma_k^2)| = \sqrt{1 - 2\eta^2 \sigma_k^2 + \eta^4 \sigma_k^4 + \eta^2\sigma_k^2} = \sqrt{1 - \eta^2 \sigma_k^2 + \eta^4 \sigma_k^4}\)</span></p>
+<p>which <em>might</em> be less than 1, depending on whether you can find an <span class="math inline">\(\eta\)</span> so that <span class="math inline">\(\eta^2 \sigma_k^2 &gt; \eta^4 \sigma_k^4\)</span>.</p>
+<p>So there’s hope. And intuitively, this makes some sense. You know that if you’re moving in a circle, your velocity at time <span class="math inline">\(t\)</span>, <span class="math inline">\(\dot{x}_t\)</span>, will be orthogonal to your position <span class="math inline">\(x_t\)</span> (or rather, it will be orthogonal to your distance from the axis of rotation, but for simplicity we’ll assume rotation about the origin). The velocity at a point <span class="math inline">\(y_t\)</span> a little bit ahead of you will be orthogonal to <em>it</em>, but from your position would look like it was pointing slightly towards the axis of rotation (this is just the geometric manifestation of the fact that <span class="math inline">\(i^2\)</span> is a negative number).</p>
+<p><strong>Optimism</strong></p>
+<p>So we have a hope of convergence, but we’ve paid for it with a somewhat wasteful extra gradient computation. Gradients are much cheaper than Hessians (which are much cheaper than matrix inversion), but even a linear operation on a googol of parameters will still be a lot of compute. What is the lazy machine learning engineer to do? Well, iterate <span class="math inline">\(x_t\)</span> is fairly close to iterate <span class="math inline">\(x_{t - \frac{1}{2}}\)</span>, so it’s not crazy to think that the gradient that’s already lying around from <span class="math inline">\(x_{t - \frac{1}{2}}\)</span> might be a pretty good approximation of the one at <span class="math inline">\(x_t\)</span> – perhaps good enough that you can reuse it without anyone noticing. In other words: by being <em>optimistic</em> about the ability of the previous gradient to approximate the current one, we can reduce the computational cost associated with the learning algorithm.</p>
+<p><span class="math display">\[x_{t+\frac{1}{2}} = x_t - \eta \nabla f(x_{t - \frac{1}{2}}) \]</span>
+<span class="math display">\[x_{t+1} = x_t - \eta \nabla f(x_{t + \frac{1}{2}})\]</span></p>
+<p>There are a couple of different ways of interpreting this update rule. The one that I like, and which is close to <a href="https://optax.readthedocs.io/en/latest/_collections/examples/ogda_example.html">how optax implements OGD</a>, is to imagine a two-steps-forward, one-step-back trajectory. You take a big jump of an update, compute your next update direction at your current position, then take a step back before you jump in the new direction.</p>
+<p><span class="math display">\[x_{t+1} = x_t - 2\eta \nabla f(x_t) + \eta \nabla f(x_{t-1}) \]</span></p>
+<p>The <span class="math inline">\(\eta \nabla f(x_{t-1})\)</span> quantity is also sometimes referred to as a <em>negative momentum</em> term for obvious reason. This presents a nice distinction with gradient descent on minimization problems, where positive momentum is generally preferred (you might be wondering if, analogously to minimization problems, doing Polyak averaging with a negative sign would be better than this single-step negative momentum, but someone already asked this question and the answer is <a href="https://proceedings.mlr.press/v130/zhang21d/zhang21d.pdf">no</a>).</p>
+<p>Now, let’s revisit the bilinear game described previously, noting that the following discussion does <em>not</em> apply to general minimax problems on arbitrary nonlinear objectives and depends heavily on the structure of the bilinear game. Going back to our linear dynamical system interpretation of the optimization algorithm, the integer-timestep formulation decomposes as</p>
+<p><span class="math display">\[x_{t+1} = x_t - 2 \eta M x_t + \eta M_{x_{t}} + \eta M x_{t-1}\]</span></p>
+<p>Since our <span class="math inline">\(M\)</span> matrix is the same as before. In fact, although it takes a little bit more work to prove, update has the same convergence rate and the same region of stability as the extra-gradient approach.
+To do so, we define the linear operator <span class="math inline">\(L\)</span> such that <span class="math inline">\(x_{t+1} = L x_t\)</span>. We don’t have to construct it explicitly – all we need to do is show that its eigenvalues are within the same range as the extra-gradient ones. It helps to consider the behaviour of the sequence when initialized to <span class="math inline">\(x_0 = v\)</span> with <span class="math inline">\(v\)</span> an eigenvector of <span class="math inline">\(M\)</span> with eigenvalue <span class="math inline">\(\lambda\)</span>, noting that if <span class="math inline">\(x_0 = \alpha_1 v\)</span>, <span class="math inline">\(x_1 = \alpha_2 v\)</span>, then the operator <span class="math inline">\(L\)</span> will be restricted to the one-dimensional subspace <span class="math inline">\(v\)</span> in perpetuity.</p>
+<p><span class="math inline">\(\begin{align*}
+ x_{k+1} &amp;= (I - 2 \eta M) x_k + \eta M(x_{k-1})\\
+\mu^{k+1} v &amp;= (I - 2 \eta M) \mu^{k} v + \eta M(\mu^{k-1}v) \text{ where $\mu$ is the eigenvalue associated with $v$ in the meta-operator $L$.} \\
+\mu^2 v &amp;= (I - 2 \eta M) \mu v + \eta M v \quad \text{and noting that $(I - 2 \eta M) x_k + \eta M(x_{k-1}) = (1 - 2 \eta \lambda) v + \eta \lambda v$...}\\
+\implies \mu^2 &amp;= (1 - 2 \eta \lambda) + \eta \lambda \\
+\mu &amp;= \frac{1 - 2 i \eta \sigma \pm \sqrt{1 - 4 \eta^2\sigma^2}}{2} \\
+\end{align*}\)</span></p>
+<p>When I was trying to find a nicer factorization of the above, ChatGPT claimed that this can be shown to be equivalent to the extra-gradient operator eigenvalues, but I eventually convinced it that the <span class="math inline">\(\approx\)</span> symbol isn’t an equality and it rightly recanted that claim. Since this term also shows up in theorem 2.4 of <a href="https://arxiv.org/pdf/2208.03085">this paper</a>, I think that’s about as good as you can get. However, it is worth noting that this will still be a contraction for suitable step sizes and so we get exponential convergence just like with extra-gradients.</p>
+<h2 id="some-examples-and-concluding-thoughts">Some examples and concluding thoughts</h2>
+<p>In practice, the difference between optimistic and extra- gradient descent/ascent is pretty minimal. Empirically prior work seems to lean slightly towards favouring optimistic gradient descent for bilinear games and other problems whose structure means that the gradient reuse is a good approximation. I’ve included a couple of examples from the bilinear game discussed previously to give a flavour for how the convergence works.</p>
+<div style="float:right; width:100%; margin-left:5%; margin-bottom:5%;">
+<img src="../images/extra_vs_opt.png" height="280px/"><img src="../images/d_origin_ogd.png" height="280px/">
+</div>
+<div style="float:right; width:100%; margin-left:5%; margin-bottom:5%;">
+<img src="../images/large_lr_traj.png" height="280px/"> <img src="../images/large_lr_d.png" height="280px/">
+</div>
+<p>So as you can see, although the convergence rates of the two methods look pretty similar, at any particular time their iterates can be extremely far apart (because the two algorithms head in opposite directions starting from the first step). Also, the optimistic algorithm has a slightly less-than-uniform convergence behaviour compared to the extra-gradient one, even though they average out to similar values. As you might have expected, having a large learning rate results in faster convergence not only because you move faster in each loop of the spiral, but also because there’s a stronger regularization towards the center, so you need fewer loops to reach the same distance from the origin.</p>
+<p>Games are a bit out of fashion now that GANs have officially lost the image generation war to diffusion models, but I think this is a terrible shame because there are lots of challenging non-stationary learning problems where these types of non-convergence issues also come up. I originally heard the phrase “optimism” in the online learning context (mirror descent merits its own blog post, although <a href="https://parameterfree.com/2019/09/26/online-mirror-descent-i-bregman-version/">many good ones already exist</a> so I might not write about it myself), and there are lots of multi-agent systems that would likely be vulnerable to similar cyclic dynamics if one isn’t careful. I’ve even seen an <a href="https://arxiv.org/html/2503.08942v2">Extragradient PO</a> algorithm, so the future of proximal methods may yet have cause for (and I apologize for the terrible pun) optimism.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
