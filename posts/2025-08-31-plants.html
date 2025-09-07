@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on August 31, 2025
+</div>
+<div class="container">
+<h2>Plants are more complicated than people</h2>
+<p><em>And other implications of adaptivity</em></p>
+<p></p>
+<p>Every high school biology class enters a certain phase where the students learn that genomic complexity is almost completely uncorrelated with (at least superficial) phenotypic complexity. This phase is usually heralded by a somewhat arbitrary list of species’ genome lengths.</p>
+<ul>
+<li>Human: 3.1B base pairs</li>
+<li>Mouse: 2.7B base pairs</li>
+<li>American bullfrog: 6.32B base pairs</li>
+<li>New Caledonian fork fern: 160.45B base pairs</li>
+</ul>
+<p>Students are often shocked that the lowly bullfrog has almost exactly twice as much information in its genome, while the fern has over fifty times as much. I was definitely surprised at first when I read this factoid. But if you think about it for longer than about 20 seconds, it makes perfect sense. This blog post is my attempt to convey this intuition.</p>
+<p>The TL;DR is that plants can’t run away from their problems, so they benefit more from a larger genetic arsenal of solutions to throw at adverse conditions. More generally, much like</p>
+<p>Let’s start with an example.</p>
+<p>Consider two organisms. The first, who we will call Moe, is a simple motile water-dwelling organism with a whip-like tail and some basic means of sensing the world around it (such as photosensitive compounds). It is able to react to its environment to move away from dangers to its continued existence, meaning its behaviour can be very roughly approximated as the following.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(alive):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sense, sense_data <span class="kw">in</span> senses:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> sense_data <span class="kw">not</span> <span class="kw">in</span> safe_region(sense):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>            direction <span class="op">=</span> gradient(sense)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>            move(direction)</span></code></pre></div>
+<p>As you can see, the above circuit is very simple but has the potential to be highly effective, provided there exists a gradient that can move the organism out of danger. The same basic behaviour (move in the direction of the gradient) can be applied to a huge variety of situations, allowing for a relatively short program to produce effective behaviour in many sensory domains. indeed, it’s easy to see how, should the organism acquire some new sense, it could adapt its existing orient-along-gradient-and-whip-tail-quickly behaviour to the new data.</p>
+<p>Now let’s consider a second organism, which still has to adapt to the same environmental challenges as the first but has the unfortunate constraint of being a non-motile life form. For simplicity, as I will refer to it as “Herb”.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span>(alive):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sense, sense_data <span class="kw">in</span> senses:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> sense_data <span class="kw">not</span> <span class="kw">in</span> safe_region(sense):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> sense <span class="op">==</span> <span class="st">'temperature'</span>:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                <span class="cf">match</span> sense_data:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">case</span> sense_data <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                        release_antifreeze()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">case</span> sense_data <span class="op">&lt;</span> <span class="dv">5</span>:</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>                        extract_water_from_leaves()</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                        extract_chlorophyl_from_leaves()</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                        drop_leaves()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">case</span> sense_data <span class="op">&gt;</span> <span class="dv">35</span>:</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                        activate_heat_shock_proteins()</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> sense <span class="op">==</span> <span class="st">'humidity'</span>:</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">match</span> sense_data:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">case</span> sense_data <span class="op">&lt;</span> <span class="dv">10</span>:</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                        produce_abscisic_acid()</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                    <span class="cf">case</span> sense_data <span class="op">&gt;</span> <span class="dv">90</span>:</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                        produce_phytoalexins()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                        reinforce_cell_wall()</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                        generate_ROSs()</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># and so on</span></span></code></pre></div>
+<p>Herb is playing life on hard mode. When the going gets tough, Mo gets going, but Herb has to stay put and deal with it. In a dry spell, Herb has to reduce its water-losing activities. In a cold snap, Herb has to rapidly remove water from sensitive parts of its organism and produce chemical compounds that reduce the damage caused by water crystallization. In these situations, it’s not sufficient for Herb’s genome to encode a single behaviour (run away). Herb’s genome has to encode a custom solution for each of the many threats to existence and reproduction that might be encountered in this environment. Whereas Moe only needs to encode movement in a direction of a detected gradient, Herb has to synthesize several complex molecules (each of which requires a different set of proteins and thus genes to achieve), develop complex cellular signalling pathways, and modify its metabolism in response to adversity. If genetic drift removes any of these components in Herb’s children, natural selection will be quick to punish the overly parsimonious descendants; Moe’s descendants, by contrast, will happily shed their genetic baggage that allowed them to survive freezing temperatures and extended droughts.</p>
+<p>This is a cute theory, but it’s wrong. Or at least, incomplete.</p>
+<h3 id="caveats">Caveats</h3>
+<p>It isn’t the case that <em>all</em> plant genomes are bigger than <em>all</em> animal genomes, so clearly there’s more to genome length than just one’s ability to move around in the environment. For one thing, behaviours that allow an organism to escape danger might be very expensive to encode in the genome. Further, plenty of plants, like desert cacti, live in relatively placid environments, and many animals endure several dramatic environmental changes in their lifetimes<a href="#footnote-1"><span class="math inline">\(^1\)</span></a>.</p>
+<p>Mobility also has its limitations: you can’t run away from the cold in the arctic, or drought in the desert. So even the most mobile animals require some innate adaptations to the local environments. The mapping between number of base pairs required to encode a particular phenotype and the external complexity of that phenotype is also Add on top of that the fact that genome length doesn’t seem to be particularly strongly regularized by evolution, and what you end up with is a huge variety of genome sizes within and across kingdoms.</p>
+<p>There’s also the misalignment between outward complexity of a phenotype and the number of base pairs required to encode it. The longest gene in the human genome, clocking in at 2.4 million base pairs, encodes a protein called <a href="https://www.ncbi.nlm.nih.gov/gene/1756">dystrophin</a>, which as you might have guessed from the name can cause muscular dystrophy if it undergoes certain particularly deleterious mutations. FOXP2, one of the most critical genes responsible for language, by contrast, consists of a measly 607,446 base pairs. So language is apparently 1/4 as complicated as muscle contraction in DNA-base-pair language, which I wouldn’t have necessarily guessed a priori.</p>
+<p>Once you’ve accepted Moravec’s paradox into your heart, this isn’t so shocking. At least biochemistry is a sufficiently alien field (I at least certainly don’t have an intuitive sense as to whether gluconeogenesis should be more biochemically difficult than whatever signalling pathway tells your sweat glands to start producing sweat) that human intuitions on “task difficulty” are relatively weak. So the paradox is more of a lack of correlation in this case than a negative correlation.</p>
+<p>While gene length might not be particularly correlated with how “advanced” the behaviour it encodes is, there is at least an interesting correlation in humans where something like <a href="https://www.ninds.nih.gov/health-information/public-education/brain-basics/brain-basics-genes-and-brain">one-third</a> of encoding genes are expressed in the brain, which is higher than any other organ. So it does seem like human brains have acquired a lot of different functions that require different genes to modulate.</p>
+<p>The difference between animal-like modulation of one’s external environment (by running away from danger or towards a necessary resource) and plant-like modulation of one’s internal biochemistry reflects a bit the shift from GOFAI, where many carefully-constructed experts would be ensembled with a relatively simple switching circuit, to neural networks, where good initial conditions and learning dynamics are found, and then the system is set free to adapt to data as it comes in. Constructing an expert system that does as well as a large language model on many domains would take many many more lines of code than it takes to describe the initial weights and optimizer of a neural network.</p>
+<h3 id="what-you-should-remember">What you should remember</h3>
+<ol type="1">
+<li><p>Genome lengths don’t correlate much with human-perceived “advancedness” of an organism, but there’s some correlation with how much the organism needs to adapt on a biochemical level to its environment. So your typical plant benefits more from a long genome with lots of duplication than your typical animal, because the plant can’t run away from problems like drought or hot temperatures and needs a larger genetic arsenal to survive adversity.</p></li>
+<li><p>Neurological complexity doesn’t correspond much to genomic complexity. Humans express a lot of genes in the brain, but genes that control brain development aren’t wildly larger or more complex than other human genes, like those that encode muscle proteins such as dystrophin.</p></li>
+<li><p>One helpful analogy for the AI-inclined is the distinction between a hard-coded dialogue which has to explicitly script billions of possible behaviours, vs just initializing and running a language model, which requires many many fewer lines of code.</p></li>
+</ol>
+<p><a name="#footnote-1">1.</a> A prime example is the <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5561167/ ">lungfish</a>, which as its name suggests deals with droughts that evaporate the local water supply by growing a lung (during adolescence, not on-demand) and breathing air when there’s no water.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
