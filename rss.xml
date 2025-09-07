@@ -13,211 +13,211 @@
       <title>Plants are more complicated than people</title>
       <link>https://clarelyle.com/posts/2025-08-31-plants.html</link>
       <pubDate>Sun, 31 Aug 2025 00:00:00 UTC</pubDate>
-      <description>And other implications of adaptivity </description>
+      <description><a href="https://clarelyle.com/posts/2025-08-31-plants.html">And other implications of adaptivity </a></description>
     </item>
     <item>
       <title>The state of plasticity in 2025</title>
       <link>https://clarelyle.com/posts/2025-08-30-plasticity-survey.html</link>
       <pubDate>Sat, 30 Aug 2025 00:00:00 UTC</pubDate>
-      <description>A survey </description>
+      <description><a href="https://clarelyle.com/posts/2025-08-30-plasticity-survey.html">A survey </a></description>
     </item>
     <item>
       <title>A visual guide to proximal methods</title>
       <link>https://clarelyle.com/posts/2025-08-23-proximal.html</link>
       <pubDate>Sat, 23 Aug 2025 00:00:00 UTC</pubDate>
-      <description>Extra gradients </description>
+      <description><a href="https://clarelyle.com/posts/2025-08-23-proximal.html">Extra gradients </a></description>
     </item>
     <item>
       <title>Does parameter norm growth cause networks to lose plasticity?</title>
       <link>https://clarelyle.com/posts/2025-06-30-plasticity-norm.html</link>
       <pubDate>Mon, 30 Jun 2025 00:00:00 UTC</pubDate>
-      <description>A brief clarification </description>
+      <description><a href="https://clarelyle.com/posts/2025-06-30-plasticity-norm.html">A brief clarification </a></description>
     </item>
     <item>
       <title>Why do we divide by n-1 when estimating the variance?</title>
       <link>https://clarelyle.com/posts/2025-06-23-variance.html</link>
       <pubDate>Mon, 23 Jun 2025 00:00:00 UTC</pubDate>
-      <description>Two answers to the question every first-year stats student asks </description>
+      <description><a href="https://clarelyle.com/posts/2025-06-23-variance.html">Two answers to the question every first-year stats student asks </a></description>
     </item>
     <item>
       <title>What's grokking good for?</title>
       <link>https://clarelyle.com/posts/2025-06-22-grokking.html</link>
       <pubDate>Sun, 22 Jun 2025 00:00:00 UTC</pubDate>
-      <description>Some intuition on the what, why, and how of delayed generalization </description>
+      <description><a href="https://clarelyle.com/posts/2025-06-22-grokking.html">Some intuition on the what, why, and how of delayed generalization </a></description>
     </item>
     <item>
       <title>A post-rigorous derivation of the Gauss-Newton matrix</title>
       <link>https://clarelyle.com/posts/2025-05-17-deriving-gauss-newton.html</link>
       <pubDate>Sat, 17 May 2025 00:00:00 UTC</pubDate>
-      <description>Why take a Hessian when a gradient will do? </description>
+      <description><a href="https://clarelyle.com/posts/2025-05-17-deriving-gauss-newton.html">Why take a Hessian when a gradient will do? </a></description>
     </item>
     <item>
       <title>Paper review: Auditing language models for hidden objectives</title>
       <link>https://clarelyle.com/posts/2025-03-30-hidden-objectives.html</link>
       <pubDate>Sun, 30 Mar 2025 00:00:00 UTC</pubDate>
-      <description>What's in an objective? </description>
+      <description><a href="https://clarelyle.com/posts/2025-03-30-hidden-objectives.html">What's in an objective? </a></description>
     </item>
     <item>
       <title>Can you train a neural network forever?</title>
       <link>https://clarelyle.com/posts/2023-12-27-plasticity.html</link>
       <pubDate>Wed, 27 Dec 2023 00:00:00 UTC</pubDate>
-      <description>Understanding trainability in neural networks </description>
+      <description><a href="https://clarelyle.com/posts/2023-12-27-plasticity.html">Understanding trainability in neural networks </a></description>
     </item>
     <item>
       <title>Deep dive into the edge of stability</title>
       <link>https://clarelyle.com/posts/2023-10-15-edge.html</link>
       <pubDate>Sun, 15 Oct 2023 00:00:00 UTC</pubDate>
-      <description>Making loss landscapes trendy again. </description>
+      <description><a href="https://clarelyle.com/posts/2023-10-15-edge.html">Making loss landscapes trendy again. </a></description>
     </item>
     <item>
       <title>Evaluating understanding in LLMs</title>
       <link>https://clarelyle.com/posts/2023-08-27-llm-understanding.html</link>
       <pubDate>Sun, 27 Aug 2023 00:00:00 UTC</pubDate>
-      <description>It's surprisingly hard. </description>
+      <description><a href="https://clarelyle.com/posts/2023-08-27-llm-understanding.html">It's surprisingly hard. </a></description>
     </item>
     <item>
       <title>When do adaptive optimizers fail to generalize?</title>
       <link>https://clarelyle.com/posts/2023-01-29-adam.html</link>
       <pubDate>Sun, 29 Jan 2023 00:00:00 UTC</pubDate>
-      <description>A case study </description>
+      <description><a href="https://clarelyle.com/posts/2023-01-29-adam.html">A case study </a></description>
     </item>
     <item>
       <title>Do we know why deep learning generalizes yet?</title>
       <link>https://clarelyle.com/posts/2022-07-30-deep-learning.html</link>
       <pubDate>Sat, 30 Jul 2022 00:00:00 UTC</pubDate>
-      <description>It depends on your epistemology. </description>
+      <description><a href="https://clarelyle.com/posts/2022-07-30-deep-learning.html">It depends on your epistemology. </a></description>
     </item>
     <item>
       <title>The Importance of Making Mistakes in RL</title>
       <link>https://clarelyle.com/posts/2021-12-18-offline.html</link>
       <pubDate>Sat, 18 Dec 2021 00:00:00 UTC</pubDate>
-      <description>A tale of two NeurIPS papers </description>
+      <description><a href="https://clarelyle.com/posts/2021-12-18-offline.html">A tale of two NeurIPS papers </a></description>
     </item>
     <item>
       <title>How to Win Scholarships and Influence Donors</title>
       <link>https://clarelyle.com/posts/2021-09-25-scholarship.html</link>
       <pubDate>Sat, 25 Sep 2021 00:00:00 UTC</pubDate>
-      <description>All of my thoughts on scholarships in one place </description>
+      <description><a href="https://clarelyle.com/posts/2021-09-25-scholarship.html">All of my thoughts on scholarships in one place </a></description>
     </item>
     <item>
       <title>Auxiliary tasks in RL</title>
       <link>https://clarelyle.com/posts/2021-04-03-aistats.html</link>
       <pubDate>Sat, 03 Apr 2021 00:00:00 UTC</pubDate>
-      <description>Maybe the real reward was the representation we learned along the way. </description>
+      <description><a href="https://clarelyle.com/posts/2021-04-03-aistats.html">Maybe the real reward was the representation we learned along the way. </a></description>
     </item>
     <item>
       <title>Power to the people, but how?</title>
       <link>https://clarelyle.com/posts/2020-11-05-energy.html</link>
       <pubDate>Thu, 05 Nov 2020 00:00:00 UTC</pubDate>
-      <description>From muffins to marathons </description>
+      <description><a href="https://clarelyle.com/posts/2020-11-05-energy.html">From muffins to marathons </a></description>
     </item>
     <item>
       <title>A Bayesian Perspective on Training Speed and Model Selection</title>
       <link>https://clarelyle.com/posts/2020-10-30-bayesian.html</link>
       <pubDate>Fri, 30 Oct 2020 00:00:00 UTC</pubDate>
-      <description>As presented at NeurIPS 2020 </description>
+      <description><a href="https://clarelyle.com/posts/2020-10-30-bayesian.html">As presented at NeurIPS 2020 </a></description>
     </item>
     <item>
       <title>Why I'm Learning Biology</title>
       <link>https://clarelyle.com/posts/2020-10-05-atoms.html</link>
       <pubDate>Mon, 05 Oct 2020 00:00:00 UTC</pubDate>
-      <description>And why yoou should too </description>
+      <description><a href="https://clarelyle.com/posts/2020-10-05-atoms.html">And why yoou should too </a></description>
     </item>
     <item>
       <title>Causality, Generalization, and Reinforcement Learning</title>
       <link>https://clarelyle.com/posts/2020-07-11-icml.html</link>
       <pubDate>Sat, 11 Jul 2020 00:00:00 UTC</pubDate>
-      <description>Oh my! </description>
+      <description><a href="https://clarelyle.com/posts/2020-07-11-icml.html">Oh my! </a></description>
     </item>
     <item>
       <title>In praise of the logarithm</title>
       <link>https://clarelyle.com/posts/2020-04-20-logs.html</link>
       <pubDate>Mon, 20 Apr 2020 00:00:00 UTC</pubDate>
-      <description>Why are logarithms so magical? </description>
+      <description><a href="https://clarelyle.com/posts/2020-04-20-logs.html">Why are logarithms so magical? </a></description>
     </item>
     <item>
       <title>Causality</title>
       <link>https://clarelyle.com/posts/2019-08-09-causality1.html</link>
       <pubDate>Fri, 09 Aug 2019 00:00:00 UTC</pubDate>
-      <description>If causation isn't correlation, then what is it? </description>
+      <description><a href="https://clarelyle.com/posts/2019-08-09-causality1.html">If causation isn't correlation, then what is it? </a></description>
     </item>
     <item>
       <title>An ImPACtful, BAYESic result</title>
       <link>https://clarelyle.com/posts/2019-04-09-pacbayes.html</link>
       <pubDate>Tue, 09 Apr 2019 00:00:00 UTC</pubDate>
-      <description>Generalization can be Bayesian, too </description>
+      <description><a href="https://clarelyle.com/posts/2019-04-09-pacbayes.html">Generalization can be Bayesian, too </a></description>
     </item>
     <item>
       <title>What makes the distributional perspective on RL different?</title>
       <link>https://clarelyle.com/posts/2019-02-08-aaai.html</link>
       <pubDate>Fri, 08 Feb 2019 00:00:00 UTC</pubDate>
-      <description>Stuff I did in 2018 </description>
+      <description><a href="https://clarelyle.com/posts/2019-02-08-aaai.html">Stuff I did in 2018 </a></description>
     </item>
     <item>
       <title>Probabilistic Graphical Models</title>
       <link>https://clarelyle.com/posts/2018-11-11-graphical-models.html</link>
       <pubDate>Sun, 11 Nov 2018 00:00:00 UTC</pubDate>
-      <description>Why I shouldn't quit my PhD to go into the coffee business. </description>
+      <description><a href="https://clarelyle.com/posts/2018-11-11-graphical-models.html">Why I shouldn't quit my PhD to go into the coffee business. </a></description>
     </item>
     <item>
       <title>Reflections on my first month in grad school</title>
       <link>https://clarelyle.com/posts/2018-11-10-grad-school.html</link>
       <pubDate>Sat, 10 Nov 2018 00:00:00 UTC</pubDate>
-      <description>DPhil life </description>
+      <description><a href="https://clarelyle.com/posts/2018-11-10-grad-school.html">DPhil life </a></description>
     </item>
     <item>
       <title>A semi-coherent summary of set theory pt 2</title>
       <link>https://clarelyle.com/posts/2017-05-25-settheory2.html</link>
       <pubDate>Thu, 25 May 2017 00:00:00 UTC</pubDate>
-      <description>Or how set theorists are bad at naming things </description>
+      <description><a href="https://clarelyle.com/posts/2017-05-25-settheory2.html">Or how set theorists are bad at naming things </a></description>
     </item>
     <item>
       <title>A semi-coherent summary of set theory</title>
       <link>https://clarelyle.com/posts/2017-05-20-settheory.html</link>
       <pubDate>Sat, 20 May 2017 00:00:00 UTC</pubDate>
-      <description>Or why math really really needs rules </description>
+      <description><a href="https://clarelyle.com/posts/2017-05-20-settheory.html">Or why math really really needs rules </a></description>
     </item>
     <item>
       <title>Week 1 in Oxford</title>
       <link>https://clarelyle.com/posts/2017-05-14-oxfordweek1.html</link>
       <pubDate>Sun, 14 May 2017 00:00:00 UTC</pubDate>
-      <description>I'm in Oxford! </description>
+      <description><a href="https://clarelyle.com/posts/2017-05-14-oxfordweek1.html">I'm in Oxford! </a></description>
     </item>
     <item>
       <title>School starts, as do the cool proofs</title>
       <link>https://clarelyle.com/posts/2016-09-06-backtoschool.html</link>
       <pubDate>Tue, 06 Sep 2016 00:00:00 UTC</pubDate>
-      <description>Infinity is still really cool. </description>
+      <description><a href="https://clarelyle.com/posts/2016-09-06-backtoschool.html">Infinity is still really cool. </a></description>
     </item>
     <item>
       <title>What Work is Worth</title>
       <link>https://clarelyle.com/posts/2016-08-21-value.html</link>
       <pubDate>Sun, 21 Aug 2016 00:00:00 UTC</pubDate>
-      <description>Or, how getting grossed out by blood was possibly the most profitable personality trait I ended up with. </description>
+      <description><a href="https://clarelyle.com/posts/2016-08-21-value.html">Or, how getting grossed out by blood was possibly the most profitable personality trait I ended up with. </a></description>
     </item>
     <item>
       <title>First Week at Microsoft</title>
       <link>https://clarelyle.com/posts/2016-06-06-firstday.html</link>
       <pubDate>Mon, 06 Jun 2016 00:00:00 UTC</pubDate>
-      <description>Or how I installed more microsoft products in two days than I had in the last two years. </description>
+      <description><a href="https://clarelyle.com/posts/2016-06-06-firstday.html">Or how I installed more microsoft products in two days than I had in the last two years. </a></description>
     </item>
     <item>
       <title>On Entering the Real World</title>
       <link>https://clarelyle.com/posts/2016-05-25-stuff.html</link>
       <pubDate>Wed, 25 May 2016 00:00:00 UTC</pubDate>
-      <description>Or, on getting a job at a big tech company. </description>
+      <description><a href="https://clarelyle.com/posts/2016-05-25-stuff.html">Or, on getting a job at a big tech company. </a></description>
     </item>
     <item>
       <title>A gentle introduction to infinities</title>
       <link>https://clarelyle.com/posts/2016-05-16-introtoinfinity.html</link>
       <pubDate>Mon, 16 May 2016 00:00:00 UTC</pubDate>
-      <description>Infinity is bigger than you think. </description>
+      <description><a href="https://clarelyle.com/posts/2016-05-16-introtoinfinity.html">Infinity is bigger than you think. </a></description>
     </item>
     <item>
       <title>A round-up of my favourite proofs from introductory math courses</title>
       <link>https://clarelyle.com/posts/2016-04-28-firstyearproofs.html</link>
       <pubDate>Thu, 28 Apr 2016 00:00:00 UTC</pubDate>
-      <description>I spent a lot of time proving things this year. </description>
+      <description><a href="https://clarelyle.com/posts/2016-04-28-firstyearproofs.html">I spent a lot of time proving things this year. </a></description>
     </item>
   </channel>
 </rss>

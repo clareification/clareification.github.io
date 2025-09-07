@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on September  6, 2025
+</div>
+<div class="container">
+<h2>The state of plasticity in 2025</h2>
+<p><em>A survey</em></p>
+<p></p>
+<p>It’s been a while since I last posted about the state of plasticity in neural networks, so I thought I would give a very opinionated update on how I see the field as of Summer 2025. For a less opinionated take, I found that <a href="https://arxiv.org/abs/2411.04832">this survey paper</a> did a nice job of giving an overview of various recent advances.</p>
+<h3 id="ancient-history">Ancient History</h3>
+<p>In the world of neuroscience, people used the term plasticity to refer to the <a href="https://psychclassics.yorku.ca/James/Principles/prin4.htm">ability of a network to change <em>and then hold</em> its shape</a>. This usage is analogous like how a plastic can be molded and then maintains the shape of its mold (as opposed to e.g. a liquid). Work on neural networks mostly focuses on the former part of this definition, I think in part because the ability to maintain a stable set of connections is trivial in deep learning (you just freeze the weights of your network) compared to biology, which makes the question of maintaining a new “shape” somewhat trivial Additionally, since plasticity is often contrasted with stability, e.g. in stability-plasticity trade-offs, it has become fairly standard usage to refer to plasticity as a network’s ability to change in response to experience, rather than the longevity of the effects of this change.</p>
+<h3 id="current-definition">Current Definition</h3>
+<p>So loosely speaking, plasticity is mostly used to refer to how easy it is to <em>train</em> the network. For example, if your network has vanishing or exploding gradients, it will not be very trainable. This definition is a bit tricky because trainability will be a function of both the network state and the optimizer being used for training. Poor conditioning, for example, will be a problem for SGD but not Newton’s method. So the same network might be both trainable and untrainable at the same time, depending on which optimizer you use as a reference class.</p>
+<div style="width:90%; clear:both;">
+<div style="float:right; width:40%;">
+<span>Example loss landscape where gradient descent would appear highly <em>im</em>plastic but a second-order or preconditioned method wouldn’t.</span>
+</div>
+<img src="../images/ill_conditioned_quadratic.png" width="50%" float="left" />
+</div>
+<p>But just being able to optimize your training objective isn’t the end of the story. A network might be trainable in the sense of being able to reduce its training loss, but it might do so at the cost of inducing a large generalization gap, meaning that the reductions in the training objective might translate little if at all to the data distribution of interest. The term “loss of plasticity” is sometimes used to refer to this situation as well, although the mechanisms that lead to a network not being able to generalize to test data tend to be somewhat different from those that prevent it from reducing its loss on training data.</p>
+<h2 id="when-training-networks-was-hard">When training networks was hard</h2>
+<p>The modern deep learning researcher, much like the mdoern citizen of a developed city, profits from technological advances which have turned previously sysyphean tasks into near-magical button presses. I remember my (not particularly old) advisor regaling his students about how in the old days before autodiff you used to have to compute your gradients by hand. Just like the magical buttons I press to illuminate my house, start my car, and turn on a toaster, API calls like <code>.grad()</code> and <code>.init()</code> are incantations obfuscating several decades of hard work.</p>
+<p>In traditional supervised learning settings, loss of plasticity is almost never a concern. Whether the network had any plasticity to lose in the first place, however, was a much less certain proposition until relatively recently. Most research into the trainability of neural networks therefore focused on finding good (i.e. trainable) architectures and initializations.</p>
+<p>This is actually a fairly non-trivial proposition, especially for deep networks, mostly because of how exponents work.</p>
+<div style="width:400px; float:right; padding:3px; margin:3px;">
+<img src="../images/glorot-gradient-dist.png" style="width:400px;"><span style="font-size:10pt; padding:3px;">Example from <a href="https://proceedings.mlr.press/v9/glorot10a">Glorot et al.</a> of how even in a small-by-modern-standards neural network, depth can make gradients/activations rapidly collapse. </span>
+</div>
+<p>If each layer of a network scaled the gradients coming into it by a factor of 1.1, then an 80-layer network (not unheard of even in the era of vision networks) would have first-layer gradients that were 2000x larger than the output layer. Similarly, making sure that each layer didn’t deform its inputs too much was also critical for any useful geometric information to propagate through the network.</p>
+<p>This line of work is ridiculously under-cited relative to its importance in the field. The papers proposing the popular He and Glorot initializations, for example, each have roughly one tenth of the citations (in the 20s of thousands as of the time of writing) that adam has (over 200k), even though virtually every paper that trains a network using adam almost certainly did so with an initial parameter set that followed some variant of the “scale inversely with the layer dimension to maintain constant feature/gradient norm” principle as was proposed in these papers. As a paper-writer, I’m also guilty of this – the initializer has a default value in most neural network libraries whereas the optimizer does not, so it’s easy to forget that it exists<a href="#footnote-1"><span class="math inline">\(^1\)</span></a>.</p>
+<p>While the full set of papers studying training dynamics at initialization is too large to fit in the margin of this blog post, I’ll list a few here:</p>
+<ul>
+<li><p><a href="https://jmlr.org/papers/volume10/larochelle09a/larochelle09a.pdf">Larochelle et al.</a> giving an overview of what pre-paradigmatic neural network training algorithms looked like. Note in particular that a lot of attention is paid to strategies to avoid training the whole network at once due to instabilities.</p></li>
+<li><p><a href="https://proceedings.mlr.press/v5/erhan09a.html">A more in-depth example</a> of how people used to get around neural network training not really working by using unsupervised learning to get a decent ‘initialization’.</p></li>
+<li><p><a href="https://arxiv.org/pdf/1312.6120">Nice math</a> on training dynamics and the role of parameter initializations for people who don’t mind their networks not having activation functions.</p></li>
+<li><p><a href="https://proceedings.mlr.press/v28/sutskever13.html">Glorot et al.</a> demonstrate some aspects of why neural network training was hard in the past.</p></li>
+<li><p><a href="https://arxiv.org/abs/1211.5063">Pascanu et al.</a> on various things that can go wrong when you have a recurrent network.</p></li>
+<li><p>The original <a href="https://arxiv.org/abs/1512.03385">resnets</a> paper.</p></li>
+<li><p>An interesting <a href="https://arxiv.org/abs/1702.08591">framing</a> of resnets as reducing the rate at which the layers of the network `shatter’ the inputs.</p></li>
+<li><p>A <a href="https://arxiv.org/abs/2002.10444">related perspective</a> that normalization biases residual connections toward the identity.</p></li>
+<li><p>Interesting <a href="https://sohamde.github.io/docs/nfnets-talk.pdf">perspective</a> on thinking about how signals are passed through a network and its implications for networks that combine skip connections and normalization based on <a href="https://arxiv.org/abs/2102.06171">this paper</a>.</p></li>
+<li><p>People wrote an <a href="https://arxiv.org/pdf/2002.04745">entire paper</a> on whether it’s better to normalize before or after an attention block in a transformer.</p></li>
+</ul>
+<h2 id="back-to-plasticity">Back to plasticity</h2>
+<p>There are two primary properties you need for plasticity loss to be an issue: first, you need your network to <em>need</em> plasticity later in training, for example by having the objective change so that parameters learned on early data won’t work on later data; and second, you need the learning problem to be a little bit unfriendly (for example, if the non-stationarity in your data introduces a lot of gradient spikes or poor conditioning of the local loss landscape), so that optimization has a higher risk of accumulating certain types of pathologies. For example, a friendly nonstationarity might be something like training on the entire internet, and then fine-tuning the network to be better at math problems. An unfriendly non-stationarity could be as ostensibly benign as training an RL agent sequentially on different levels of a game, or it could be more obviously adversarial, such as forcing a network to memorize repeated sequences of random labels.</p>
+<p>In most supervised learning problems, neither of these are particularly likely to come up: even if your network is becoming harder to train, as long as it does so at a rate that’s slower than that at which you’re making progresson the learning problem it won’t pose a problem to your (stationary supervised) objective.
+As a result, plasticity first cropped up as a thing worth studying in the RL and continual learning communities.</p>
+<p>For example, I first noticed this was a problem when I was training deep RL agents on Atari games, which involves dealing with all of the gradient-spiking, sequential-levels peculiarities mentioned previously as being particularly likely to induce pathologies, and additionally goes for a <em>very</em> long time (a standard training run is 200M frames, which roughly corresponds to tens of millions of steps depending on your algorithm hypers). At the time, I was trying to show that networks which overfit on sparse-reward tasks by zeroing out all of their ReLUs became less trainable, but I also noticed that in some dense-reward tasks the networks also seemed to get worse at fitting new random targets if I started optimization on a new learning problem from later weight checkpoints. Dohare and Sutton also noticed a similar problem in their agents trained on more explicitly continual learning problems at around the same time, as did Nikishin et al. in high-UTD RL (apparently the pandemic was a great period for plasticity research). Even before work explicitly trying to understand what was going wrong in networks that became less trainable, it was a popular practic ein reinforcmeent learning to periodically freshen up your agent by having it reset its network and distill from the previous parameters for a bit. It was also known in supervised learning that early training data mattered a lot for your network’s ability to learn later on. However, since supervised learning doesn’t <em>require</em> training on a non-stationary distribution, these earlier works didn’t spark as much interest because they admitted the simple and elegant solution of “jUsT TraIN on MoAR DaTA”.</p>
+<h3 id="hints-of-a-loss-of-something">Hints of a loss of… something?</h3>
+<p>Even when non-pathologic, there is a rich history of observations that neural networks tend to naturally learn different things at different points during training. Papers on things like “catapult” or “slingshot” mechanisms, which focus on the early phase of training when the learning rate is high, have noted that while not directly leading to faster reductions in loss, these early periods of chaotic dynamics are highly influential on the <em>quality</em> of minimum that the network converges to. Some papers have noted the existence of <a href="https://arxiv.org/abs/1711.08856">critical periods</a> in network training, where applying certain transformations to the input data early in training can permanently impair performance even if that transformation is removed later, reminiscent of some <a href="https://gwern.net/doc/ai/nn/1986-rumelhart-2.pdf">very unethical</a> <a href="#footnote-2"><span class="math inline">\(^2\)</span></a>experiments on kittens from the 1950s (<a href="https://arxiv.org/abs/2308.12221">later work</a> showed you don’t even need nonlinearities to show this effect). There was a paper showing that some similar critical-period-like effect could be induced by <a href="https://arxiv.org/abs/1910.08475">over-training on a small dataset</a> that was easy to overfit on in the early stage of training. In this case there was no “distribution shift” so much as a “adding of extra samples from the same distribution”, which made the observed generalization gap even more interesting.</p>
+<p>There were signs that something might be off with deep RL agents as well. Some papers had found that <a href="https://arxiv.org/pdf/1803.03835">kickstarting</a> (i.e. resetting the network and then distilling the newly-initialized parameters on the old outputs) could be an effective way to break through performance plateaus in deep RL. In fact, there were a lot of cases where people found turning their networks off and on again in various ways could help improve performance in RL (e.g. by helping to reduce <a href="https://arxiv.org/abs/2002.12499">interference</a>). When training dynamics diverged, the researcher generally shrugged his or her shoulders, mumbled some curse at the deadly triad, and reset the network. And that was roughly where the field’s mechanistic understanding of plasticity stayed for a while, which honestly I get because there are a <em>lot</em> of things that can go wrong in RL and if resets are working, then why fix what isn’t broken?</p>
+<h3 id="the-smoking-gun">2019-2022: the smoking gun</h3>
+<p>Between 2019 and 2022, a number of papers came out that all pointed at roughly the same conclusion. Namely:</p>
+<ol type="1">
+<li>Neural network optimization in deep RL seemed to be doing something weird; and</li>
+<li>this was clearly preventing otherwise capable agents from improving their performance in several concrete instances.</li>
+</ol>
+<p>First, <a href>Igl et al.</a> showed that not just resetting once or twice, but constantly throughout training seemed to be helping with performance, plausibly through a mechanism of improving generalization. During my internship at DeepMind in 2021, I went on a <a href="https://openreview.net/forum?id=ZkC8wKoLbQ7">wild goose chase</a> of trying to pin down why it seemed like my DQN and Rainbow agents were getting to harder to optimize as I trained them for longer. At around the same time, some folks at the Unviversity of Alberta were working on understanding why their continual deep RL agents were <a href="https://arxiv.org/abs/2108.06325">performing worse on successive tasks</a>. In the world of off-policy RL, another group mostly at Google Brain and Berkeley had found that their agents’ representations had a habit of <a href="https://arxiv.org/abs/2010.14498">collapsing the longer you trained them (especially on off-policy data)</a>, and another group based out of MILA found that this collapse could be made <a href="https://arxiv.org/abs/2205.07802 ">completely irrecoverable</a> by training on a small replay buffer for long enough without adding new data (there was also a blog post on this in the <a href="https://iclr-blogposts.github.io/2024/blog/primacy-bias-and-why-it-helps-to-forget/ ">ICLR 2024 blog track</a> which is pretty good, despite its lack of citations to Lyle et al.).</p>
+<p>So in three separate regimes (online, ~on-policy RL, continual RL, and off-policy RL), there were papers coming out in 2022 showing that out-of-the-box training algorithms could accumulate irrecoverable pathologies.</p>
+<h3 id="understanding-what-causes-loss-of-plasticity">Understanding what causes loss of plasticity</h3>
+<p>I’ve done a lot of work into what causes loss of plasticity, which builds a bit on the understanding I outlined in <a href>my previous blog post</a>. I would describe the key new insights as follows:</p>
+<ol type="1">
+<li><p>Parameter norm matters more than you might think, especially as it pertains to qualitative phenomena like feature-learning in the network.</p></li>
+<li><p>If you can keep your parameter and feature distributions looking roughly like a standard normal, training tends to be robust and not really an issue.</p></li>
+<li><p>A lot of the issues that arise in network training happen when there’s a gradient spike at a task boundary, which disturbs optimization in a way that makes it easier for the network to make drastic missteps including but not limited to killing off ReLU units.</p></li>
+<li><p>A lot of the optimization-related problems that come up in deep RL now have more to do with off-policy updates being bad optimization objectives, in the sense that even a trainable network will struggle to see reward-level performance improve by minimizing its optimization objective. This is doubly the case when you account for the interaction between network outputs and data collection that produces exploration.</p></li>
+</ol>
+<h2 id="solutions">Solutions</h2>
+<p><strong>Full Resets</strong></p>
+<p>The easiest way to fix a broken network is to take a new fresh init, and then do some form of distillation on the old broken weights to get it up to speed. Methods that do this include <a href="https://arxiv.org/abs/2006.05826">ITER</a>, the resets method from the primacy bias paper, and kickstarting, which have all already been mentioned. There are a few newer approaches too, such as <a href="https://arxiv.org/abs/2406.02596">Hare &amp; Tortoise Networks</a> (where instead of resetting to a random init, you reset to a slow-moving EMA of your previous weights). I also like the idea in <a href="https://arxiv.org/abs/2305.15555">plasticity injection</a>, where you initialize a new network but instead of using it to replace your old network, you add its output to that of the old one in a clever way and freeze your old weights so that in the end you are optimizing your freshly initialized network parameters only, but don’t see an initial drop in performance because the policy change was continuous with the old network.</p>
+<p>Shrink-and-perturb, which while not a full reset does involve perturbing all of the network’s parameters, is another oldie-but-goodie which remains a strong baseline as long as you have some way of quickly distilling the perturbed parameters to recover your original performance. It shows up in <a href="https://arxiv.org/html/2405.16158v1">BBF</a>, for example, and gives you a nice dial to turn when deciding how much you want to interpolate between NoisyNets-style perturbations which might help with exploration vs the scorched earth policy fully resetting everything in the network. BBF and the original resets approach from the primacy bias paper in fact don’t reset the <em>whole</em> network, but rather just a few of the final layers. I don’t know if there’s a decisive explanation for whether it matters if you reset later vs earlier layers in the network, but it does seem like resetting fully-connected layers is especially helpful as compared to resetting conv filters.</p>
+<p><strong>Neuron resets</strong></p>
+<p>One intuitively appealing idea is that, much like human brains learn in part by random new connections between neurons, injecting new randomness at the neuron level might facilitate learning in DNNs. Some of these approaches, such as <a href="https://arxiv.org/abs/2302.12902">ReDO</a> which resets the incoming weights of dormant ReLU neurons in order to re-activate them, do so without changing the network outputs, meaning that you should in some sense be getting network plasticity “for free” without incurring the drop in performance that is so common in resetting-based approaches.</p>
+<p>The main challenge with neuron-resetting strategies is deciding <em>which</em> neurons to reset. I’ve seen a few different ideas proposed on this front. One simple approach, which is backed to some extent by results on network pruning, is to say that neurons with large weights are more important to the network’s outputs than neurons with small ones, so you should leave the high-weight neurons unchanged while resetting the neurons that the network wasn’t using. This is basically the original <a href="https://arxiv.org/abs/2108.06325">continual backprop</a> algorithm. A few other options for per-neuron resets include <a href="https://arxiv.org/abs/2404.00781">utility-based perturbed gradient descent</a>, or resetting <a href="https://arxiv.org/html/2505.24061v1">neurons whose gradients are small</a>. <a href="https://arxiv.org/abs/2508.00212">This paper</a> gives a nice overview of different factors to take into account when trying to come up with a good utility measure for deciding which neurons to reset.</p>
+<p><strong>Optimizer resets</strong></p>
+<p>Another class of solutions is to reset your optimization algorithm while leaving the parameters fixed. <a href="https://arxiv.org/abs/2306.17833">Asadi et al.</a> had a nice paper showing that just resetting the adam optimizer mean and variance statistics when the target network in a DQN agent is reset can significantly boost performance. Galashov et al. went further and found that adapting your learning rate to the level of nonstationarity detected recently in your task can also improve performance dramatically (although this work required a lot of additional labour to figure out what learning rate to update with). I’ve even found that just closing your eyes and picking a somewhat arbitrary <a href="https://arxiv.org/abs/2407.01800">cyclic learning rate schedule</a> can help with some things like warm-starting and offline RL, even if it’s not aligned with any particular task boundary.</p>
+<p><strong>Regularization</strong></p>
+<p>One limitation of the neuron-resetting approach is that it works great if your network’s problem was that certain neurons weren’t getting gradients because <em>their</em> weights were misaligned. It doesn’t work as well if the problem with your network is that the weights of some neurons are too big and are leeching gradients from the rest of the network. To solve this, a few approaches aim to regularize the whole representation to reduce the odds of this type of representation collapse happening.</p>
+<p>The simplest way to do so is to just regularize towards your initialization, with the hope that by staying close to your trainable initial parameters you will still be trainable. You can do this in <a href="https://openreview.net/forum?id=ZkC8wKoLbQ7">representation space</a> or in <a href="https://arxiv.org/html/2308.11958v3">parameter space</a>; in my experience the representation space version is a bit better in reinforcement learning (where parameter regularization tends to produce quite mixed results) and parameter space regularization tends to be better for task-incremental learning.</p>
+<p>An alternative approach is to directly regularize the <em>spectrum</em> of the representation to avoid the failure mode where there is one very large eigenvalue that dwarfs everything else. This is mostly a problem in off-policy RL, where the bootstrapping updates have a tendency to amplify already-large components of the features, although to some extent it can also be viewed as a direct consequence of the fact that many RL value functions are inherently ill-conditioned, so the network’s representation in later layers will naturally tend to match that conditioning. <a href="https://arxiv.org/abs/2010.14498">Kumar et al.</a> did this to some extent in their paper on offline RL, while <a href="https://arxiv.org/abs/2406.06811">Lewandowski et al.</a> found that just regularizing the top singular value (which can be estimated online fairly cheaply) is enough to keep the representation well-conditioned.</p>
+<p><strong>Constraints</strong></p>
+<p>Instead of regularization, one can also explicitly constrain the network in some way to prevent it from drifting into untrainable regions. One approach by <a href="https://arxiv.org/abs/2407.01704">Elsayed et al.</a> is to clip the parameters of the network to not exceed a certain magnitude. I’ve had quite a lot of success with weight normalization, where the per-layer weights are normalized by their frobenius norm, although this requires careful tuning of the learning rate schedule because it turns out that <a href="https://arxiv.org/abs/2407.01800">many deep RL algorithms implicitly depend on parameter norm growth to actually converge</a>.</p>
+<p>A much more robustly useful solution is to apply layer normalization, which at least keeps the feature statistics consistent across a layer. This requires a bit of care in some cases, since for example if you apply layer normalization naively to inputs in a robotics task you can erase some very important information about your proprioceptive state (for example, in a world where your input consists of position <span class="math inline">\(x\)</span> and velocity <span class="math inline">\(\dot{x}\)</span> the state <span class="math inline">\(x=1, \dot{x} = 1\)</span> will end up being mapped to the same normalized value as <span class="math inline">\(x=10, \dot{x}=10\)</span>, even though these two states most likely do not have the same set of optimal behaviours). I have the somewhat controversial opinion that layer normalization and a well-tuned optimizer are almost always enough to avoid catastrophic network pathologies, and that if your agent still isn’t learning after you apply these tricks there’s probably something else going wrong with the learning process. Unfortunately, either because nobody has come up with a fun name for the “tune adam and add layernorm” strategy or because it’s too effective, it’s often omitted as a baseline. However, when I did a “throw the kitchen sink at the problem and see what sticks” <a href="https://arxiv.org/abs/2402.18762">investigation last year</a>, layer norm + weight decay came out looking <em>extremely</em> good.</p>
+<p>If you go further and constrain the parameter norm as well as the feature norm (and make sure your learning rate schedule has some amount of decay), you can skip the weight decay penalty tuning phase of the above strategy and often get really good results right off the bat – in fact, when I ran this approach on a bunch of different sequential learning problems I basically didn’t see any signs of loss of plasticity. In fact, if you use the right learning rate schedule this approach is <a href="https://arxiv.org/abs/2507.20057">surprisingly effective</a> at mitigating primacy bias and warm-starting effects as well.</p>
+<p><strong>Network architecture and scaling</strong></p>
+<p>Finally, you can borrow tricks beyond just layernorm from the supervised learning world to do even better in RL tasks. This isn’t a new idea – one of the major changes the <a href="https://arxiv.org/abs/1802.01561">IMPALA</a> algorithm made was to swap from a tiny convolutional network to a ResNet-style architecture. People have also tried using <a href="https://arxiv.org/abs/2303.07507">different activation functions</a> to improve stability in RL.</p>
+<p>However, the majority of useful insights from supervised learning that landed in RL have been ported in a long-running effort to build deep RL algorithms whose performance increases as you make the network bigger. For example, <a href="https://arxiv.org/abs/2402.08609">switching to a mixture-of-experts architecture</a>, <a href="https://arxiv.org/abs/2305.19452">annealing the <span class="math inline">\(n\)</span>-step TD update</a>, <a href="https://proceedings.neurips.cc/paper_files/paper/2023/hash/c464fc4516aca4e68f2a14e67c6f0402-Abstract-Conference.html">incorporating periodic resets</a>, <a href="https://arxiv.org/abs/2410.09754">adding residual connections</a>, <a href="https://arxiv.org/abs/2405.16158">adding weight decay</a>, and various samples from the combinatorial explosion of possible groups of these interventions.</p>
+<p>Indeed, the field is coming around to understanding that it is much more effective to look at the synergistic effects of mitigating both network-related instabilities and RL-objective-related instabilities (especially those that arise from off-policy or offline updates), rather than trying to diagnose and treat each separately. <a href="https://arxiv.org/abs/2502.04327">Large networks</a> are an interesting case study here because in general they should have better supervised training dynamics, but often don’t see this gain translate to better RL performance because of the other aspects of the RL training objective which have nothing to do with rapidly reducing a loss function via gradient descent. For example, RL agents tend to see <a href="https://openreview.net/forum?id=SiZmNlFLVP#discussion">policy collapse</a> even if the network is large, not because the network has inadvertently frozen most of its neurons but because of the implicit bias of bootstrapped updates.</p>
+<h2 id="if-your-network-is-trainable-does-that-mean-rl-is-easy">If your network is trainable, does that mean RL is easy?</h2>
+<p>Short answer: no. Having a “trainable” network does not remove most of the hurdles in getting your RL agent to do something interesting.
+There are many factors in the success of RL agents, and many of these are a result of the interaction between optimization and exploration.</p>
+<p><a href="https://openreview.net/forum?id=EkoFXfSauv">Mitigating Plasticity Loss in Continual Reinforcement Learning by Reducing Churn</a>, for example, notes that a collapsed representation will generalize more strongly between states, meaning that changes to the policy in one state will have large effects on many other states, inducing greater policy churn. Some methods, such as Dr M, explicitly try to use the dormant neuron ratio as an indicator of whether the network’s beahviour policy is also collapsing, and use this signal to decide when to inject noise into the parameters and policy to facilitate greater exploration. <a href="https://www.arxiv.org/abs/2508.01329">Glen Berseth</a> had a cool paper at RLC this year suggesting that agents don’t seem to be squeezing all of the juice they can out of their existing data, although it’s not clear to me whether this is an optimization problem or some reflection of the inherent difficulty of off-policy learning.</p>
+<p>There’s also still the fact that many RL algorithms are extremely brittle, and <a href="https://arxiv.org/abs/2009.10897">trivial design choices</a> can have huge effects on behaviour. Improving the robustness of optimization algorithms seems to have had relatively little effect on this class of failure modes in RL, and it will likely take a deeper rethink of the optimization objectives at the heart of existing methods to see any traction on improving the brittleness of deep RL as a field.</p>
+<p>So I would say the past few years of research have shown us that a lot can go wrong with a network when you try to optimize it, but that broken neural network optimization wasn’t the only bottleneck to the stability of RL algorithms in the end. Personally, at this point I think most of the interesting questions lie less in patching up every possible hole in your optimizer that might reduce trainability, and instead in designing optimization objectives that actually translate to better performance on the task you care about.</p>
+<h1 id="footnotes">Footnotes</h1>
+<p><a name="footnote-1">1.</a> This is an interesting lesson in research community politics: solving a problem too well can be bad for your citation metrics, especially if your method becomes an under-the-hood component of popular libraries that nobody has to think about, and therefore cite, in the future.</p>
+<p><a name="footnote-2">2.</a> Yes this is a link to the backprop paper pdf hosted on gwern.net, but if you scroll to the bottom you coincidentally find a detailed description of how researchers occluded vision in kittens.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
