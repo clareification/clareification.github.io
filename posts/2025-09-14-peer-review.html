@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | Why (machine learning) peer review is awful</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>Why (machine learning) peer review is awful - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on September 14, 2025
+</div>
+<div class="container">
+<h2>Why (machine learning) peer review is awful</h2>
+<p><em>Part 1: branches in the tree of science</em></p>
+<p></p>
+<h3 id="why-does-ml-twitter-complain-about-reviewers-so-much">Why does ML twitter complain about reviewers so much?</h3>
+<p>Machine learning researchers <a href="https://x.com/2prime_PKU/status/1948549824594485696">love to complain about peer review</a>. Other scientific fields also like to complain about peer review, but our habit of all submitting papers to the same three conferences means that everyone’s terrible reviews come out at the exact same time, so our complaints tend to get amplified much more by The Algorithms. As a result, every four months one gets the impression that the field has been overrun by sophons hell-bent on fighting scientific process. This synchronization allows for a remarkable sense of community during the dark days of the rebuttal period, and a battlefield camaraderie that persists even after. I have my suspicions that part of the reason why the peer review system has been allowed to continue in its current state is that otherwise we would have nothing to talk about at conference parties.</p>
+<p>In addition to my personal favourite of providing conversation fodder, a number of more plausible scapegoats (arms race dynamics among PhD applicants, poor incentives for high-quality reviews, trendiness attracting work from at-best-tangentially related fields whose members are unfamiliar with our norms) are called out every conference cycle. While I don’t dispute any one of these, I have a difficult time believing that there are enough clueless undergrads and anti-social Scrooges in the reviewer and author pools to explain the field’s animus on this topic. An incompetent or confused reviewer, while frustrating, is usually straightforward to either refute or guide towards a more accurate assessment of your work (especially if said reviewer is threatened with <a href="https://forum.cspaper.org/topic/93/neurips-2025-detailed-policy-on-penalties-for-missing-reviews-including-official-ac-email-text">cruel and unusual punishment</a> for not reading your rebuttal).</p>
+<p>Much more frustrating is the review which was clearly written by someone who clearly knows a lot about machine learning, but who just didn’t <em>get</em> your paper. This is the extensive, vituperative review which so grossly pillories your paper’s contribution that you have to question the mental health of its author. The review which denies the validity of not only your research agenda, but the entire body of work on which you have based your contribution. The review which states “Sure you <em>say</em> you got state of the art results, but how do we know for sure that you didn’t hyper-tune your way to sota unless you also have a mathematical proof?” or “The math looks correct (though I didn’t read it in detail), but I won’t believe it unless you run an experiment with at least a 2-billion parameter transformer.” In these cases, the driving force behind the conflict isn’t ineptitude on the part of authors or reviewers, but rather a fundamental disagreement on what counts as good AI research. Put concretely:</p>
+<p><strong>Machine learning peer review sucks because we don’t have a unifying set of epistemic and scientific norms in our field.</strong></p>
+<h3 id="branches-in-the-tree-of-human-knowledge">Branches in the tree of human knowledge</h3>
+<p>Scientists will always, no matter the field, disagree on what counts as good research. In a stable field, these disagreements are usually fairly minor, such as what statistical test you should use for a particular type of data generating process, or what variant of genetically identical mouse you should test your drug candidate on. When these disagreements become irreconcilable, the field branches.
+Natural philosophy split off from the rest of philosophy because understanding things you can interact with via your senses requires a very different methodology than understanding things that only exist in thought-space. Later on, natural philosophy split again into, according to an only-slightly-dubious<a href="#footnote-2"><span class="math inline">\(^1\)</span></a><a name="footnote-2-return" style="text-decoration:none;"> </a>attribution to Ernest Rutherford, “physics or stamp collecting”.</p>
+<p>If your field clusters tightly in the class of problem it considers, it’s easy for groups of people to get on with the grunt work of science without falling into meta-scientific rabbit holes. Consider the physicist-naturalist divide in eighteenth-century Europe. A physicist might study balls rolling down hills and get on very well with other physicists who studied balls falling from towers, but would not get on at all (scientifically at least) with a naturalist who studied the birds living on a particular hill, even if those birds occasionally slipped and rolled down it. The physicist might even go so far as to call the poor naturalist a “stamp collector”. Fortunately, in a remarkable show of restraint, physicists like Rutherford generally left their criticism of biology at snide remarks told to other physicists, and the occasional occurrence of a bird rolling down a hill did not interfere with the independent functioning of the two fields. The physicists critiqued and improved each other’s math, and the naturalists critiqued and improved each other’s classifications of birds. Importantly, the physicists did not waste their time critiquing the lack of quadratic equations in the biologists’ taxonomies, and the biologists didn’t waste their time debating whether it is reasonable to assume a bird is spherical for the purpose of a derivation.</p>
+<p>Despite being slightly offensive, the physics-stamp-collecting dichotomy nonetheless gestures at an important spectrum on which different scientific fields can be delineated: the extent to which the field constructs general rules to predict the phenomenon it studies vs cataloguing and describing existing phenomena. And this isn’t the only spectrum one might consider. For example, as biologists developed a more mechanistic understanding of the inner workings of the organism, the field expanded along the explain-vs-document and the build-an-artifact axes, culminating in artificial cells and gene editing, and split into separate fields; the mechanistic study of the cell begot cell biology and biochemistry, the build-an-artifact direction led to synthetic biology, and the more observational quadrant became ecology. As the field branched, each of its new branches adopted different epistemic standards based on the degree to which the object of study could be manipulated.</p>
+<p>Now the ecologists have their own journals where they propose mathematical models and collect data on frog populations, the cell biologists write articles about which signaling pathway a new drug is acting on, and the biomechanists confirm that that, yes, the uncomfortable-looking posture that tour de France cyclists do is aerodynamically optimal based on their fluid dynamics simulator. Major discoveries will usually find their way into broader-interest publications like <em>Nature</em> or <em>Science</em> so that people in other fields eventually hear about them, but for the purposes of reviewing and publication the subfields mostly operate independently. After all, why would someone who spent ten years developing world-class expertise in the MToR pathway be able to evaluate someone else’s fluid simulation of elite swimmer hydrodynamics?</p>
+<h3 id="back-to-ai">Back to AI</h3>
+<p>Why indeed. Anyone who has reviewed for a machine learning conference understands why this would not be a desirable situation because it <em>is</em> the situation we often find ourselves in when paper assignments come around. I personally have had to review papers on topics spanning optimal transport (for which I was woefully unprepared as a first-year PhD student), causality, probabilistic verification, neural collapse, biologically-inspired neural network architectures, and reinforcement learning. These days I have a large enough body of work that the <a href="https://torontopapermatching.org/webapp/profileBrowser/about_us/">TPMS</a> usually does a good job filtering relevant papers to bid on, but god forbid I ever miss a bidding deadline or I end up reviewing papers with fifty-page appendices of optimal transport proofs or a new biologically inspired update rule that’s really going to be scalable this time guys, promise.</p>
+<p>If we define AI as “The field which consists of anything considered on-topic at the set union of <span class="math inline">\(\{\)</span>NeurIPS, ICML, ICLR<span class="math inline">\(\}\)</span>”, it’s safe to say that AI is not a stable field (per the definition above – if you’re not already convinced of this I recommend that you spend a few moments perusing some of history’s <a href="https://openreview.net/forum?id=ry_WPG-A-">more involved</a> OpenReview <a href="https://openreview.net/forum?id=yZBuYjD8Gd">threads</a>).</p>
+<p>Walking around the poster session at any AI conference, you’ll notice a pretty wide range of epistemic norms. We have some papers which look a lot like physics in that they use <a href="https://arxiv.org/pdf/2001.08361">math to make predictions about learning systems</a>, some which look like <a href="https://papers.nips.cc/paper_files/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">engineering</a> in that they say “here’s a system that does something new/cool/important”, and others which look a lot like “stamp-collecting” (in a non-pejorative sense) in that they identify <a href="https://openreview.net/forum?id=kklr_MTHMRQjG">interesting phenomena</a> in particular learning systems without giving a mechanistic explanation or using the observation to improve on some benchmark. As a result, outside of the physics Nobel committee, there remains a lot of uncertainty among researchers about where AI as a field falls (or should fall) on this spectrum – or indeed any spectrum. There is enough variability across subfields that given pretty much any spectrum, you can find some branch of AI that lives on either extreme. The divide characterized by the Ernest Rutherford quote splits along the “predicting vs documenting” axis (see e.g. “physics of deep learning” papers vs the original adversarial examples paper), but there are plenty of others such as the “can-you-manipulate-the-thing-you’re-studying” axis (where academic labs studying leviathan language models are much closer to the “no” extreme and training a small transformer on a synthetic dataset is on the “yes’ end) and the “did-you-make-the-thing-you’re-studying” axis (contrast papers studying with neural architecture search).</p>
+<p>Impactful research can happen at any point on these axes. The challenge is that the properties that make research impactful <em>do</em> depend on where you are in the space of scientific problems. This becomes a problem for machine learning, where papers are quite diffusely distributed across the different axes, as opposed to tightly clustering in one vertex of the meta-scientific hypercube.</p>
+<p>I’ll give a more detailed account of this mismatch in later posts, but here are a few archetypes of what I mean.</p>
+<ol type="1">
+<li><strong>Sure it works, but does it work at scale?</strong>
+<ul>
+<li>You: an idealistic student with a neat trick to understand feature maps in image classifiers. Your reviewer: a grizzled research engineer from MindBrain who thinks any model with a parameter count under 10 figures is glorified linear regression. Your task is to convince them that understanding how a ResNet-18 distinguishes cats from dogs is an important scientific question. Good luck.</li>
+</ul></li>
+<li><strong>Sure it works in practice, but does it work in theory?</strong>
+<ul>
+<li>The cousin of “does it work at scale”: your opponent is now a grizzled fifth-year PhD student who has been burned one too many times by extravagant claims from unreproducible papers, and has come away with a deep distrust of any result that isn’t accompanied by some worst-case theoretical guarantee. Showing that there exists some setting where your idea works is not enough to justify it. You have to show that there is <em>no</em> adversarial environment, no worst-case scenario, where the method might fail catastrophically. Nothing less will suffice for this pessimist of pessimists.</li>
+</ul></li>
+<li><strong>No SoTA, No Method, No Service.</strong>
+<ul>
+<li>You did it! You finally cracked why neural networks work. You’ve written an elegant theory, filled with proofs, diagrams, and exciting, high-level overviews of what research questions can now be answered with your new framework and a little bit of elbow grease. You have everything – except a passing score from your reviewer. “Where is the <em>novelty</em>?” they ask. “Why is ‘understanding’ something that already works <em>significant</em> if you can’t use this new knowledge for anything useful?” You eat a tub of ice cream and look up ways of cursing engineers who lack a certain scientific aesthetic.</li>
+</ul></li>
+<li><strong>Pascal’s rejection.</strong>
+<ul>
+<li>Your experiment set is comprehensive – or so you thought. Your reviewer disagrees. Just one more experiment, they say. Just one more ablation, then your claims will stand on solid empirical ground. But no matter how many ablations you run, no matter how many ablations you add, the reviewer’s appetite for evaluations is never sated. In truth, the reviewer’s problem with your paper is much deeper than the superficial additions they are asking for. They simply don’t believe your paper is true, and unlike the helpless Bayesian of Pascal’s Mugging, have a prior as malleable as granite. Perhaps, had they been familiar with the empirical norms of your particular subfield, they would be able to express precisely what evidence would cause them to update their evaluation. But alas, you are doomed to forever run ablations until the (now measurably closer, thanks to the number of GPU-hours you’re burning in this rebuttal period) heat death of the universe.</li>
+</ul></li>
+</ol>
+<h3 id="concluding-thoughts">Concluding thoughts</h3>
+<p>Recalling the physics-stamp-collecting dichotomy, the<a href="#footnote-1"><span class="math inline">\(^1\)</span></a><a name="footnote-1-return"> </a>problem that AI faces now is that it is (metaphorically) a field that studies birds rolling down hills, and the physicists who assume the birds are spherical are reviewing papers from biologists who want to characterize the lifecycle and social structures of the bird colonies.</p>
+<p>Unfortunately, for now we are in an awkward position where the field is big and diverse enough to make peer review unpleasant but not quite big enough that the subfields have hit critical mass to stand on their own. While there are small conferences dedicated to just reinforcement learning or just language models, these haven’t displaced NeurIPS/ICLR/ICML as the gold standard for publication. If you have a big result, you’re going to submit it to NeurIPS and hope that the people who review it and see it at the poster exhibition are in the 5% of attendees who care about your subfield. This standard means that the last NeurIPS I attended had as many participants as a medium-sized university. It also means that communities with very different epistemic standards are brought into contact with each other at least three times every year.</p>
+<p>In my next post, I’ll give a more concrete overview of my stamp collection of epistemic norms that have formed in the different subfields of AI that I’ve had the privilege of reviewing in.</p>
+<p><a name="footnote-2" style="text-decoration:none;">1.</a> The quote is often attributed to Ernest Rutherford, but this is a bit of a hear-say from his colleague <a href="https://www.patreon.com/posts/did-rutherford-23413944">John Bernal</a>. <a href="#footnote-2-return">^ back to context</a></p>
+<p><a name="footnote-1" style="text-decoration:none;">2.</a> Well, one. <a href="#footnote-1-return">^ back to context</a></p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
