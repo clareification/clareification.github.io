@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | To prove or not to prove</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>To prove or not to prove - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on September 28, 2025
+</div>
+<div class="container">
+<h2>To prove or not to prove</h2>
+<p><em>AI epistemics mega-series, part 2</em></p>
+<p></p>
+<p>This is part 2 of my “unpack why AI conference reviewing is terrible” mega-series. In my first post, I put out the conjecture that a major cause of dissatisfaction with AI as a field is that it’s a huge umbrella for several fields that are almost as different from each other as physics is from biology.</p>
+<p>In this post, I’m going to flesh out exactly what these differing epistemic standard can look like, based mostly on personal experience having worked in a few different branches of machine learning.</p>
+<h2 id="sometimes-you-have-to-lower-your-epistemic-standards">Sometimes, you have to lower your (epistemic) standards</h2>
+<p>The tools that a scientific field develops are a function of the phenomena that the discipline studies. So too are its epistemics<a href="#footnote-1"><span class="math inline">\(^1\)</span></a>. Astronomers use telescopes and observational data; medical researchers use centrifuges and randomized controlled trials. In medicine, a drug might be considered effective even if it didn’t cure every patient who received it; a law of gravity that only applied to people with a certain gene would be viewed with great skepticism by physicists.</p>
+<p>Because the phenomena that different fields study admit different degrees of manipulation, fields that study things which are less amenable to intervention necessarily must have lower standards of evidence when determining whether a work is publishable. Roughly speaking, building something from scratch yields stronger evidence than perturbing an existing system which produces stronger evidence than staring at something for a very long time in terms of producing reliable knowledge of how the object of study works. This hierarchy of epistemic standards generally corresponds with the popular notion of how rigorous different fields are. Physics and chemistry (at least historically) have been able to manipulate their objects of study in exquisite detail and so findings in these fields tend to be highly replicable and carry great predictive power, because the experimenter can eliminate essentially all sources of confounding. In contrast, econometricians only have access to observational data and must make do with what they have, with the consequence being that when an economist says some policy will hurt the economy, their opinion is weighted less heavily than a chemist who says that chlorofluorocarbons can cause chain reactions that deplete the ozone layer.</p>
+<p>As Karl Popper was wont to say, scientists never “prove” their hypotheses – they just fail to disprove them, and the credence assigned to a claim is a function of the rigor and quantity of falsification attempts that the claim has withstood. Econometrics carries less predictive power than chemistry not because econometricians are uniformly less capable than chemists, but because economies are intrinsically more complex and intractable systems than chemical bonds and do not lend themselves to the types of interventions that would allow a scientist to rigorously attempt to falsify a hypothesis. It is difficult – not to mention often immoral – to construct rigorous tests for an econometric theory, and as a result virtually any widely accepted theory about the economy has withstood many fewer and much less rigorous falsification attempts than the typical widely accepted theory about electron orbitals.</p>
+<p>Nonetheless, economies are quite important to people’s well-being, and we shouldn’t abandon all attempts to study them just because we can’t apply as rigorous epistemic standards to theories about economies as we can to theories about the structure of the atom. The fact of the matter is that there are a lot of important phenomena worthy of study in the world which we can’t arbitrarily manipulate. Because we can’t control these things, it’s often arguably <em>more</em> important to study and understand the ways we can change them, even though doing so is much harder. If we held such a field to the same standard as we hold nuclear physics, nobody would ever be able to publish anything and it would be impossible to make progress. So it’s important to give breathing room to hypotheses that are hard to falsify due to the intractibility of the domain they’re applied to, to make room for discoveries like evolution and plate tectonics.</p>
+<p>The same principle applies to AI, too.</p>
+<p>At one extreme, researchers studying small neural networks and decomposing their internal processes to identify how the network learns specific skills and concepts are as close as our field gets to 19th-century physicists trying to understand the 18th-century technology of the steam engine.</p>
+<p>At the other extreme, there is an emerging field of what can perhaps be best referred to as “LLM Psychology”, which tries to characterize the higher-level phenomena that emerge in larger-scale models. Since there are only a handful of models at any given time that are considered interesting enough to study, this is I guess analogous to something like “Pro Korfball Psychology” or “Psychology of individuals with 11.5 fingers”. That is to say, you can certainly discover things about a particular model (and given that we know very little about frontier models w.r.t. latent capabilities, security vulnerabilities, etc. this can still be a useful thing to do), but you won’t know whether what you discovered will generalize to other frontier models that haven’t been released yet, except in the trivial and uninteresting ways of “GPT-4 could ace the LSAT and so we predict that GPT-5 will too”.</p>
+<p>But this blog post has been a lot of philosophizing, and so I want to give a couple of concrete examples of how different epistemic norms play out in research by referring back to my own projects.</p>
+<h3 id="case-study-1.-stochastic-publish-and-perish">Case study 1. Stochastic publish-and-perish</h3>
+<p>When I was young and naive, my PhD advisor warned me off of RL. His concerns, which in hindsight were entirely accurate, could be roughly summarized as “The papers are impossible to reproduce and the variance of your experiments is so high that random seed tuning has a bigger effect size than most algorithmic changes.” If you can’t reproduce other people’s results and shifting your random seed by one permutes the rankings of the algorithms you’re comparing against, it is hard to do good science.</p>
+<p>This isn’t a new observation. Papers talking about how bad RL’s epistemic standards are frequently win <a href="https://arxiv.org/abs/2108.13264">best paper awards</a> at major ML conferences. People have come to a <a href="https://proceedings.mlr.press/v119/jordan20a.html">consensus</a> that three random seeds in a single task is not enough to show that your method is meaningfully better than the baseline. But there are limits to how far just “running more seeds” can take you as a field. RL performance measures are very discrete and noisy, because the system whose performance they are measuring is almost adversarially chaotic. If your agent got lucky and stumbled into a large reward early in training, it will get a giant score at the end of training, whereas the exact same agent with an unlucky seed that didn’t stumble into the reward early enough might get a score of zero. Given how long it takes to run a single “trial” of an RL experiment (for context, one seed on one environment of the ALE takes about 5 GPU-days to collect the standard 200M frames of experience on a V100 GPU, and we typically train 3 seeds x 57 environments), it’s often impossible to get enough of a signal from the number of seeds in a budget to be able to statistically significantly say whether one method is better than another. And reviewers often don’t ask for a specific number of seeds that they think will provide more significance, they just ask for more. Worst of all, RL benchmarks often include a number of different environments, each of which is evaluated for a small number of seeds. This makes comparisons across algorithms even harder – one has to figure out how to aggregate across non-IID scores, and to the best of my knowledge this decision doesn’t have an established best-practice.</p>
+<p>Someone coming from, say, on-device computer vision would likely recommend rejecting most RL papers out of hand due to the lack of statistical significance. Indeed, even within RL, standards for what counts as “enough” seeds or “enough” environments can fluctuate significantly between domains. In small-scale tasks or highly parallelizable environments, it’s common to run 20 or more random seeds; in Atari, one usually runs 3-5 seeds of the algorithm on 57 environments and then aggregates across environments. The paper proposing <a href="https://arxiv.org/abs/1801.01290">SAC</a>, one of the most widely used off-policy RL algorithms today due to its simplicity and consistency, ran five random seeds on six environments in their main evaluation experiment, i.e. a total of 30 samples of the algorithm.</p>
+<p>Would a statistician have been right to reject the paper due to a lack of statistical significance? Possibly – trying to do statistical analysis on a learning curve is a messy undertaking, and it’s possible that the six environments only show that SAC sometimes outperforms other methods on some tasks. But ultimately the reason why people use SAC today is not because they read the paper and decided it demonstrated a statistically significant improvement – they use it because a thousand other people got it to work, and this is a good signal that it’s a reliable, easy-to-implement algorithm.</p>
+<p>I think this is the case in many fields, but it’s especially the case in RL, where the cycle of science proceeds as follows: various papers of unknown scientific quality are published each year, and then thousands of PhD students attempt to replicate their results to get baselines for their papers. The methods which are easy to replicate and produce reliable results get included in these papers and thus cited, and the methods which don’t are left as a sad remnant in someone’s commit history and tend to be forgotten. As a result, a high citation count is often a useful signal that an RL algorithm will reliably work if you clone the corresponding github repo, and in this way the field is able to progress.</p>
+<p>Although wasteful, this status quo to some extent <em>works</em>. It has many obvious flaws: many grad students waste their time and compute budgets attempting to replicate unreplicable papers, and some potentially good methods get overlooked because they fail to gain traction in the RL community psyche. But if you look at the most commonly used RL algorithms in papers, they tend to be ones with reliable implementations which are easy to reproduce and which produce decent results.</p>
+<p>Unfortunately, the peer review process is highly stochastic, and reviewers tend not to apply uniform standards for what counts as sufficiently strong evidence to publish the method and allow trial-by-replication dynamics to determine whether it gets picked up. The result is that papers often go through multiple rounds of peer review, accumulating more evaluations with each cycle, until through some combination of luckily drawing reviewers with lower statistical standards and improving the quality of the evidence supporting the method, the paper gets published. This process is doubly wasteful: inconsistent reviews mean that publication is not a sufficient signal for quality, but the barrier to publication is still high enough that many researcher-hours are wasted reviewing and revising papers that are ready to be battle-tested by replications.</p>
+<h3 id="case-study-2-superfluous-theorems">Case study 2: superfluous theorems</h3>
+<p>It is an unfortunate fact that mathematically proving almost anything nontrivial about a deep neural network is disgustingly hard. Because of this, any time I propose a new algorithm, I try to prove that it does something reasonable in linear function approximators to justify it to myself. Then I include the proof in the eventual paper, because even though it doesn’t say anything useful about the version of the method I use in the experiments section, it makes the paper look more legit and reduces the risk that a reviewer will say it’s unrigorous.</p>
+<p>I’m not alone in doing this. Especially in reinforcement learning, it is very common to do theory on linear systems trained with infinitesimal step sizes. As I’ve mentioned in previous posts, the narrative of “here’s a linear system where our method does something vaguely reasonable, now please trust our results on neural networks where we changed the method beyond recognition to stop our Q-value estimates from diverging” is generously sprinkled throughout many of my papers.</p>
+<p><a href="https://arxiv.org/abs/1502.06668">This paper</a> mentioned by the classic <a href="https://arxiv.org/pdf/1807.03341">Troubling Trends in Machine Learning Scholarship</a> is one example: I’ve also had several papers where there is a large gap between a theoretical statement and the resulting proof (for example, we use an argument about linear regression in <a href="https://arxiv.org/abs/2010.14499">this paper</a> to justify a performance estimator for neural architecture search on very-much-not-linear functions in this paper). People have complained about this so-called `mathiness’ for a long time, so I won’t moralize about this too much. Yes, some of the motivation behind adding lots of equations to a paper is sociological (i.e. to intimidate reviewers into a state of awed confusion). But it’s also worth viewing from the perspective of how knowledge is demonstrated. The devil’s advocate for mathiness is that math is an expressive language for describing phenomena rigorously, and it can actually be scientifically useful to include an analysis in an idealized setting to build intuition on your method, or to decompose the mechanism of action into pieces that you can understand individually.</p>
+<p>Suppose you’ve come up with a new algorithm, and want to show its empirical superiority over the existing state of the art. You run the algorithm on the benchmark of your choice, but are shocked and disappointed to discover that your results are mediocre at best. This could be happening for one of two reasons: first, your method might be doing the thing you wanted it to do, but that thing doesn’t make performance go up. Second, your method might not actually be doing the thing you thought it was.</p>
+<p>In the first case, if “the thing you want it to do” is hard to measure or demonstrate generally, adding some math can be really useful because a proof is always true for everything that satisfies its assumptions. Maybe your method is an approximation of a function that <em>provably</em> bounds the spectral norm of your weight matrices. You don’t have to deal with reviewers saying “oh but you only tested on convolutional networks” or “but will this also apply to larger models?” because, assuming those cases are covered by your theorem statement, because they hold by construction. If your method doesn’t improve performance despite provably doing the thing it was supposed to do, then you need to rethink what makes a model do well on your benchmark. This is annoying, but it’s at least a smaller search space of problems.</p>
+<p>For example, I worked on a <a href="https://arxiv.org/abs/2407.01800">paper</a> where we tried to develop a method to make the effective learning rate in a network roughly constant, but this approach resulted in worse performance in RL. Because we knew that the method was indeed keeping the effective learning rate constant, we were able to conclude that having a constant effective learning rate is bad for DQN agents in Atari games. This then opened the door for us to develop some interesting insights into the role of the effective learning rate in deep RL and explore several different schedules on the effective learning rate, eventually finding one that did indeed beat the baseline DQN agent.</p>
+<h2 id="concluding-thoughts">Concluding thoughts</h2>
+<p>At the end of the day, when you’re reading someone else’s results, the questions that go through your head are “Is this important?” and “Is this true?”. The “is this important” question is fairly subjective, but the “is this true” question is pretty foundational. Important but wrong papers can throw spanners in the works of intellectual progress that can take years or even <a href="https://spark.iop.org/millikan-story-tale-mixed-results?utm_source=chatgpt.com">decades</a> to recover from, and research communities need to calibrate their norms so that slightly sketchy but promising ideas are fostered without being over-indexed on. This is especially challenging for AI because the types of phenomena we study vary in the degree to which they can be manipulated for falsification experiments and in how much noise can be expected in their measurement, and this variability makes it difficult to decide whether a particular paper is trustworthy or not. There’s definitely been a push in recent years for good statistical and scientific practice standards, such as reproducibility checklists and standardized statistical tests, but it’s clear the field still has a ways to go to fully converge on a set of epistemic norms.</p>
+<p><a name="footnote-1">1.</a> The means by which the field decides whether a new result counts as knowledge, for readers who didn’t hang out with philosophy majors in college.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
