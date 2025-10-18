@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | Desperately Seeking SotA</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>Desperately Seeking SotA - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on October 18, 2025
+</div>
+<div class="container">
+<h2>Desperately Seeking SotA</h2>
+<p><em>AI epistemics mega-series, part 3</em></p>
+<p></p>
+<p>To get a paper into a major conference, it helps to have at least one of two things: a proof (discussed in the <a href="../posts/2025-09-28-prove-not.md">previous post</a>), or a plot where the line corresponding to your method is higher than the lines for other methods. Occasionally, the reviewing cycle accepts a paper which makes an observation about an intriguing property of neural networks, or which proposes a useful tool for e.g. computing Hessians which doesn’t directly improve performance on a benchmark, or which proposes a new dataset for people to evaluate their methods on. Although it’s possible to get these types of papers into conferences, it is much easier to get good reviews if you add a plot that looks like the one <a href="#figure-1">below</a>.</p>
+<div style="width:400px; float:right; margin:10px; border:1px solid grey; padding:10px;">
+<span><a name="figure-1"> </a><img width="100%" src="../images/ours_vs_theirs.png" /><strong>Figure 1:</strong> The thing we all want in our papers but that turns out to be very hard to obtain without hyPer-hacking.</span>
+</div>
+<p>If you’re at all familiar with my work, you’re aware that I love writing experimental papers. I love the process of noticing some weird quirk in a training run, then digging into it and figuring out what is happening to cause it and why. The price of doing this kind of research is that reviewers find it at best strange, and at worst confusing and useless, and rebuttal periods often involve a lot of argumentation over whether it’s important to understand <em>why</em> something doesn’t work when you could have spent that time just <em>making it work</em>.</p>
+<p>Which is why I feel justified in presenting the following (only slightly incendiary) claim: if you can’t use the findings from your paper to beat SotA, it might not be as insightful as you think it is.</p>
+<h3 id="ai-isnt-a-natural-science">AI isn’t a natural science</h3>
+<p>In most natural sciences, if you have to justify the existence of your research agenda you can point to some evidence that the thing you’re studying exists in the real world and say “see that thing? I’m going to figure out what it’s doing.” The set of things that exist in the real world is heavily constrained. In biology, the set of phenomena you can study is limited by the finite number of life forms on the planet; in chemistry, by the limited set of possible combinations of elements. Even though subjecting rodents to various extreme diets probably won’t materially improve humanity’s well-being, it slightly reduces our uncertainty about how the world works – and every once in a while it turns out that you discover the cure for scurvy, which justifies the thousand other studies that just left a trail of bad-tempered, malnourished rats. I’m often jealous of natural scientists for their freedom from justifying their search for knowledge in terms of its practical applications.</p>
+<p>By contrast, resnets and transformers don’t “exist” in the same way that brains, chemicals, and fluid dynamics do. People made them up. And devoting billions of dollars of research into something that someone made up requires evidence that the made-up object is useful towards some real end, otherwise you end up writing papers on things called “<a href="https://en.wikipedia.org/wiki/Pointclass#Lightface_pointclasses">lightface pointclasses</a>”.
+In practice, the primary grounding machine learning has with the real world is when we apply our learning algorithms to real data. Performance on benchmark datasets is one of the few heuristics we have to determine whether a learning algorithm is worth studying. A rigorous empirical investigation into a learning algorithm that can’t even solve MNIST, no matter how well-designed the study and how carefully-controlled the experiments, is not going to produce useful knowledge unless it can be shown that the results of the study also hold in learning algorithms which can be shown to be good at predicting “real” phenomena.</p>
+<p>One major driver of this distinction is that the end goal of AI as a field is generally agreed to involve producing a system which is capable of solving arbitrary cognitive tasks. <em>Understanding</em> this system would be nice, but isn’t universally considered mandatory. Once we have a generally intelligent system, we can start poking at it. Before then, one might argue, understanding the behaviour of an image classifier that can’t distinguish a gibbon from a slightly pixelated panda is as useful as understanding the physics of a child’s sand castle.</p>
+<p>At the same time, engineers frequently study sub-optimal systems in order to avoid repeating past mistakes – many a thesis has been devoted to bridges that have fallen down. However, there is relatively little consensus in AI about which transitional systems are worthy of study. For example, is the ResNet-18 is an interesting endpoint whose phenomenology is worth study, or merely a disposable stepping stone on the way to true intelligence? When a better model comes along, should we abandon ResNets and only conduct experiments on the Next Big Thing? Without a decisive answer, there is consequently little consensus on whether experiments investigating properties of the ResNet-18 have merit. It’s not enough to be inter-subjectively testable, as Popper would say delineates science from other disciplines: in an engineering-flavoured field, the inter-subjectively testable finding must facilitate improved capabilities.</p>
+<h3 id="artifacts-vs-explanations">Artifacts vs explanations</h3>
+<p>Machine learning can be distinguished not just from mathematics, but also the natural sciences, by its focus on producing <em>artifacts</em>.
+This grounding in reality distinguishes AI from other constructive disciplines like pure mathematics. Please correct me if you’re a mathematician who disagrees, but from what I understand in pure math you mostly decide what to work on based on mathematical aesthetics of the problem, perceived tractability, and whether other mathematicians agree that the question is important. This approach can produce some very elegant mathematics, but requires heavy regularization to avoid divergence into niches<a href="#footnote-1"><span class="math inline">\(^1\)</span></a><a name="return-1">.</a> Machine learning theory can become quite removed from reality, but it maintains the goal of trying to describe learning systems which can be applied to real data, and if the assumptions required to prove a theoretical result diverge too gratuitously from practical systems, reviewers will often pick up on it and reject the paper. Thus an ML theory paper has to contend with two orthogonal questions: first, is the result true, and second, does this result tell me anything about <em>interesting</em> learning problems?</p>
+<p>Empirical ML papers raise analogous questions: first, does this property generalize to different network architectures and optimizers? Second, does this property affect the ability of the algorithm to learn? A sufficiently general property of a network which correlates with learning ability is a good candidate for “useful knowledge”. But proving these two facts is difficult. We don’t have standardized methods for establishing generality, which means an indecisive reviewer can always ask for additional evaluation settings, and proving causality is a notoriously difficult problem.</p>
+<p>Fortunately, there is a simple solution to this challenge: find a handful of tasks that the community considers important (benchmarks), and then find a means of intervening on the property you are studying and see if that has the expected effect on performance (by improving, i.e. beating baselines).</p>
+<p>Sound familiar?</p>
+<p>Beating baselines on standard benchmarks is one way to show that your knowledge is useful, but it’s not the only way, nor is it always applicable. The original adversarial examples paper did not find a way to improve accuracy on vanilla image classification datasets, and somehow still managed to spawn a thriving subfield. Indeed, given the existence of adversarial example stickers, the purely synthetic phenomenon studied by Goodfellow et al. succeeded in bridging the gap into the real world. Other examples of papers that don’t follow the “get-a-better-number-on-a-baseline” rule exist, but tend to cluster in subfields which already have a more inclusive epistemic model, such as interpretability, or the more recent trend of cataloguing the response of LLMs to various prompt-tuning strategies (which I call LLM Psychology, but I expect will eventually get a catchier name).</p>
+<h3 id="exceptions">Exceptions</h3>
+<p>From a philosophical perspective, this obsession with benchmarks based on real-world data makes sense. The objects produced by nature are “special”, in a way that objects produced by sleep-deprived graduate students cannot be. And having a means of distinguishing what information is worthwhile to find out is important for a field. If there is no consensus that a phenomenon is important, then decreasing uncertainty about that phenomenon will have dubious scientific value. This ambiguity is the price of attempting to do science on engineered objects. However, there are two particular means by which scientific investigation can provide utility even in the absence of consensus on which learning systems carry epistemic value: providing evidence of a universal (or at least general) phenomenon of learning systems, and providing rigorous principles on the underlying dynamics of current learning systems which can be leveraged to make engineering approaches more principled.</p>
+<p>A nice example of the first case is <a href="“https://proceedings.neurips.cc/paper/2021/file/652cf38361a209088302ba2b8b7f51e0-Paper.pdf”">this paper</a> on the learned representations of ResNets vs Transformers, which aimed to identify whether certain trends about the types of features that are learned in shallow vs deeper layers generalize across architectures. A nice example of the second has been work studying initializations and <a href="https://arxiv.org/abs/2407.05872">learning dynamics</a> of wide networks which, while still far from maturity, does provide guidance on how to initialize a network in order to obtain certain properties in its learning dynamics.</p>
+<p>The interaction between AI and neuroscience is another direction where more scientific, as opposed to engineering, research can provide useful knowledge. A ResNet-18 might not be intrinsically interesting, but it could be a useful model for studying some aspect of the human visual system, which is. For example, successor representations have been analogized to grid cell representations found in the hippocampus, and in the reverse direction some recent work has tried to find symbolic representations of reinforcement learning behaviour in rodents via <a href="https://icml.cc/virtual/2025/poster/44627">evolutionary search with LLMs</a>. One particularly nice example I’ve encountered was the finding that dopaminergic neurons in the brain encode a distribution over predicted rewards in a way that was remarkably analogous to a class of reinforcement learning algorithms known as <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7476215/">distributional RL</a>.</p>
+<h3 id="doing-good-science-is-hard">Doing good science is hard</h3>
+<p>It’s certainly possible to write a good “science of deep learning” paper, but it’s a lot harder to get right than you’d think. The fact that you <em>need</em> to add the prefix “science of” to the topic you’re studying should already be a big hint that you are trying to apply scientific tools outside of their natural wheelhouse. Most scientific fields presuppose that the thing they’re trying to understand is real and interesting, and these two properties are not always true of objects you could study in AI. Instead, the interestingness of a phenomenon in AI depends on whether improves (or has the potential to improve) capabilities on some grounded domain. MLPs became much less scientifically interesting once ResNets took off, the optimization dynamics of GANs stopped being interesting once diffusion models emerged. Because not all objects are interesting, and whether an object is interesting is largely a function of what it’s able to learn, getting SotA performance on benchmarks is a useful rule of thumb for figuring out whether it’s worth spending the time to read and understand a paper.</p>
+<p>Of course, studying a system that’s at the frontier of capabilities isn’t sufficient to do interesting research.You also need all of the standard good scientific practices of constructing a well-formulated hypothesis and conducting replicable, rigorous, statistically significant experiments which might falsify your hypothesis. But unlike in the natural sciences, these practices aren’t <em>sufficient</em> to pass the epistemic bar applied to papers in an engineering-flavoured field like AI. The judgement of what objects are worth applying the scientific method to, and what hypotheses are worthy of investigation, is crucial to prevent the field from branching into self-perpetuating communities who study objects of no innate usefulness or interest. And so, much as I think it is over-indexed on in the review process, I have been forced over the years to come to the conclusion that asking a paper to apply its findings to a well-established benchmark isn’t quite the devil I’d previously thought it to be.</p>
+<div style="width:80%;">
+<hline></hline>
+</div>
+<p><strong>Footnotes</strong></p>
+<p><a name="footnote-1">1</a>. Like category theory. <a href="#return-1">↑</a></p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
