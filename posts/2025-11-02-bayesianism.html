@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | Thoughts on 'Rethinking the Role of Bayesianism in Modern AI'</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>Thoughts on 'Rethinking the Role of Bayesianism in Modern AI' - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on November  2, 2025
+</div>
+<div class="container">
+<h2>Thoughts on 'Rethinking the Role of Bayesianism in Modern AI'</h2>
+<p><em>Everyone's a little bit Bayesian</em></p>
+<p></p>
+<p>Last week I found myself doing two things I rarely do these days: traveling to a warm sunny place and talking about Bayesian inference.</p>
+<p>The occasion was a workshop organized at MBZUAI on the topic <a href="https://bayesian.mbzuai.ac.ae">“Rethinking the Role of Bayesianism in the Age of Modern AI”</a>, and it was the successor to a Dagstuhl workshop that I’d unfortunately had to miss last year of the same name. Although I did work on model selection for a couple of years during my PhD, it’s been a while since I wrote a paper that was really “Bayesian” (excepting a sprinkling of posterior estimation for continual learning problems) or kept up with the literature, and going into the workshop I wasn’t sure what to expect.</p>
+<p>It turns out that, much like RL, Bayesian deep learning hasn’t had the easiest few years in the wake of LLMs. While there was once a day when machine learning was nearly synonymous with probabilistic methods (I am told this was sometime around 2004), that day has long since passed. Probabilistic graphical models have gone the way of the gramophone — still appreciated by connoisseurs, but not the mass market medium of the information age. The mid-2010s had a few contraptions that could be honestly said to be Bayesian like variational autoencoders and various approximation methods for Bayesian neural network training. And of course, there was always the maxim to fall back on that <a href="https://www.inference.vc/everything-that-works-works-because-its-bayesian-2/">“everything that works, works because it’s Bayesian”</a> if all else failed.</p>
+<p>But in the era of language models, the good Bayesian is left with little that they can point at beyond the trivial observation that any sufficiently well-trained next-token predictor that optimizes a proper scoring rule will have to at least implicitly do some form of Bayesian update in token-space. While RL has had a small <a href="https://www.interconnects.ai/p/an-unexpected-rl-renaissance">renaissance</a> in the wake of reasoning models, the same can’t quite be said for Bayesian methods. The mood at the start of the workshop felt a bit like the mood at RL workshops in the immediate aftermath of ChatGPT: there was a lot of soul searching about what problems that the field was trying to solve were still relevant to pushing the frontier of ML/AI. Despite this, I think most of us came away with some optimism for Bayesian principles being more relevant than ever in the medium-term future.</p>
+<p>This blog post is meant to act as a way of organizing my take-aways from the workshop and also as a way of pre-registering predictions on whether Bayesianism will have been sufficiently re-thought by this time next year that they’ll have to give the event a different name.</p>
+<h3 id="what-is-bayesianism">What is “Bayesianism”?</h3>
+<p>When used as an adjective, “Bayesian” can refer to many different things, but loosely speaking these different applications tend to have a common theme of computing conditional probability distributions on evidence. Bayesian epistemology, for example, says that your beliefs should be expressed as probability distributions, and updating your beliefs in response to evidence should look like computing a conditional distribution. Bayesian inference includes a grab-bag of techniques for estimating conditional and marginal distributions that involve taking some prior over hypotheses <span class="math inline">\(P(H)\)</span> and evidence <span class="math inline">\(\mathcal{D}\)</span> and computing things like <span class="math inline">\(P(H|D)\)</span>, <span class="math inline">\(P(D)\)</span>, etc. This turns out to be hard because integration is hard and does in fact require an entire field with multiple conferences. Bayesian decision theory goes one step further to give a means of combining Bayesian beliefs with goals to induce optimal behaviour.</p>
+<p>This diversity was also reflected at the workshop, where talks spanned a huge range of topics including:</p>
+<ul>
+<li>continual learning and un-learning</li>
+<li>compression</li>
+<li>PAC-Bayes bounds</li>
+<li>online learning</li>
+<li>model selection</li>
+<li>robotics</li>
+<li>decision theory</li>
+<li>variational methods</li>
+<li>in-context learning in LLMs</li>
+<li>uncertainty quantification in neural networks</li>
+</ul>
+<p>Back when I was doing my PhD, if you said you were doing Bayesian ML (or especially bayesian deep learning), it usually meant you were trying to get some sort of posterior distribution out of a neural-network-like object. The spread of topics covered last week expanded this definition significantly — that now priors don’t have to correspond to subjective beliefs (e.g. in PAC-Bayes bounds and compression), and don’t have to be applied to network parameters (they can instead be representations in the network that are updated via in-context information).</p>
+<h3 id="what-rl-has-that-bayes-doesnt-success-stories">What RL has that Bayes doesn’t: success stories</h3>
+<p>One common theme that came up during the workshop was that there haven’t been many examples of exciting new methods or discoveries that are explicitly or uniquely “Bayesian”. Part of this is I think because updating probability distributions based on evidence is not a problem that lends itself easily to flashy headlines. Things that capture the public’s attention tend to involve either <em>doing</em> something impressive like controlling a robot or beating people at games, or <em>making</em> something impressive like a new mathematical discovery. RL problems tend to be innately more attention-grabbing and (though this might be controversial) impactful, because maximizing a reward signal in an environment is a very generic framework for getting AI systems to <em>do</em> things that are useful. Rationally updating one’s beliefs does not alone allow a system to suddenly achieve remarkable feats, though it can be a useful component of such a system. Even worse, operations that look like rational-ish belief updates often emerge as a natural consequence of whatever non-Bayesian learning paradigm is able to solve a task that involves updating beliefs based on evidence, which means that the Bayesianists can’t even take credit for methods that do successfully implement Bayesian reasoning.</p>
+<p>Another reason for the lack of famous Bayesian successes is that many of the problems that currently capture the public imagination don’t really involve explicit Bayesian updating. Having well-calibrated uncertainties that can be updated accurately and efficiently in light of new evidence is most useful in settings with limited observability, for example when working with other agents like humans or in environments with hidden state that can change over time like in most digital assistant tasks. It’s probably useful, though not essential, for learning problems like RL where even if the environment is fixed, the learner’s ability to manipulate the world changes over time.</p>
+<p>There already are some examples of successful applications of Bayesian methods to these types of problems, in particular <a href="https://en.wikipedia.org/wiki/Simultaneous_localization_and_mapping">SLAM</a>. And there are lots of things in RL that look a bit like tempered Gibbs posteriors if you squint hard enough. But I don’t think many people think of SLAM or MPO when they think of Bayesian methods, nor do they consider uncertainty quantification in neural networks to be necessarily “Bayesian”. So perhaps part of the problem is also a marketing issue, and next year all of the workshop attendees will have learned their lesson and put “Bayesian” or “variational” in all of their paper titles.</p>
+<h3 id="some-rapid-fire-takeaways">Some rapid-fire takeaways</h3>
+<p>I came away with a few conclusions that I didn’t have going in, so in the final section of this post I’ll give a rapid-fire list of lessons that were probably already obvious to most Bayesian ML people but which only crystallized for me last week.</p>
+<p><strong>Uncertainty quantification in LLMs is already kind of useful</strong></p>
+<p>There are two ways in which this fact isn’t immediately obvious: that uncertainty quantification is reliable enough to give <a href="https://www.nature.com/articles/s41586-024-07421-0">decent estimates of uncertainty</a>, and that these estimated uncertainties correlate reasonably well with response truthfulness and <a href="https://aclanthology.org/2025.acl-tutorials.3/">quality</a>. That said, my interactions with the current generations of language models have made it abundantly clear that hallucinations and calibration are still far from a solved problem, and uncertainty estimation methods still exhibit a fairly strict trade-off between quality and compute.</p>
+<p>Current approaches for estimating uncertainty all have problems. Ensembling over forward passes is expensive and how to induce randomness in the ensemble is a bit of a personal preference, which means it’s hard to really say in absolute terms what a given level of variance means. Asking the language model if it is sure is a great way to reinforce a hallucination. Using token-level entropies will lead to a lot of spuriously high estimates of uncertainty when there are many ways of phrasing something. Evaluating the quality of an uncertainty estimate is also a challenge. The current standard is to look at whether filtering responses by uncertainty improves some quality metric like <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/10c456d2160517581a234dfde15a7505-Paper-Conference.pdf">accuracy</a> or <a href="https://arxiv.org/abs/2311.07383">ROUGE-L</a>, which is a reasonable start but doesn’t give a great absolute measure of how well-calibrated the model’s uncertainties are. The fact that this type of filtering actually does tend to produce better answers is a promising start, though, and I could easily imagine a world where baseline uncertainty quantification methods performed a lot worse than the ones we currently have do.</p>
+<p><strong>You can have a prior without being Bayesian</strong></p>
+<p>Priors aren’t just useful for Bayesians — they can also give you a (frequentist) PAC-Bayes bound, or a baseline for evaluating compression rates. I’ve written plenty previously on PAC-Bayes bounds, which it turns out despite their name are not actually Bayesian, so I won’t go into a lot of detail on this one. There were two interesting lines of work mentioned at the workshop that gave interesting updates on learning theory, one of which was Pierre Alquier’s work on PAC-Bayes bounds for offline and online learning (see <a href="https://arxiv.org/pdf/2110.11216">here</a> for a recent overview of that area), and the other of which was an effort to get PAC-Bayesian bounds that “explain” deep learning. As I’ve written previously, I’m a bit skeptical of the ability of generalization bounds to give a causal explanation of generalization, but I was pleasantly surprised to find that current bounds are at least <a href="https://openreview.net/forum?id=FDUfAcAVjO">a lot</a> tighter than they were in the past and are a bit closer towards capturing phenomena like double descent. One particularly exciting direction that’s seen recent progress is a shift towards <a href="https://openreview.net/forum?id=CyEJn71Z00">notions of complexity</a> that actually seem to align with generalization in the real world.</p>
+<p><strong>The forward pass of a well-trained LLM is a little bit Bayesian</strong></p>
+<p>This idea has been around for a <a href="https://arxiv.org/abs/2111.02080">while</a>, but I think there are some important nuances in what I mean by the forward pass being a little bit Bayesian. This is because there are multiple levels at which one can view the forward pass and outputs of a sequence model. At the token level, a sequence model can be said to infer the next-token likelihoods over its training distribution. This type of <em>implicit</em> conditioning, while it does depend on the context by definition, is different from the type of general in-context learning that allows LLMs to perform gradient descent or linear regression on new datasets.</p>
+<p>Showing that a language model can do <em>explicit</em> Bayesian inference, for example by telling it “Assume a Gaussian prior and suppose that you have seen the following data points — what is your posterior?” is a different problem. It is also fairly trivial to show that exact Bayesian inference (unless the model is provided a scratch pad) will be out of reach for a single forward pass due to <a href="https://arxiv.org/abs/2410.03170">computational considerations</a>. Approximate Bayesian inference is still fair game however, and it turns out that the Bayesianists have been <a href="https://arxiv.org/abs/2502.06601">hard at work</a> over the past couple of years demonstrating that forward passes can perform more generic <a href="https://arxiv.org/abs/2501.16825">in-context</a> Bayesian reasoning than what you would expect from learning a conditional distribution over the internet-scale pretraining distribution. For example, <a href="%5Bhttps://arxiv.org/abs/2509.02327%5D(https://arxiv.org/pdf/2509.02327)">it’s possible</a> to use in-context computation to get reasonable uncertainty decompositions out of LLMs.</p>
+<p><strong>Bayes is about adaptation</strong></p>
+<p>One interesting point that came up a few times during the workshop is the idea that Bayes’ theorem should be viewed as a means of characterizing “optimal” adaptation, and that Bayesians should be focusing their efforts towards more adaptive systems. This perspective has been elaborated on extensively by Emtiyaz Khan, for example in his <a href="https://www.youtube.com/watch?v=_49ydwCrhVk&amp;t=1383s">CoLLAs talk</a>. From my experience in continual/reinforcement learning, we still don’t have a great intermediate update between in-context and in-weights learning that allows for expressive but rapid adaptation that doesn’t conflict with prior knowledge, but I agree that the properties exhibited by Bayesian posteriors are pretty much exactly what you want from a continual learning system.</p>
+<p><strong>The aleatoric-epistemic dichotomy isn’t the only way to view uncertainty</strong></p>
+<p>Finally, one really interesting discussion point that came up during the workshop was the weakness of the epistemic aleatoric decomposition of uncertainty. Although in <em>theory</em> this decomposition falls out nicely from the conditional entropy, in practice it conflates semantically distinct sources of uncertainty. It can also be problematic in cases where <a href="%5Bhttps://arxiv.org/abs/2504.18433%5D(https://arxiv.org/pdf/2504.18433)">defining uncertainty with respect to the variance of a distribution gives a different properties than with respect to its entropy</a> (particularly in the case of continuous random variables). This distinction is important if we are e.g. trying to model uncertainty in a regression problem.</p>
+<p>Epistemic uncertainty is quite vague, and one thing papers like <a href="https://arxiv.org/pdf/2505.23506">this one</a> have convinced me of is that it is a wide umbrella term for a number of concepts that it can be useful to distinguish. While we normally think about epistemic uncertainty as the entropy of the belief over model parameters <span class="math inline">\(P(\theta)\)</span>, there are a number of different reasons why one might have uncertainty over these parameters: the model class might be misspecified (for example, you’re trying to fit a quadratic function with a linear family), your learning procedure might not have found the best fit in the model class to the data, and the data that you are currently showing the model might not look much like the data you used for fitting. A model which is uncertain because the data looks out-of-distribution is uncertain in a qualitatively different way than one which is uncertain because its prediction on the datapoint is contingent on randomness in its training process, and although these two notions of uncertainty might correlate (as is the hope of people using ensembles for OOD detection), it is important to know which one your method is actually measuring in cases where they diverge.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
