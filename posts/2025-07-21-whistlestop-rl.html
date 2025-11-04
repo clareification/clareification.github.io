@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | A whistle-stop tour of RL algorithms</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>A whistle-stop tour of RL algorithms - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on July 21, 2025
+</div>
+<div class="container">
+<h2>A whistle-stop tour of RL algorithms</h2>
+<p><em></em></p>
+<p></p>
+<p>Ladies and gentlemen, welcome aboard the RL Express! Today we will be taking you on an exciting journey through the world of RL objectives, making stops in Temporal Difference Learning, Actor-Critic Methods, and Preference Optimization, with time for an optional side-trip to World Modelling. Before we begin our journey, please familiarize yourself with the safety features on this vessel, in particular dynamic programming, gradient-based learning algorithms, Markov Decision Processes, and deep neural networks. With that, let’s begin!</p>
+<h2 id="value-based-methods">Value-based methods</h2>
+<h3 id="td-learning">TD Learning</h3>
+<p>To our starboard side, you can now see the world-famous Great Pyramid of Temporal Difference (TD) Learning. TD is one of the oldest civilizations in this region, with deep cultural and economic ties to the neighbouring realms of Neuroscience, Psychology, Control Theory, and Operations Research.</p>
+<p>TD learning is an algorithm for an interactive world: whereas in most other areas of machine learning we assume some fixed and inalterable Data Generating Distribution <span class="math inline">\(\mathcal{D}\)</span> and differentiable loss function <span class="math inline">\(\ell\)</span>, where learning is done by drawing iid samples from <span class="math inline">\(\mathcal{D}\)</span> and then updating the learner’s parameters based on the gradient of <span class="math inline">\(\ell\)</span>, TD learning assumes a model where an agent exists in an interactive world, taking actions <span class="math inline">\(A\)</span>, observing the world-state <span class="math inline">\(S\)</span>, and receiving reward <span class="math inline">\(R\)</span>. Importantly, whereas in supervised learning we assume the learner is essentially trapped in a dark room and passively shown data, the reinforcement learner takes an active role in the data collection process because its output action will affect the next observation it sees. The natural description of data in reinforcement learning is a trajectory indexed by time <span class="math inline">\(S_0, A_0, R_0, S_1, A_1, R_1, \dots\)</span>.</p>
+<p>The agent’s goal is to maximize the expected cumulative (possibly discounted by some factor <span class="math inline">\(\gamma\)</span>) reward along a trajectory, also known as the <em>value</em> <span class="math inline">\(V\)</span>, by finding a policy (a mapping from observations to distributions over actions), which selects good actions (see <a href="http://incompleteideas.net/book/RLbook2020.pdf">Sutton &amp; Barto</a> for a more thorough introduction). One straightforward way to identify an optimal policy is to learn the expected returns from every state-action pair under your current policy, then change your policy to always take the action with the highest expected value. However, to do this you first need a good way of estimating the values of states and state-action pairs, which is where TD learning comes in.</p>
+<p>In TD-learning, the agent is constantly making predictions about the world (in particular, the expected cumulative reward it will get from its current state) and updating those predictions based on an error signal <span class="math inline">\(\delta_t\)</span> which is just the difference between your prediction and the actual reward you received. If agent has a fixed lifetime of <span class="math inline">\(H\)</span> steps, this could look something like</p>
+<p><span class="math display">\[\delta_t = V(S_T) - \sum_{t=T}^H R_t\\]</span></p>
+<p>or in the discounted case</p>
+<p><span class="math display">\[\delta_t = V(S_T) - \sum_{t=T}^\infty \gamma^{t-T}R_t\;.\]</span></p>
+<p>Ultimately, we want to use this error as a learning signal, which means that using the above errors as learning signals will be utterly useless as the signal is only computed after either the agent is dead or the infinite expanse of time has ended in a singularity. Instead, we use some estimator <span class="math inline">\(G_t\)</span> as our proxy for the outcome from the state, resulting in an error signal of the form</p>
+<p><span class="math display">\[\delta_t = V(S_t) - G_t\]</span></p>
+<p>where <span class="math inline">\(G_t\)</span> can be defined in a variety of ways. The most popular approach, used in algorithms like DQN, is to use the next-step reward and predicted value of the next state to compute a target</p>
+<p><span class="math display">\[\delta_t = V(S_t) - [R_t + \gamma V(S_{t+1})]\]</span></p>
+<p>however in more general <span class="math inline">\(n\)</span>-step methods a partial sum <span class="math inline">\(\sum_{t=1}^n R_t + V(S_{n}\)</span> is used as an estimator instead. If one is indecisive, it’s also permissible to mix over the different n-step returns
+<span class="math inline">\(G^\lambda = (1-\lambda)\sum_{t=1}^n \lambda^{t-1}G^{(t)} + \lambda^{n-1}G^{(n)}\;.\)</span></p>
+<p>To perform these updates faster, it is possible to use <a href="https://web.stanford.edu/class/cme241/lecture_slides/rich_sutton_slides/22-eligibility-traces.pdf">eligibility traces</a>.</p>
+<p>Notice here that we are using the agent’s predictions about the state it ended up in to update its predictions about the state it started in. This property means that <span class="math inline">\(n\)</span>-step TD methods lie in an interesting bias-variance trade-off between low-variance (in the case of small <span class="math inline">\(n\)</span>) but high-bias feedback about the result of an action on the one hand and higher-variance but lower-bias error signals on the other (high <span class="math inline">\(n\)</span>). The choice of <span class="math inline">\(n\)</span> is typically therefore a function of how much you trust the learner’s predictions to be reliable enough to learn from.</p>
+<p>With the emergence of bootstrapping, we now find our vessel entering more turbulent waters.</p>
+<h3 id="instability-and-bootstrapping">Instability and bootstrapping</h3>
+<p>The challenge with TD-style objectives is that</p>
+<h2 id="policy-gradients">Policy Gradients</h2>
+<p>Having successfully navigated the tumultuous waters of bootstrapping with function approximation, you can now see ahead of us the gentle rolling hills of Policy Gradients, a land of plentiful acronyms whose citizens do not believe in doing unnecessary computational work, particularly as it pertains to estimating action-value functions.</p>
+<p>It is said that the founder of Policy Gradients was an emigré from the realm of Gradient-Based Optimization who, while passing through the foothills of TD learning during a particularly chaotic revolution, decided that the source of the region’s strife was due to the fact that the error signal <span class="math inline">\(V(S_t) - R_t + \gamma V(S_{t+1})\)</span> is not a gradient of any function, and sought to found a new city on more differentiable foundations.</p>
+<p>The result was a great civilization founded on an extremely simple principle: if we want to maximize the expected return of some policy <span class="math inline">\(\pi_\theta\)</span> <span class="math inline">\(J_\theta = \mathbb{E}_{\pi_{\theta}}\sum_{t=1}^H R_t\)</span>, why not simply try to compute this gradient directly and then apply standard gradient ascent methods? Supposing that we can find some decent estimator <span class="math inline">\(\widehat{\nabla J}_\theta\)</span>, this results in the update</p>
+<p><span class="math display">\[\theta_{t+1} = \theta_t + \alpha \widehat{\nabla J}_\theta\; .\]</span></p>
+<p>Now the question arises: how on earth do we compute this <span class="math inline">\(\widehat{\nabla J}_\theta\)</span> quantity? The answer will be familiar to anyone who has had to prove the <a href="https://en.wikipedia.org/wiki/Cramér–Rao_bound">Cramer-Rao lower bound</a> in a statistics class or implement a <a href="https://arxiv.org/abs/1906.02691">variational auto-encoder</a> which is to re-parameterize the objective function and then make use of the identity</p>
+<p><span class="math display">\[\frac{\partial}{\partial \theta} \ln f(\theta) = \frac{1}{f(\theta)} \frac{\partial}{\partial \theta} f(\theta)\]</span></p>
+<p>and we get that for each <span class="math inline">\(s \in \mathcal{S}\)</span>,
+<span class="math inline">\(\nabla_\pi v_\pi (s) = \nabla \bigg [ \sum_a \pi(a|s) q_\pi(s, a) \bigg ]\)</span> which, by a derivation that can be found on p 325 of <a href="http://incompleteideas.net/book/RLbook2020.pdf">Sutton &amp; Barto</a>, amounts to</p>
+<p><span class="math display">\[\begin{align}
+\nabla J_\theta &amp;\propto \sum_{s} \mu(s) \sum_a q_\pi(s, a) \nabla \pi(a|s, \theta) \\
+&amp;= \mathbb{E}_{s \sim \mu_{\pi}} \pi(a|S_t, \theta) q_\pi(S_t, \theta) \frac{\nabla \pi(a|S_t, \theta)}{\pi(a|S_t, \theta)} \\
+&amp;= \mathbb{E}_{S_t, A_t \sim \pi}[q_\pi(S_t, A_t) \frac{\nabla \pi(a|S_t, \theta)}{\pi(a|S_t, \theta)}] \\
+&amp;= \mathbb{E}_{S_t, A_t \sim \pi}[G_t \nabla \log \pi(A_t|S_t, \theta)]
+\end{align}\]</span></p>
+<p>For those of you who skip over derivations, the intuition is simple: the REINFORCE algorithm updates the policy so that actions that give bigger <span class="math inline">\(G_t\)</span> get higher probabilities in expectation, and actions that result in smaller gains <span class="math inline">\(G_t\)</span> are effectively reduced in probability.</p>
+<p>This becomes even easier to see if we center <span class="math inline">\(G_t\)</span> by its expected value at the state <span class="math inline">\(S_t\)</span> (note that since <span class="math inline">\(\sum_{a} \nabla \pi(a|s) = \nabla 1 = 0\)</span> for any distribution, we can add and subtract per-state constants from the estimator without affecting its expected value). Without centering, the effect of the estimator on increasing the probability of good actions and decreasing the probability of bad actions might have to be done indirectly (i.e. decrease the probability of a bad action by a lot when you take it, which indirectly increases the probabilities of the good actions because probability mass has to go somewhere, and then only decrease the probability of the good action by a little when it is taken.)</p>
+<p>With centering, the intuition of increasing the probability of actions that are better than you expected and decreasing the probability of actions that are worse than you expected is a lot clearer. It’s also helpful for <a href="https://www.jmlr.org/papers/volume5/greensmith04a/greensmith04a.pdf">reducing the variance of your estimator</a>. However, any gradient descent method, no matter how accurate its gradient estimator, requires careful tuning of the update norm to ensure that progress is stable.</p>
+<p>As you can see on our port side, the great ruins of Reinforcius present a cautionary tale of the perils of overzealous optimization. Once the jewel of the continent, this city state experienced rapid development in the previous millenium but without sufficient regularization eventually overstepped the stability threshold of the local landscape and collapsed. If you look closely, you can see ancient hieroglyphs depicting the fall of the society as its citizens’ behaviours collapsed into <a href="https://openreview.net/forum?id=SiZmNlFLVP#discussion">trivial actions</a> such as “always move left”.</p>
+<h3 id="trpo-and-ppo">TRPO and PPO</h3>
+<p>We are now arriving at the twin walled cities of Trpopolis and Ppopolis.</p>
+<p><span class="math inline">\(\theta_{k+1} = \mathrm{argmax}_{\theta} \mathbb{E}_{s, a \sim \pi_{\theta_k}}[L(s, a, \theta_k, \theta)]\)</span>
+where we recall
+<span class="math inline">\(L^{PG} = \mathbb{E}[\log \pi_\theta(a_t|s_t) \widehat{A_t}]\)</span></p>
+<p>TRPO proposed the constraint
+<span class="math inline">\(\mathbb{E}_t[KL[\pi_{\theta_{\mathrm{old}}}(\cdot | s_t), \pi_{\theta}(\cdot|s_t)]] \leq \delta\)</span></p>
+<p>which it then proposes to enforce by following the following penalized objective</p>
+<p><span class="math inline">\(\mathbb{E}[\log \pi_\theta(a_t|s_t) \widehat{A_t}]  + \beta \mathbb{E}_t[KL[\pi_{\theta_{\mathrm{old}}}(\cdot | s_t), \pi_{\theta}(\cdot|s_t)]].\)</span></p>
+<p>The city was founded by the monastic cult of the great god Shul, but suffered a schism shortly after its founding based on a disagreement on the ability of regularization terms to induce convergence to a local optimum of a constrained optimization problem. Those who believed it did not left to found the city of Ppopolis, while those who did remained in Trpopolis. Their descendants continue to follow the same religious rites of the founders, which involve the chanting of the phrase “lagrange multipliers” until one is delirious enough to believe that a regularization penalty can enforce a constraint.</p>
+<p>The PPO objective proposes to follow the policy gradient so long as the likelihood ratio between the old and new policy on the sample is within a bounded range, after which, while there isn’t a <em>penalty</em> for diverging from the old policy, the objective doesn’t improve either.</p>
+<p><span class="math inline">\(\mathcal{L}^{\mathrm{clip}}(\theta) = \mathbb{E}\bigg [ \min \big ( \frac{\pi_\theta(a_t|s_t)}{\pi_G(a_t|s_t)} \widehat{A}_t, \mathrm{clip}(r_t(\theta), 1 - \epsilon, 1 + \epsilon)\widehat{A_t} \big) \bigg ]\)</span></p>
+<p>Despite not explicitly using any explicit regularization to the reference policy, this approach is highly effective. It is the basis on which Ppopolis has become an international economic and cultural player, exporting a number of useful algorithmic and engineering ideas which have taken root elsewhere. The generality of the policy gradient on which the approach is based (which can be applied to both continuous and discrete action spaces), as well as the stability of the clipping trick, have meant that the objective is an extremely popular baseline. Indeed, despite the many claims of improved algorithms which supposedly outperform it, PPO continues to be the classic reference algorithm against which other methods were evaluated.</p>
+<h3 id="grpo">GRPO</h3>
+<p>While</p>
+<h3 id="sac-neither">SAC: neither</h3>
+<p>On the border between</p>
+<h2 id="miscellanea">Miscellanea</h2>
+<h3 id="search-algorithms">Search algorithms</h3>
+<h3 id="environment-design-and-autocurricula">Environment design and autocurricula</h3>
+<h3 id="imitation-learning">Imitation learning</h3>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
