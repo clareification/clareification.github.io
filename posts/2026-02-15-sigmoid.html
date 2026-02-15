@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | Sigmoids all the way down</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>Sigmoids all the way down - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on February 15, 2026
+</div>
+<div class="container">
+<h2>Sigmoids all the way down</h2>
+<p><em>A few thoughts on modelling exponential and saturating processes</em></p>
+<p></p>
+<p>Nature abhors an exponential. The reachable universe, while very large, is not infinite, and at the end of the day any system that exhibits exponential growth will eventually exhaust whatever resource was fuelling it and peter out. This cycle of exponential growth followed by a plateau is characterized by a sigmoid, a shape familiar to anyone who has taken a calculus course.</p>
+<p>Exponential growth takes the mathematical form <span class="math inline">\(e^{rt}\)</span> (r for rate, t for time), which has the nice symmetry of <span class="math inline">\(dP(t)/dt = rP(t)\)</span>. The sigmoid places a constraint on this exponential growth given by some carrying capacity <span class="math inline">\(K\)</span> (for example, the population of deer in Yosemite park is upper bounded by the amount of shoots and berries available to eat). The rate of growth of the population <span class="math inline">\(\frac{dP}{dt}\)</span> is <span class="math inline">\(rP(t)(1 - P(t)/K)\)</span>. Once <span class="math inline">\(P(t)=K\)</span> this rate of growth will be zero. But as long as <span class="math inline">\(P(t)\)</span> is well below <span class="math inline">\(K\)</span>, the <span class="math inline">\((1 - P(t)/K)\)</span> term is basically 1, so growth looks exponential.</p>
+<p>While you’re early in a sigmoid, it can be <a href="https://www.lesswrong.com/posts/fRSf65CxthNMaLnCP/distinguishing-logistic-curves">hard</a> to tell exactly what <span class="math inline">\(K\)</span> is going to be. The <span class="math inline">\(P/K\)</span> damping term is going to be much smaller than the inherent noise in your measurements for most of the time that it would be most valuable to be able to predict how many orders of magnitude grater <span class="math inline">\(P\)</span> might become. You need your growth to deviate significantly from exponential before you can be confident, although at that point the value of the information of knowing <span class="math inline">\(K\)</span> is going to be a lot lower.</p>
+<h3 id="exponentials-are-unintuitive-because-they-mostly-dont-exist.">Exponentials are unintuitive because they (mostly) don’t exist.</h3>
+<p>One thing that might be surprising to the wannabe evolutionary psychologist is why exponential growth patterns are so unintuitive to humans despite making up a large fraction of the natural phenomena in the world we inhabit. But upon closer inspection I don’t think this is as surprising as it might seem prima facie. You can get a very accurate approximation of a sigmoid as a piecewise linear function consisting of a line at zero, followed by a line with slope r/4 connecting zero to K, and then another flat line at K. Most of the exponential growth period occurs when the function looks like it is zero, so it’s invisible. By the time you see notice it, it looks like a linear function in a nice, aesthetic serif font. Since you can’t intervene on what you can’t see, it shouldn’t be that much of a surprise that evolution didn’t equip us with an intuitive grasp of functions with exponentials in them. It’s only now that we can track the growth of things when they are very small and very large that exponential growth (even the pseudo-exponential growth you get in the pre-saturation sigmoid) has become something that we need to reason about in our – if not daily, then at least annualized – lives.</p>
+<div style="width:400px; float:right; margin:10px; border:1px solid white; padding:10px;">
+<span><a name="figure-1"> </a><img width="100%" src="../images/banana_sigmoid.png" /> By the time you notice most locally-exponential growth, it’s probably not exponential any more.</span>
+</div>
+<p>Nonetheless, once you start looking at the world – especially from a scientific lens – sigmoids are <em>everywhere</em>. The divide between people who “get” exponentials and the people who don’t became especially salient during covid, when exponential growth suddenly became front and center in a lot of policy decisions. Even as someone who spent many years studying exponential functions in various forms, I would often still feel a bit of a thrill every time I checked ourworldindata in the morning and discovered that, indeed, case numbers were exactly following the same exponential trend that they were the previous day. You could figure out how well people had paid attention in math class by whether their response was “the numbers are trivial now so we shouldn’t worry” or “the numbers are growing at a rate such that if we don’t act now it won’t matter whether we’re worried beause we’ll all be sick”. Of course, the bad takes rarely went in the opposite direction. As far as I’m aware, there was no mainstream take that “the numbers are growing at a rate which means everyone in the world will have become ill with covid eight hundred and fifty times in the next two years so we need to invest heavily in studying the effect of long-term daily covid infection on pancreatic function.”</p>
+<p>No small part of the comparative willingness of computer scientists to take exponential growth seriously is the fact that our entire field has been in one giant exponential curve for the past sixty years in the form of Moore’s law. Moore’s law is an interesting example of an exponential that does not emerge as a result of a sigmoid curve. Sigmoids slow down as they approach the carrying capacity because more and more bacteria are starving to death due to not being able to find increasingly limited food. Moore’s law is describing a different limiting exponential relationship: you need at least one semiconductor atom per transistor, so there’s a fundamental lower bound on how many of them you can fit on a chip that’s given by how many atoms you need to produce the right physical properties required to do computation. The general consensus today is that in the strict sense of number of transistors / chip Moore’s law has run its course, and notably slowed down in around 2010. This roughly checks out with my lived experience of being a kid in the 2000s when it felt like every time we got a new computer there was a different prefix on the number of bytes of of RAM it had vs today’s relative stability of O(10) GB. Interestingly, if we relax Moore’s law to measure flops/second/dollar the exponential trend seems to be alive and well.</p>
+<p>This highlights an important point: when you’re trying to predict the development of technology, it can be hard to predict which laws of physics are actually hard constraints on growth and which are things that can be worked around by clever design choices. Exponential growth in new york city’s population might have been halted prematurely by the sheer quantity of horse excrement produced by their transportation technology. It is a natural law that horses produce a certain amount of waste per day. But it is not a natural law that humans have to use horses to travel. The development of the automobile revealed this discrepancy, allowing the exponential to continue. It’s important to distinguish between things that are actually physically impossible (e.g. rockets that go faster than the speed of light, time travel), and things that are physical bottlenecks given our current technology. For example, the amount of land required to grow all of the sustenance a single human needs depends on agricultural technology, and that technology has fortunately improved enough to avoid any Malthusian famines predicted in the previous two centuries.</p>
+<h3 id="ways-to-extrapolate-a-sigmoid">Ways to extrapolate a sigmoid</h3>
+The reason I’m writing this post, of course, is that as you may have noticed a lot of measurements of progress in my field have exhibited a somewhat exponential character. This has made reasoning about future progress hard, because as we have now discussed at length human intuition does not jibe with exponentials. It’s made reasoning about what models will do in the future <em>especially</em> hard, and there is a lot of disagreement in The Online Discourse about how to do so. In my view, these fall into three categories.
+<div style="width:400px; float:right; margin:10px; border:1px solid grey; padding:10px;">
+<span><a name="figure-1"> </a><img width="100%" src="../images/sigmoid_2.png" /> Approximating a sigmoid curve as a zeroth-order approximation of an exponential at time <span class="math inline">\(t\)</span>.</span>
+</div>
+<ol type="1">
+<li><p>Zeroth-order estimate: take current value, extrapolate a constant function from this value. I don’t see this a lot in folks who spend any of their professional time being paid to make accurate predictions about AI, but I see it a lot in the translation of academic papers by journalists. At least, I’m assuming this is why I see articles about how “AI can’t do X” which are based on some eval a grad student did on models from 8 months ago with a relatively limited academic budget. While it’s easy to dunk on this approach, the figure to the right shows that if you time it right you can get a very good paproximation of a sigmoid.</p></li>
+<li><p>Exponential extrapolation: at the opposite end of the spectrum, assuming an exponential will <em>definitely</em> go on forever is also not a great move. There are hard physical constraints on how quickly information can pass between different components of a system, how much energy you can realistically expect to capture from the sun, and the amount of raw materials available to us to build computers. Eventually we we can expect to hit <em>some</em> sort of wall on essentially any scaling curve.</p></li>
+<li><p>Sigmoidal modelling: most people implicitly assume that gains will eventually cap off and produce some (at least locally) sigmoid-like shape. At least, most people agree that things have look exponential-ish so far, and that in the future it will be flatter. Exactly what the capability landscape of the technology looks like when this happens is where most disagreement comes from.</p></li>
+</ol>
+<p>For example, some charicatures of arguments made by more skeptical pundits tend to look something like an exponential curve followed by a straight line at t=now. Now, this type of model isn’t <em>totally</em> unreasonable – with Moore’s law, for example, you get exponentially smaller and smaller transistors until eventually they are the size of a single atom, at which point you need to find some other way of making computers faster that doesn’t involve shrinking the transistors. So if there’s a hard physical constraint on some technology that acts as a 0-1 modulator of progress, you could theoretically see some curve like this. But unless you have a very strong reason based on the laws of physics for why exponential growth should suddenly stop, looking at an exponential and telling everyone “don’t worry, this thing isn’t that big yet” is a great way to end up with a rat infestation.</p>
+<h3 id="modeling-limits-on-growth">Modeling limits on growth</h3>
+<div style="width:400px; float:left; margin:10px; border:1px solid white; padding:10px;">
+<span><a name="figure-1"> </a><img width="100%" src="../images/fruit_picking_scientists.png" />Diligent scientist (right) writing incremental papers as Newton (left) defies own law of gravity to discover new scientific paradigm.</span>
+</div>
+<p>In most cases, whatever thing that acts as a hard upper bound on progress is probably going to start making improvements harder as time goes on. In phenomena that are best modeled as sigmoids, this is because the hard upper bound is some resource that gets harder to find in a fairly smooth way as the population grows. The actual constraint that will eventually stop further progress could take a variety of forms that don’t look like resource contention. For example, communication constraints might result in different behaviour than resource constraints (though the exact behaviour here depends on the communication cost model). I do think that, having done a PhD, the resource-foraging model of scientific progress feels particularly apt – a lot of scientific research feels like a semi-random walk in idea space where you find brilliant ideas only to discover that someone else had the nerve to write up and publish them 5 years earlier. As you go along, you develop some intuition in a particular problem space for where to look to find unplucked scientific fruits. But if you see that someone else found a giant mango a few hundred meters away from you over a hill that nobody had every bothered with, it’s a good bet that there will be a lot more like it nearby and you’d do well to drop what you’re doing and explore the new, less well-picked tree. Newton’s law of gravity, for example, was a giant tree that eventually led to us landing on the moon. Although if you zoom in on a particular field, the rate of discoveries will often look quite sigmoidal (via a cycle of exponential growth in the number of people working in the field followed by saturation when all of the easy pickings have been published), it can be hard to figure out whether in aggregate total progress follows any particular geometric shape.</p>
+<p>There is an interesting question to be discussed, which is a bit out of scope for this blog post so I will just drop it here and then leave it, concerning whether certain cultures and systems for supporting scientific research encourage a more ‘agricultural’ approach to discovery which might have the effect of reducing the total number of sigmoidal growth curves being exploited at any particular time and increasing the rate at which the ceiling is reached in any particular sigmoid-ish trajectory. Much of the research that has historically opened the door to exponential progress is itself a result of the freewheeling exploration of some member of the gentry having a weird obsession with pigeons or an off-duty lieutenant writing a book about steam engines in his spare time. By contrast, most heuristics we use to estimate the potential impact of work can only look at the immediate effects, and I do wonder if embracing our scientific <a href="https://users.ox.ac.uk/~mert2255/papers/cluelessness.pdf">cluelessness</a> by setting aside some fraction of the world’s total research budget to random exploration of <a href="https://pubmed.ncbi.nlm.nih.gov/3316184/">probably-useless</a> <a href="https://pubmed.ncbi.nlm.nih.gov/29358495/">phenomena</a>.</p>
+<p>Although exponential growth in the number of researchers working on a problem is one way to get exponential growth in total progress, a field can also exhibit exponential progress when ideas can compound in some way so that each improvement corresponds to making things x% better. For example, if you’re trying to figure out how to fold sheets of paper, going from <span class="math inline">\(n\)</span> to <span class="math inline">\(n+1\)</span> folds doubles the width of paper. You get exponential progress if you’re in a domain where each unit of progress in idea-space corresponds to making something a constant <em>percent</em> better in world-space, and idea-space is rich enough that people find good ideas continuously.</p>
+<h3 id="taking-an-outside-view">Taking an outside view</h3>
+<div style="width:400px; float:right; margin:10px; border:1px solid white; padding:10px;">
+<span><a name="figure-1"> </a><img width="100%" src="../images/no_low_fruit.png" />“Well, guess that’s it for scaling laws. Has anyone seen any quantum lately?” </span>
+</div>
+<p>One challenge with forecasting scientific progress is that, when you’re on the inside, you are mostly <em>failing</em> to make progress. When you are constantly confronted with the limitations of current technology, you develop a persistent pessimism bias. Sure, language models have nice power-law relationships between flops and log likelihood that translates to interesting new capabilities emerging at a steady clip <em>for now</em>, but eventually the marginal 0.0000001 nats you gain on your internet-scraped text corpus will fail to translate to a meaningful increase in actual intelligence and progress will stall. But we could apply the same argument to say that once it becomes impossible to make transistors smaller, progress in computers will stall, and that doesn’t seem to have been the case so far. Gains from the particular strategy of making transistors smaller, which translated to exponential improvements in computers for decades, may have been largely exhausted, but engineers have found other ways of making computers faster, like leveraging parallelism in GPUs.</p>
+Analogously, AI progress has had lots of nontrivial exponentials as a result of ideas like “let’s use GPUs to train our neural networks”, “let’s design architectures that run fast on GPUs”, “let’s make the networks bigger and train on more GPUs”, to now “let’s run our networks for longer when we want them to do something hard”. It would be a bit premature, in my view, to pin all of one’s predictions about future AI progress solely on the “scaling laws between pretraining compute and negative log likelihood on the internet” sigmoid. A good forecast should take into account the current population of sigmoids being traversed in the field, along with the rate at which interesting exploitable regions of idea-space are appearing.
+<div style="width:400px; float:left; margin:10px; border:1px solid white; padding:10px;">
+<span><a name="figure-1"> </a><img width="100%" src="../images/sigmoid_of_sigmoids.png" /> If progress is the sum of sigmoids whose probability of being spawned also follows a sigmoid, you still get something that looks like a sigmoid.</span>
+</div>
+<p>This can lead to forecasts that feel a bit wooly, because the expert will be able to give lots of reasons for why the current set of approaches will eventually top out, and the counter to that is to wave one’s hands in the general direction of “unknown unknowns”. And yet, historically, betting on human ingenuity even when there’s no immediately obvious vehicle for that ingenuity has been a good idea. We as a species are amazingly good at finding oil when we’ve nearly exhausted the world’s supply (again), multiplying crop yields when global famine looms, and inventing new modes of transportation when the manure-pocalypse is nigh.</p>
+<p>This monolithic view of scientific progress as a single number that aggregates over all disciplines oversimplifies a lot of the nuances of how things actually work. Science is composed of subdisciplines of subdisciplines of subdisciplines, and each subdiscipline’s progress comprises the sum of its subidsciplines’ progress over time. If the rate of subdiscipline-spawning is itself a sigmoid, then we recover a slightly bumpier but recognizably sigmoidal progress curve. Sigmoids all the way down (and up).</p>
+<p>I’m not going to pin myself down on any particular predictions in this post, but I will say that I’m optimistic that, taking an outside view on the history of the field, there are probably a few more sigmoids left to be discovered.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
