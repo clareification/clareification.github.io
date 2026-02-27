@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | On the policy gradient loss</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>On the policy gradient loss - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on February 26, 2026
+</div>
+<div class="container">
+<h2>On the policy gradient loss</h2>
+<p><em>Not a loss.</em></p>
+<p></p>
+<h1 id="on-the-policy-gradient-loss">On the policy gradient loss</h1>
+<p>In reinforcement learning, we have some function <span class="math inline">\(\pi(\theta, s)\)</span> which takes some input <span class="math inline">\(s\)</span> and parameters <span class="math inline">\(\theta\)</span> and outputs some probability distribution over actions. The goal is to find parameters <span class="math inline">\(\theta^*\)</span> that maximize the expected reward signal <span class="math inline">\(R\)</span> we get from interacting with some environment by following the policy <span class="math inline">\(\pi\)</span>.</p>
+<p>The obvious first strategy is to run gradient ascent, an approach referred to more generally as a <em>policy gradient</em> method. A policy gradient method takes the expected return <span class="math inline">\(v(s) = \mathbb{E}[\sum_{t=0}^\infty \gamma(t) R(s_t, a_t)| s_0 = s]\)</span> and estimates the gradient <span class="math inline">\(\nabla_\theta v(s_0)\)</span>, then updates the parameters in this direction (modulo some regularization).</p>
+<p>This is important: the <em>gradient</em> that all policy gradient methods are computing is the gradient of the return with respect to the parameters. Insofar as you can say policy gradients are running gradient descent on a loss, the loss is just the return! And yet somehow, whenever I go on a safari into what people on the internet write about policy gradients, I inevitably run into discussions of some mysterious “loss” which, as far as I can tell, is decidedly <em>not</em> the expected sum of discounted rewards. Instead it looks something <a href="https://medium.com/data-science/an-intuitive-explanation-of-policy-gradient-part-1-reinforce-aa4392cbfd3c">like</a> <a href="https://ai.stackexchange.com/questions/11912/policy-gradient-loss-for-neural-network-training">this</a>:</p>
+<p><span class="math display">\[ \mathcal{L} = -A(s,a) \log \pi(s,a)\]</span></p>
+<p>where <span class="math inline">\(A\)</span> is the estimated advantage given rollout and some value baseline <span class="math inline">\(V\)</span>.</p>
+<p>I don’t know about you, but <span class="math inline">\(-A(s,a)\log \pi(s,a)\)</span> doesn’t look much like <span class="math inline">\(\sum \gamma^t R_t\)</span> to me, and when I was initially studying policy gradient methods it was easy to forget that the thing that was being optimized at the end of the day was indeed the return that every RL researcher comes to know and love. So this weekend I engaged in a practice of radical empathy to understand what is driving the gaping chasm between these two interpretations of what it is that REINFORCE is trying to optimize.</p>
+<p>Psychologically, I think much of this confusion comes from the fact that converting <span class="math inline">\(\sum \gamma_t R_t\)</span> into something that you can feed into jax.grad() requires a few non-obvious steps that cause the gradient estimator to look very different than the function it is estimating. This, coupled with a misapplication of the standard deep learning assumption that the thing you feed into jax.grad is your loss function, leads people to think that the object that they are performing gradient descent on is some complicated combination of sampled advantages and log likelihoods.</p>
+<p>The goal of this blog post is to add a bit of clarity into the discussion around policy gradient methods so that when you are talking about “the PPO loss” or the “GRPO loss” or the “ABCDEFGHIJKLMNOPO” loss, the type signature of your statement is slightly less murky. To do so, I’ll give a quick walk-through of how the estimated return is converted into a weighted sum of log-likelihoods for gradient estimation. I’ll then explain why, even though this thing <em>looks</em> like a loss, you should be careful about treating it like one. If you aren’t sick of my pedanticism by this point, you can stick around for a brief lecture on why nothing you apply jax.grad to in an RL problem is actually a loss function.</p>
+<h3 id="a-quick-derivation-of-the-policy-gradient-trick">A quick derivation of the policy gradient trick</h3>
+<p>The way I wrote down <span class="math inline">\(\mathbb{E}_{\mu^\theta}[\sum_{t=0}^\infty \gamma^t R_t ]\)</span> obfuscates a great deal of the interdependency between the expectation and the parameters <span class="math inline">\(\theta\)</span>. Once we write things out more explicitly, the mystery of how the log probability shows up will start to disappear.</p>
+<p>Step 1 is to rewrite the gradient computation using a Bellman-like equation.
+<span class="math inline">\(\begin{align}
+\nabla_\theta v(s_0) &amp;= \nabla_\theta \sum_{a} \pi(a|s_0) q(a, s_0) \\
+&amp;= \sum_{a} \nabla_\theta \pi(a|s_0) q(a, s_0) + \pi(a|s_0) \nabla_\theta q(a, s_0) \\
+&amp;= \sum_{a}[\nabla_\theta \pi(a|s_0) q(a, s_0) + \gamma \pi(a|s_0)\nabla_\theta \sum_{s'} p(s'|s_0, a) v(s')] \\
+&amp;= \sum_{a}[\nabla_\theta \pi(a|s_0) q(a, s_0) + \gamma \pi(a|s_0)  \sum_{s'} p(s'|s_0, a) \nabla_\theta v(s')] \\
+&amp;= \sum_a \nabla \pi(a|s_0) q(a, s_0) + \mathbb{E}_{s' \sim P^\pi(s_0)}\nabla_\theta v(s') \\
+&amp;= \sum_a \nabla \pi(a|s_0) q(a, s_0) + (\gamma P^\pi \nabla_\theta v)(s_0)
+\end{align}\)</span></p>
+<p>This general form should be familiar to any reader who has taken a course in RL or read the Q-learning paper, since we now have a recursion of the form <span class="math inline">\(v = a + (\gamma Pv)\)</span>, which has the closed form <span class="math inline">\((I - \gamma P^\pi)^{-1}a\)</span>. This step sweeps a lot of type signatures under the rug, but if you have the intuition that gradients are linear and so play nice with other linear functions it’s mostly ok.</p>
+<p>Before applying this recursion, we can apply the score function trick to make the sum a bit nicer (remember, we’re looking for something we can use as an estimator, and in practice it isn’t possible to try every action in every state at once). We get this by multiplying by 1, or more precisely <span class="math inline">\(\frac{\pi(a|s)}{\pi(a|s)}\)</span>, to turn the sum into an expectation.</p>
+<p><span class="math inline">\(\begin{align}
+\sum_a \nabla \pi(a|s_0) q(a, s_0) &amp;=  \mathbb{E}_{a \sim \pi(a|s_0)}[\frac{1}{\pi(a|s_0)}\nabla \pi(a|s_0) q(a, s_0)] \\
+&amp;= \mathbb{E}_{a \sim \pi(s_0)} [q(a, s_0) \nabla_\theta \log \pi(a|s_0)]
+\end{align}\)</span></p>
+<p>Now combining these and converting to vectorized notation, we get</p>
+<p><span class="math inline">\(\begin{align}
+\nabla_\theta V &amp;= \mathbb{E}_{a \sim \pi(a | \cdot)} [Q \nabla_\theta \log \pi] + \gamma P^\pi \nabla_\theta V  \\
+&amp;= (I - \gamma P^\pi)^{-1}[ Q \nabla_\theta \log \pi ]
+\end{align}\)</span></p>
+<p>Now to make things look like an expectation again (which is important because that’s how we get an unbiased sampler), we note that the discounted sum of expected values can be viewed as an expectation of a discounted sum of probabilities, which, when appropriately normalized by <span class="math inline">\(\frac{1}{1-\gamma}\)</span>, is itself a valid probability distribution. This means we can write
+<span class="math inline">\(\begin{align}
+(I - \gamma P^\pi)^{-1}[ Q \nabla_\theta \log \pi ] &amp;= \frac{1}{1-\gamma}\mathbb{E}_{s, a \sim \mu_\gamma^\pi} [Q (s,a) \nabla_\theta \log \pi(a|s)]
+\end{align}\)</span></p>
+<p>So now we have that sampling from the distribution <span class="math inline">\(\mu^\gamma_\pi\)</span> the `loss’ <span class="math inline">\(\nabla_\theta \log \pi(a|s) Q(s,a)\)</span> gives a gradient ascent direction for the value <span class="math inline">\(V(s_0)\)</span>.</p>
+<p>Getting to <span class="math inline">\(\mathcal{L}\)</span> requires two simple steps: first, because AI people only know about gradient <em>de</em>scent, we turn the maximization problem into a minimization problem by multiplying by -1. Second, we subtract a value baseline <span class="math inline">\(V(s)\)</span> from <span class="math inline">\(Q(s,a)\)</span> because this doesn’t change the gradient but does reduce the variance of its estimator [TODO: link]. Subtracting a value <span class="math inline">\(V\)</span> turns a Q-value estimate <span class="math inline">\(Q(s,a)\)</span> into an <em>advantage</em> estimate <span class="math inline">\(A(s,a)\)</span>.</p>
+<h3 id="why-this-isnt-a-gradient">Why this isn’t a gradient</h3>
+<p>Although we do take a gradient through this function to estimate the policy gradient, <span class="math inline">\(\sum_{(s,a) \in \mathcal{B}}-A(s,a) \nabla_\theta \log \pi_\theta (a|s)\)</span> isn’t a <em>loss</em> in the sense that it has a number of properties that you wouldn’t expect in a loss function.</p>
+<p>Reason 1: the things that you’re multiplying <span class="math inline">\(\nabla_\theta \log \pi_\theta\)</span> by are actually also functions of <span class="math inline">\(\theta\)</span>, so the gradient estimate you’re updating with isn’t actually the gradient of the `loss’ that you’re supposedly optimizing. When you have a <code>stop_gradient</code> in your loss function, the thing you get out of jax.grad won’t actually be the gradient of that function.</p>
+<p>Reason 2: the function <span class="math inline">\(\sum_{(s,a) \in \mathcal{B}}-A(s,a) \nabla_\theta \log \pi_\theta (a|s)\)</span> being an unbiased estimate of the gradient of <span class="math inline">\(V(\pi_\theta)\)</span> is dependent on the sampling distribution and the advantage estimates coming from the same parameters <span class="math inline">\(\theta\)</span> as are being used in the log probabilities. This will be true for your first gradient step, but most policy gradient algorithms use a batched approach so that you do many gradient steps on the same data distribution before you update the data-generating policy parameters. So not only are you not actually estimating the gradient of the function you’re applying <code>jax.grad</code> to, but after your first gradient step you’re not even getting an unbiased estimate of the gradient you were trying to approximate.</p>
+<p>Reason 3: Advantage estimates are defined over an entire batch, which introduces weird dependencies between data points that you usually assume don’t exist in a fixed cost function. If my agent wins a game, then vanilla policy gradient will reinforce all of the actions that led to that win. This sampling strategy is a bit like reshaping your batch into a <span class="math inline">\(k\times n\)</span> grid and averaging the target and predictive probabilities in each of the <span class="math inline">\(k\)</span> rows before computing your loss. This means that the information-theoretic value of running my agent for <span class="math inline">\(k\)</span> steps in <span class="math inline">\(n\)</span> parallel episodes is closer to what I would expect from <span class="math inline">\(n\)</span> independent samples, rather than <span class="math inline">\(kn\)</span> independent samples.</p>
+<p>All of these things conspire to make the RL training objective extremely ill-behaved for a native of supervised learning.</p>
+<h3 id="nothing-is-a-gradient-in-rl">Nothing is a gradient in RL</h3>
+<p>In fact, although I’ve focused on policy gradient methods, the same “not-a-gradient”-ness applies at least as much to value-based methods. In value-based methods, we aim to estimate the value of the optimal policy
+<span class="math display">\[Q^{\pi^*}(s,a) = \mathbb{E}_{(s_t, a_t)\sim P^\pi}\bigg[ \sum \gamma^t R(s_t, a_t) | s_0 = s, a_0=a \bigg ].\]</span></p>
+<p>The way that most value-based methods do this is to collect some data from a behaviour policy <span class="math inline">\(\pi_B\)</span>, estimate <span class="math inline">\(Q^{\pi_B}\)</span>, and then use this value estimate to improve <span class="math inline">\(\pi_B\)</span> for the next round of data collection. Obviously, if you know the expected return under <span class="math inline">\(\pi_B\)</span> of every state-action pair in the environment, you can improve on <span class="math inline">\(\pi_B\)</span> by deterministically picking the action with the highest expected value. This approach, also known as policy iteration, basically amounts to a sequence of supervised learning problems for each behaviour policy <span class="math inline">\(\pi_B\)</span>. If you collect near-infinite data and regress on the sampled returns for near-infinite time, you will converge stably to the optimal policy. Your learner will also be <em>extremely</em> inefficient, so nobody actually does this in practice.</p>
+<p>Instead, most practical value-learning methods interleave data collection, target construction, and optimization in a complicated dance where each partner is anticipating the response of the other. Rather than using Monte Carlo returns, most value-based methods use <em>bootstrapping</em>, which involves pretending that your predictions don’t depend on your current parameters and treating them as an God-given source of truth about the future. So rather than following the gradient of the well-behaved loss
+<span class="math display">\[\ell_{MC}(\theta, \tau) =\sum_{s_t, a_t \in \tau} \bigg ( Q_\theta(s_t,a_t) -\sum_{t=0}^{|\tau| - t} \gamma^t R_\tau(s_t, a_t) \bigg)^2,\]</span> we instead follow
+<span class="math display">\[\ell_{TD}(\theta, \tau) =\sum_{s_t, a_t \in \tau} \bigg ( Q_\theta(s_t,a_t) -R_\tau(s_t, a_t) - \gamma Q_{\bar{\theta}}(s_{t+1}, a'_{t+1})\bigg)^2\]</span></p>
+<p>which is now regressing with respect to a target <span class="math inline">\(R + \gamma Q_{\bar{\theta}}\)</span> given by the parameters <span class="math inline">\(\bar{\theta}\)</span>, which if we stick our fingers in our ears and yell “stop-gradient” enough times, we can almost convince ourselves shouldn’t contribute to the gradient of this L2 distance. (If you’re mystified by the sudden appearance of <span class="math inline">\(R + \gamma Q\)</span>, I recommend referring to a lovely textbook by <a href="http://incompleteideas.net/book/the-book-2nd.html">Sutton and Barto</a>, chapter 4.) I also use <span class="math inline">\(a'_{t+1}\)</span> here because some algorithms like <span class="math inline">\(Q\)</span>-learning use a different action selection rule for deciding which actions to back up.</p>
+<p>Although this might sound sacrilegious to a disciple of gradient descent, most of the time following the not-a-gradient converges to the optimal value function faster (certainly at least in terms of environment samples required, and consequently generally optimizer steps as well) than the slower gradient-based approach. The reasons for this are complicated, but at a high level amount to a combination of variance reduction and faster communication between state-action pairs. <a href="http://incompleteideas.net/book/the-book-2nd.html">Sutton and Barto</a> (section 6.1) gives a long explanation of this with many pictures and a fun example of commuting in traffic which I can recommend to interested readers.</p>
+<p>Of course, if your learning dynamics don’t look like you’re following a gradient then you can be vulnerable to very <a href="https://arxiv.org/abs/2102.13089">indirect</a> convergence or even <a href="https://arxiv.org/abs/1812.02648">divergence</a> – but at the same time, gradient descent can be <a href="https://mdav.ece.gatech.edu/ece-3803-fall2021/notes/07-notes-3803-f21.pdf">slow</a> depending on things like the conditioning of the optimization problem. The whole point of second-order methods is to say that you can find a descent direction that’s <em>better</em> than the gradient, so it shouldn’t be a surprise that if your problem has additional structure, a method that leverages that structure will be faster than blindly stumbling in the direction of local steepest descent.</p>
+<h2 id="in-summary">In summary</h2>
+<p>While you might be forgiven for thinking that the thing you feed into your favourite autodiff library’s <code>grad</code> function should be called a ‘loss’, I think doing so in this case has led to a lot of confusion about what the heck policy gradient methods are actually doing.</p>
+<p>A policy gradient is the gradient of the <strong>return</strong> with respect to the policy <strong>parameters</strong>.</p>
+<p>All of the fancy clipping terms, generalized advantage estimates, group normalizations, and bizarrely weighted log probabilities are just different ways of estimating <span class="math inline">\(\nabla_\theta V(\theta)\)</span>. It’s easy to get lost in the noise of how to <a href="https://arxiv.org/pdf/2402.03300">estimate</a> the advantage, <a href="https://arxiv.org/html/2508.04349v2">what dimensions to average over</a>, or what <a href="https://arxiv.org/html/2510.13786v1">prompts to filter</a>. But ultimately, it’s important to remember that these are just different ways of estimating the same gradient. Otherwise, you’ll go around calling something that isn’t the thing you’re estimating the gradient of your loss function.
+&lt;/rant&gt;.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
