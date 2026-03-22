@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | Why is there no log in PPO?</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>Why is there no log in PPO? - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on March 22, 2026
+</div>
+<div class="container">
+<h2>Why is there no log in PPO?</h2>
+<p><em>a quick derivation</em></p>
+<p></p>
+<p>As I explained in a previous post, the policy gradient update looks like the following:
+<span class="math display">\[ \theta_{t+1} = \theta_t + \alpha \nabla_\theta J(\pi_\theta) \]</span>
+where the gradient can be estimated from a trajectory <span class="math inline">\(\tau\)</span> as
+<span class="math display">\[ \widehat{\nabla_\theta J(\pi_\theta)} = \sum_{s_t, a_t \in \tau}{A}_t \nabla_\theta \log \pi_\theta(a_t|s_t)\]</span>
+where <span class="math inline">\(A_t\)</span> is your favourite estimate of the advantage.</p>
+<p>This is a straightforward derivation, even though the log derivative trick might take a second to grok. But the most popular policy gradient method, PPO, notably <em>doesn’t</em> have a log in the gradient estimator. Instead, the thing you feed into <code>jax.grad</code> looks like</p>
+<p><span class="math display">\[ \mathcal{L}(\tau, \theta, \pi_{\text{ref}}) = \sum_{s_t, a_t \in \tau}\min(\frac{\pi(a_t|s_t)}{\pi_{\text{ref}}(a_t|s_t)}A_t, \text{clip}(\frac{\pi(a_t|s_t)}{\pi_{\text{ref}}(a_t|s_t)}, 1-\epsilon, 1+\epsilon )A_t) \]</span></p>
+<p>with no logarithm in sight.</p>
+<p>As a quick reminder, the reason why we use a logarithm is because we want to estimate <span class="math inline">\(\nabla_\theta \sum_{a\in \mathcal{A}}\pi_\theta(a|s)Q^{\pi_\theta}(a,s)\)</span>. Since we are generally not capable of implementing a quantum superposition of agents which take every possible action, we use the fact that
+<span class="math display">\[\pi(a|s) \nabla_\theta \log \pi(a|s) = \pi(a|s) \frac{1}{\pi(a|s)} \nabla_\theta \pi(a|s) = \nabla_\theta \pi(a|s)\]</span></p>
+<p>to get an estimator that can use the one-action-at-a-time generative process that produces most RL agent trajectories.
+This means if <span class="math inline">\(a\)</span> is sampled from <span class="math inline">\(\pi(\cdot | s)\)</span>, we get an unbiased estimator from the derivative of the log likelihood of the selected actions. But in PPO, we run our optimizer for multiple epochs over each batch of trajectories, which means that the estimator is actually using
+<span class="math inline">\(\pi_{\text{ref}}(a|s) \nabla_\theta \log \pi(a|s)\)</span>, which is <em>not</em> the derivative we’re looking for.</p>
+<p>Instead, we do the following:</p>
+<p><span class="math inline">\(\begin{align}
+\nabla_\theta (\pi_\theta(\cdot|s)A(\cdot, s)) = \sum_{a \in \mathcal{A}}\nabla_\theta \pi_\theta(a|s) A(a,s) &amp;= \sum_{a \in \mathcal{A}} \frac{\pi_r(a|s)}{\pi_r(a|s)} \nabla_\theta \pi_\theta(a|s) A(a,s) \\
+&amp;= \sum_{a \in \mathcal{A}} \pi_r(a|s) \frac{\nabla_\theta \pi_\theta(a|s)}{\pi_r(a|s)}A(a,s)\\
+&amp;= \mathbb{E}_{a \sim \pi_r(\cdot|s)} \nabla_\theta \frac{\pi_\theta(a|s)}{\pi_r(a|s)}A(a,s)
+\end{align}\)</span></p>
+<p>which is the ratio we see in the PPO update. So because the distribution we’re computing the expectation over doesn’t share parameters with the one we’re differentiating, we don’t need the log.</p>
+<p>The astute reader will note that this seems a bit suspicious, because in the first step of PPO <span class="math inline">\(\pi_{ref}\)</span> is <span class="math inline">\(\pi_\theta\)</span> and if we’re allowed to pretend that <span class="math inline">\(\pi_{ref}\)</span> is independent of <span class="math inline">\(\theta\)</span> then we could have just done that in the previous example and gotten away without the log as well. But since this would end up taking the form of <span class="math inline">\(\frac{\nabla_\theta \pi_\theta(a|s)}{\pi_\theta(a|s)} = \nabla \log \pi_\theta(a|s)\)</span>, we get the log as a special case of the more general importance sampling update.</p>
+<p>I’ve included the step by step derivation of this fact below in case you don’t trust me.
+<span class="math inline">\(\begin{align}
+\nabla_\theta (\pi_\theta(\cdot|s)A(\cdot, s)) &amp;= \sum_{a \in \mathcal{A}}\nabla_\theta \pi_\theta(a|s) A(a,s) \\
+&amp;= \sum_{a \in \mathcal{A}} \frac{\pi_\theta(a|s)}{\pi_\theta(a|s)} \nabla_\theta \pi_\theta(a|s) A(a,s) \\
+&amp;= \sum_{a \in \mathcal{A}} \pi_\theta(a|s) \frac{ \nabla_\theta \pi_\theta(a|s) A(a,s)}{\pi_\theta(a|s)} \\
+&amp;= \mathbb{E}\frac{ \nabla_\theta \pi_\theta(a|s) A(a,s)}{\pi_\theta(a|s)} \\
+&amp;= \mathbb{E} \nabla_\theta \log \pi_\theta(a|s) A(a,s)
+\end{align}\)</span></p>
+<p>So if you’re going to take away one thing from this blog post, it’s that it can be more intuitive to replace <span class="math inline">\(\nabla \log \pi\)</span> with <span class="math inline">\(\frac{\nabla \pi}{\pi}\)</span> in your head whenever you read policy gradient papers so that the importance sampling version of the algorithm feels like less of a jump.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
