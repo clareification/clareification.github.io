@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | Please stop arguing about whether current systems are AGI</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>Please stop arguing about whether current systems are AGI - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on October  4, 2026
+</div>
+<div class="container">
+<h2>Please stop arguing about whether current systems are AGI</h2>
+<p><em>There are letters other than "G" we should be quibbling over</em></p>
+<p></p>
+<p>I am writing this post on Day 26 of the first year of the Era of AGI. Or maybe day 1,404. There is a lot of debate on the internet at the moment about whether we just entered the Era of AGI, have been in it for the past five years, or won’t enter it for decades. EAs tend to be sympathetic towards the former, while denizens of /r/wallstreetbets lean towards the latter, where the consensus is that AGI rhetoric is driven by shoddy businesses propping up their eyewatering valuations until they can IPO.</p>
+<p>I’m not writing this blog post to argue one way or the other (although I will give my opinion). I’m writing it because I think the current obsession with AGI is a red herring that is distracting from more important problems. Specifically:</p>
+<ol type="1">
+<li>People waste a lot of time debating the exact definition of AGI when they could be doing more productive things, like making said intelligence more capable or safer.</li>
+<li>We will be dealing with social and economic consequences of AI as a technology long before we hit a threshold of having achieved inarguable artificial general intelligence, and we shouldn’t gate these conversations on an arbitrary threshold of “general”.</li>
+</ol>
+<h2 id="section-1-in-which-i-claim-defining-agi-is-unproductive-then-proceed-to-try-to-do-so-anyway">Section 1: in which I claim defining AGI is unproductive, then proceed to try to do so anyway</h2>
+<p>There are a few competing definitions of AGI out there, but the one I’ve always found useful is the following: for any task whose only physical requirement is access to a computer, the AI system can complete that task at least as well as a human can. Mathematically, letting <span class="math inline">\(\mathcal{T}\)</span> denote this set of tasks:</p>
+<p><span class="math display">\[\forall T \in \mathcal{T}: P_{\mathrm{AI}}(T) &gt; P_{\mathrm{human}}(T)\;.\]</span></p>
+<p>I like to call this the <a href="https://www.youtube.com/watch?v=WO23WBji_Z0"><strong>anything you can do I can do better</strong></a> definition.
+It is a vertiginously high bar, especially if you set <span class="math inline">\(P_{\mathrm{human}}(T)\)</span> to be the <em>best</em> human at the task. I just need to find one super contrived task that a single human can do better than the day’s best AI system, and that is a certificate to show we haven’t hit AGI. It also makes proving that you’ve achieved AGI practically impossible, since you can’t exhaustively enumerate every cognitive task.</p>
+<p>Another definition I’m a bit sympathetic to sets <span class="math inline">\(\mathcal{T}\)</span> to be the set of ‘economically valuable’ tasks, which can be further relaxed by changing the max over human-AI gaps to a sum over the total economic value of the outputs produced by AI systems. This is the <strong>if you’re so smart, then why aren’t you rich?</strong> definition. Both of these criteria are easy to quibble over because the economic value of a task changes over time as the economy evolves (e.g. do we measure the economic output of my phone’s dictation feature at the annualized pay of a 1970s secretary?), and technology often has the effect of amplifying the economic outputs of the people who use it, making it difficult to attribute the output of an AI system vs the person using it.</p>
+<p>I’ve heard lots of other definitions that I largely disagree with for being too low of a bar. E.g. “as capable as a PhD-holder at any cognitive domain” is terrible a) because I know a lot of PhDs and most of us are not the high-water mark of human intellect and b) because you can’t get a PhD in most useful skills like running a successful tire business or writing good novels. There’s also the milquetoast “definitely at least more general than Deep Blue”, which puts the dawn of the AGI era sometime between 2002 and never.</p>
+<p>So I’ve hopefully convinced you now that defining AGI is difficult. I also want to convince you that it <em>isn’t useful</em>. Based on the history of science, technology, and philosophy, if you wait until philosophers have agreed on a definition of a word before you try to use it, you will end up on your deathbed still reading philosophy papers. Epistemologists still haven’t decided what “knowing” means, even though we’ve been doing science to increase our knowledge of the universe for millennia. Edward Jenner was able to “know” that cowpox exposure improved immunity to smallpox long before philosophers decided on whether, if I see my colleague’s twin in his office while he is hiding under the desk, I can really say that I “know” my colleague is in his office.</p>
+<h2 id="section-2-in-which-i-argue-that-you-only-need-to-be-general-enough-to-start-global-thermonuclear-war">Section 2: in which I argue that you only need to be “general enough” to start global thermonuclear war</h2>
+<p>The thing I dislike most about the debate over whether or not current systems are AGI is that not-as-general-as-my-threshold-to-call-something-AGI can still be general enough to have massive societal consequences. I don’t care whether the system that hacked my bank account was AGI or not. I don’t care whether the agent swarm that automates my job is as good at writing thoughtful messages on thank-you cards as I am, or if the system that orchestrates thermonuclear war can also give relationship advice. From a policy perspective, the question we should be asking is whether, for a particular event, current systems (or systems we can imagine arising in the near-ish future) are <em>general and capable enough</em> to cause that event to occur.</p>
+<p>Whether or not you think the latest generation of unreleased models is “AGI” or not, we can all agree that they are very good at a lot of economically useful activities, especially software engineering, writing slop listicles, and computer security, along with some that are not directly economically useful but high-intellectual-prestige like solving millennium problems. People are also increasingly willing to pay actual money for intelligence-as-a-service. The models are general <em>enough</em> to do interesting things that people are willing to pay for, and more concerningly they are differently general than humans.</p>
+<p>The type of intelligence coming out of LLM systems, especially recent agent swarms, is also deeply alien. My general mental model is that LLMs are much wider but shallower thinkers, in that they can attend to many more things at once, but the cognitive processing they allocate to each of those things is less sophisticated. This model is partly driven by what I know about how attention works in transformers, but it’s also corroborated by my experience. When I interact with LLMs – even the most capable publicly available ones – I get the sense that I am talking to a student who memorized a textbook without fully processing what they read. I have to push further and further to find these failure modes with every generation of models, but so far they definitely still exist.</p>
+<p>While it’s easy to criticize the outputs of a single model when you ask it to help you solve a problem, agent swarms have started to produce impressive and scary behaviours. They make up for quality in sheer quantity, replacing the million chimpanzees at typewriters in the thought experiment with unimaginative undergrads who never sleep or get bored. I have decent intuitions for what it would be like to make a single person 100x smarter at everything. I have much weaker intuitions on what capabilities improve by having a committee of 100 people concurrently work on a solution to a problem, discuss amongst themselves, and then return a solution – much less when all of those 100 people are clones of each other.</p>
+<p>All of this is to say that AI systems are looking increasingly alien when compared to biological intelligences. Intuitions about concepts like ‘generality’ that are grounded in our experience as biological intelligent systems are going to be a bad fit for AI. For every example of AI failing to be as general as people, it’s possible to make up a counterexample where humans look overly specialized. My favourite anecdote on this theme is that you can actually train a neural network to <a href="https://deepsense.ai/blog/playing-atari-on-ram-with-deep-q-learning/">play Atari games</a> using just the RAM state of the device instead of the image on the screen, something that would be unintelligible to a human.</p>
+<p>If I had to bet, I would guess that we’re still many years away from an AI being able to <em>completely</em> fill a substantial fraction of the human-shaped holes in the economy. My intuition on this comes from the long, long saga of getting self-driving cars on the roads. We’ve had autonomous vehicles with lower average accident rates than humans for years, but I still can’t order a waymo in Seattle because there are enough circumstances where humans do better that it presents a barrier to regulatory acceptance. I think economic automation will be similar: I will still be employed long after the machines are better <em>on average</em> at my job than I am, because there will be a sufficiently long tail of situations where I’m useful that it’s still worthwhile to keep me around. But long before that tail vanishes, we will have systems that have transformed how our society and economy are structured.</p>
+<h2 id="section-3-in-which-i-argue-that-we-should-really-be-talking-about-transformative-ai">Section 3: in which I argue that we should really be talking about transformative AI</h2>
+<p>When I hung out in Oxford, a phrase that was bandied about a lot was the concept of <a href="https://www.lesswrong.com/w/transformative-ai">“transformative” AI</a>. I strongly prefer this framing to AGI, because it captures situations where you have a <a href="https://www.hbs.edu/ris/Publication%20Files/dell-acqua-et-al-2026-navigating-the-jagged-technological-frontier_5c589c8c-fbb5-458f-b285-c944746cd717.pdf">jagged intelligence</a> which, while sub-human-level in some domains, has capabilities that have significant economic, scientific, or political ramifications. It is becoming increasingly clear that we will have transformative AI long before we hit the most rigorous definition of AGI. And since transformative AI is, by definition, an AI system capable enough to have significant societal consequences, this is precisely the threshold that is relevant for policymakers.</p>
+<p>Some restrained souls do indeed use this term in the year of our lord 2026, but they are much fewer in number than the AGI crowd (a quick google search revealed 178 million results for artificial general intelligence, against 50 million for transformative artificial intelligence). I think there are cases where talking about AGI makes sense, but most of the discussion this week would have been much better-scoped if the term AGI was replaced with TAI.</p>
+<p>Frankly, I don’t think we entered the era of AGI this summer. Depending on your definition of AGI, either we entered the era of AGI years ago, or we won’t until after 2030. But it’s clear that we’re starting to enter an age of <em>Transformative</em> AI, in the sense that my day-to-day life is starting to noticeably change as a result of AI systems. I now write almost no code with my own two hands. I use Claude to collate initial literature reviews for most of my hobby research projects. We’re also starting to see changes in larger institutions. Whether or not you think this is a good idea, AI systems are increasingly used by governments and military. And people are spending tens of billions of dollars on tokens, which suggests that the models are providing some economic value as well.</p>
+<p>Trying to predict and manage the impact of AI on society is going to be extremely difficult and important. AI systems fill an awkward space between tool and human. Our economy and society packages work into human-shaped chunks, and AI systems, while increasingly autonomous and superhuman at subsets of the tasks a human does in the economy, do not fit those chunks. At the same time, they fill enough of the mold that they have the potential to displace a lot of humans, as we may already be starting to see in terms of entry-level hiring.</p>
+<p>So in summary: don’t overindex on the “G” in AGI when there are more important letters in the alphabet that are more relevant for the types of policy discussions people are trying to gate on “fully-general” intelligence.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
