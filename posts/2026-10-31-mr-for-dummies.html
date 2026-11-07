@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | On death and statistics</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>On death and statistics - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on October 31, 2026
+</div>
+<div class="container">
+<h2>On death and statistics</h2>
+<p><em>Mendelian randomization for dummies</em></p>
+<p></p>
+<p>The AI world is getting a bit bleak lately, so I’m taking a break from writing about alignment and RL this weekend to jump into another, more cheerful topic: death.</p>
+<p>Specifically, I’m going to discuss how scientists figure out <em>why people die</em>. This is a fundamental question to medicine, biology, and forensics. Figuring out why people die is usually an important step in stopping them from dying. And it can be difficult in the same way that answering any “why” question is difficult. If you slip on a banana peel as you’re walking along the sidewalk then fall into oncoming traffic and die, should your death be attributed to poor urban sanitation, or excessive motor vehicle speeds?</p>
+<p>Understanding why one person died may open up a philosophical quagmire, but the mechanisms can usually be understood by a determined coroner and biochemist. Understanding why millions of people die is much harder. If you contort population statistics for long enough, you can find a correlation with virtually any variable you want and mortality. This is the cause of the constant whiplash any attentive reader of popular science publications experiences as chocolate, butter, and eggs are declared by news media to be worse than cyanide one week, and a foundational component of a balanced diet the next. The gold standard that scientists work toward, however, is <em>causal</em> relationships.</p>
+<h2 id="causality-is-hard-a-reprise.">Causality is hard, a reprise.</h2>
+<p>Causal relationships in physics are straightforward and simple enough that they can be expressed as low-degree polynomials. But biologists study systems with many more moving parts than a ball rolling down a ramp, and these moving parts generally do not magically cancel out into a precise quadratic formula. Worse, the visible components of these systems usually interact nonlinearly and can form complex feedback loops, which means that many phenomena we might want to study devolve into hopeless chicken-and-egg problems.</p>
+<p>Main problem: in biology, the mechanisms are trillions of tiny molecular machines that have developed over the course of evolution to perform very specific, non-random functions. The machines are too complicated to model as random noise like a physicist would, but too numerous to characterize explicitly like a chemist would.</p>
+<p>Solution is to try to fit very simple models (usually linear) to show that doing something leads to a particular outcome, doing more of it leads to more of that outcome, and that if you keep everything constant but stop doing the thing, you will reduce the outcome. Ultimately, the outcome we care about is dying.</p>
+<p>Some examples of correlations that seem like they should be causal but haven’t held up: eating fish that have lots of omega-3s is associated with lower heart disease (and ACM?). But people who take omega-3 supplements don’t live longer than people who don’t. Oily fish that taste good are expensive, so people who eat them tend to be rich or very committed to their health. Both of these things are associated with positive health outcomes. Even if you control for socioeconomic status, “salmon is healthy” is such a pervasive message that a person who eats salmon is probably doing a lot of other good things for their health. If you try to fix this by mailing people a box of salmon every week to eat, you still haven’t fixed the problem because people who don’t like to eat healthy foods might still not consume it. Exercise is an even more difficult proxy – people who are depressed, sick, or injured don’t exercise. So you have to account for what’s known as the “sick quitters” effect in addition to the fact that people who exercise are generally richer and have better self-control than people who don’t.</p>
+<h2 id="solution-1-at-least-we-tried.">Solution 1: at least we tried.</h2>
+<p>One strategy is to measure ‘intention-to-treat’. This is the strategy used by a lot of the evidence supporting a Mediterranean diet, where they mail people vats of olive oil and then see if the people who receive the vats die less often than people who didn’t. So far, it seems like being mailed large containers of olive oil does make you live longer, which might be something to consider for readers who are considering substituting their shipments of questionably-provenanced peptides.</p>
+<p>So how are we supposed to figure out what is killing us? If any lifestyle factor is hopelessly confounded, what hope do we have of figuring out how to live longer? Is there <em>anything</em> we can measure that serves as a truly independent random variable?</p>
+<h2 id="solution-2-unzipping-your-genes">Solution 2: unzipping your genes</h2>
+<p>The answer lies in our genes. No matter how much you exercise, the genetic code you were assigned at birth stays (approximately, modulo viral infections or CRISPR gene therapy treatments) constant throughout your life. Although different populations have different prevalences of various alleles, nothing that a person does will affect which ones they inherited. Some genes do indirectly affect behaviour, but most(?) don’t. The genes that control cell division, dna repair, cholesterol synthesis, etc. can be fairly straightforwardly localized to those specific functions. If you find a gene that makes the liver clear certain lipoproteins more slowly, it is probably not also causing the bearer to crave bacon. This is the basis of <em>Mendelian Randomization</em>.</p>
+<h3 id="interlude-the-math-of-instrumental-variables">Interlude: the math of instrumental variables</h3>
+<p>The math behind mendelian randomization is straightforward if you come at it from machine learning world. The idea is that you have three sets of variables: outcomes <span class="math inline">\(Y\)</span>, features <span class="math inline">\(X\)</span>, and instrumental variables <span class="math inline">\(Z\)</span>. An instrumental variable is statistics-speak for a variable that you’re very confident doesn’t have any hidden confounding with the thing you want to predict. You then assume you have a causal graph with the following structure.</p>
+<p><img src="../images/causal_graph.png" width="400px" /></p>
+<p>The goal is to figure out what the relationship is between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, but in the above causal graph <span class="math inline">\(W\)</span> acts as a hidden confounder that prevents us from directly measuring the effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span> by just looking at these two variables. <span class="math inline">\(W\)</span> is usually impossible to measure, which is why we want a model that ignores it. For example, it might be a person’s commitment to doing unpleasant things that their mother said were healthy. Instead, we want to use <span class="math inline">\(Z\)</span>, which is independent of <span class="math inline">\(W\)</span>, as a proxy for <span class="math inline">\(X\)</span>, and then use that estimate to predict the effect of <span class="math inline">\(X\)</span> on <span class="math inline">\(Y\)</span>.</p>
+<p>We could just learn a regressor that maps <span class="math inline">\(Z \rightarrow Y\)</span>, which would tell us how <span class="math inline">\(Z\)</span> affects dying. So we could say “having allele GHWEIK4893 of gene VCBUI-1 causes you to die 5 years earlier on average”. But that’s not very interesting scientifically: we can’t change your genes after you’re conceived (yet), and we also would like to know what the gene is doing that is killing people. But if you know roughly what protein the gene encodes, and how different alleles lead to different levels of that protein, you can figure out how that protein affects death by first translating gene to protein, and then using the inferred protein level to predict death.</p>
+<p>This is going to give a <em>worse</em> estimate of the correlation between the feature and outcome, but a better estimate of the causal role of the feature in the outcome.</p>
+<p>Practically speaking, all of this just means you do a 2-phase linear regression. First, you fit a linear model
+<span class="math display">\[\mathbf{X} = \mathbf{\gamma Z} + \mathbf{c_X} + \mathbf{\epsilon_X}\]</span></p>
+<p>with parameters <span class="math inline">\(\mathbf{\gamma}\)</span>. This is how you guess what – all else being equal – the feature would be due to the effect of your instrumental variable. Then you fit a second linear model <span class="math inline">\(\mathbf{\beta}\)</span> using OLS or elastic net regression to
+<span class="math display">\[\mathbf{Y} = \mathbf{\beta X} + \mathbf{\epsilon_Y} + \mathbf{c_Y}.\]</span></p>
+<p>If <span class="math inline">\(\beta\)</span> isn’t a good predictor of <span class="math inline">\(Y\)</span>, then either your instrumental variable isn’t as good of a proxy for the feature as you initially thought, or there isn’t actually a causal relationship between the feature and the outcome (or else there was yet more hidden confounding that you failed to account for, but for things like lipoproteins this is less likely as I don’t think anyone has found an association between e.g. wealth and ApoE status). If it is a good predictor of <span class="math inline">\(Y\)</span>, then you’ve established causality (assuming nobody finds a confounder between your instrumental variable and outcome). Yay!</p>
+<h2 id="example-framingham-heart-study">Example: Framingham Heart Study</h2>
+<p>The <a href="https://en.wikipedia.org/wiki/Framingham_Heart_Study">Framingham Heart Study</a> is a landmark in clinical epidemiology. It has studied the residents of the town of Framingham, Massachusetts for almost 80 years, conducting DNA, blood, and other samples from them throughout their lives and tracking their major life milestones (i.e. birth, heart attack, and death). It’s responsible for most of what we now know about heart disease, yielding household names like the <a href="https://en.wikipedia.org/wiki/Framingham_Risk_Score">Framingham Risk Score</a>. Because participants had their genomes sequenced, researchers could look at whether having certain genes that led to different lipoprotein compositions and levels predicted who would get heart disease.</p>
+<p>This <a href="https://www.jacc.org/doi/10.1016/j.jacc.2012.09.017">paper</a> conducted a meta-analysis of several studies, looking at 9 alleles of 6 genes and finding that lower lifetime LDL-C exposure (as determined by genetic risk factors) reduced the risk of coronary heart disease. In other words, if you equalize for all aspects of lifestyle and <em>just</em> look at two populations with different LDL-Cs due to random genetic luck, the ones with higher LDL-C die more. This is important because it means that if you pharmacologically reduce LDL-C, you will also reduce risk of heart disease. As it turns out, LDL-C is very easy to reduce pharmacologically with minimal side effects, which is why <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10203693/">35%</a> of US adults take statins.</p>
+<p>Framingham was also responsible for <a href="https://www.sciencedirect.com/science/article/pii/S0140673612603122">showing</a> that although HDL-C (the “good” cholesterol) correlates with lower cardiovascular risk, it doesn’t seem to have a <em>causal</em> effect. Having a genetic mutation that increases your natural level of HDL above a baseline doesn’t seem to have the same protective effect as having high observed HDL. This makes sense since one big driver of HDL levels is exercise, which is beneficial to health for a wide variety of reasons. Pharmacological interventions that increase HDL, in contrast to LDL-lowering medications, tend not to show improvements (some <a href="https://en.wikipedia.org/wiki/Torcetrapib">candidate drugs</a> in this area increased blood pressure and as a result actually increased risk of heart disease).</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>When I first learned about instrumental variables regression, it was in a reinforcement learning class and the motivation was basically non-existent (we wanted to fit linear regression models on samples from gridworlds better). Little did I know that this was the exact same method used to cut heart disease mortality by about <a href="https://www.ahajournals.org/doi/10.1161/JAHA.124.038644">two thirds</a> over the past 60 years. So as we question whether there will be space for humans in the era of AGI, let us at least rejoice in the fact that, thanks to instrumental variable regression, we will probably not die of heart disease before that happens.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
