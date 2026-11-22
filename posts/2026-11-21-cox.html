@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content>
+    <meta name="author" content>
+
+    <title>Clare Lyle | You, too, can be an armchair epidemiologist</title>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32" />
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+    <link rel="icon" href="./images/c_icon.png" sizes="32x32">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="../index.html">Clare Lyle</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="../index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="../about.html">About</a>
+                    </li>
+                    <li>
+                        <a href="../pubs.html">Publications</a>
+                    </li>
+                    <li>
+                        <a href="../archive.html">Blog</a>
+                    </li>
+                    <li>
+                        <a href="../contact.html">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header" style="background-image: url('/images/robot_scenery_2.png'); box-shadow: inset 0 0 0 1000px rgba(0,0,0,.1); height:60px">
+        <div class="container">
+            <!-- <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1"> -->
+<!--                     <div class="site-heading">
+                        <h1>Clare Lyle</h1> -->
+                        <!--<hr class="small">
+                        <span class="subheading">Machine Learning</span>-->
+                    <!-- </div> -->
+                <!-- </div>
+            </div> -->
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container"><head><title>You, too, can be an armchair epidemiologist - Clare Lyle</title></head>
+<div class="info" style="font-family:Open Sans; margin-left: 5%">
+    Posted on November 21, 2026
+</div>
+<div class="container">
+<h2>You, too, can be an armchair epidemiologist</h2>
+<p><em>A surprising symmetry between hazard ratios and preference learning.</em></p>
+<p></p>
+<p>AI researchers must prepare ourselves for two possible futures: either capabilities improve enough that AI takes over a significant chunk of the economy, including most likely our own jobs, or it fails to hit escape velocity, is unable to pay back the eye-watering capex of the past five years, and we plunge into another AI winter. In either case, now is the time to start developing useful, portable skills that we can leverage in the rapidly approaching era when nobody needs or wants AI researchers any more.</p>
+<p>Having worked in AI for a few years, you have a few things going for you: you likely understand basic mathematics, can evaluate whether the code that your AI agent writes is fabricating results, and have a knack for identifying exponential growth. There are a few different domains where these skills might be useful, but the one most likely to allow you to atone for your participation in the {biggest bubble since the dot com crash || rogue AI takeover} is epidemiology. In fact, as I will show in this blog post, several of the methods epidemiologists use are practically identical to methods you already know from neural network training. Plus, since there’s no money in epidemiology which means no incentive to train LLMs to be good at it, your job will be safe for at least an additional 18 months.</p>
+<p>To be more specific, I’m going to focus on one symmetry which is both surprising and oddly satisfying: hazard ratio estimation using Cox regression.</p>
+<h3 id="hazard-ratios">Hazard ratios</h3>
+<p>Epidemiologists are very interested in not just <em>how many</em> people get sick and die, but <em>when</em> they do so (after all, eventually the answer to the latter is ‘everyone’). One useful metric of whether one group of people is healthier than another is to look at their risk of illness or death at any particular instant. If people who only eat potatoes and lentils have a probability <span class="math inline">\(h\)</span> of keeling over from a heart attack each day, then we can quantify the increase in heart attack risk from eating nothing but cheeseburgers by looking at the probability at which a cheeseburger-eater will have a fatal heart attack, and then compute the ratio of these two quantities.</p>
+<p>This is called a <em>hazard ratio</em>.</p>
+<h3 id="cox-regression">Cox regression</h3>
+<p>Now suppose that we want to estimate how multiple different lifestyle factors influence some outcome (for simplicity, let’s assume we’re looking at all-cause-mortality, i.e. death).</p>
+<p>Predicting the likelihood that any individual person, say Bob Smith, will die at time <span class="math inline">\(t\)</span> is hard because you need to come up with a parametric model for how a person’s likelihood of death evolves over time. This is hard.</p>
+<p>There are lots of estimation problems where it is very hard to compute or estimate the exact probability of an event happening, but easy to compute the relative likelihood of two events (the short reason for this is that integration is hard, but computing a ratio of instantaneous values is easy).</p>
+<p>The Cox proportional hazards model takes this perspective to an extreme, by assuming that there is some base risk
+<span class="math display">\[\lambda_0(t)\]</span>
+which you don’t know. Then it assumes that an individual’s (with features <span class="math inline">\(x\)</span>) risk of an event is given by the formula
+<span class="math display">\[\lambda(t|x) = \lambda_0(t) \exp(\mathbf{\beta}^\top x)\]</span></p>
+<p>Intuitively, this says “if your baseline risk of getting lung cancer is some value <span class="math inline">\(p\)</span>, the smoking increases that value by a factor of <span class="math inline">\(2\)</span> and sleeping 6 hours a night increases that by another factor of <span class="math inline">\(1.5\)</span>, so someone who does both ends up with a rate of <span class="math inline">\(3p\)</span>”.</p>
+<p><span class="math display">\[h(t|X) = h_0(t) \exp(\mathbf{\beta}^\top X)\]</span></p>
+<p>Suppose you have a dataset with a bunch of people, the time at which some event happened, and a (let’s assume constant for now) set of features for each person that tell you things like their BMI, whether they smoke, how much they exercise, etc. Then you can estimate the best-fit <span class="math inline">\(\mathbf{\beta}\)</span> to predict their odds-ratio by using maximum likelihood estimation, using the likelihood function</p>
+<p><span class="math display">\[L_i(\beta) = \frac{\exp(\beta^\top x_i)}{\sum \exp(\beta^\top x_j)} \text{  and   } L(\beta) = \prod_{i=1}^K \frac{\exp(\beta^\top x_i)}{\sum_{j \in R(t_i)} \exp(\beta^\top x_j)}\; .\]</span></p>
+<p>It’s not obvious from the equation above, but implicitly this is computing the likelihood that <em>of all the people remaining in the dataset at the time that the event happened to person <span class="math inline">\(i\)</span>, person <span class="math inline">\(i\)</span> would be the one it would happen to</em>.
+We can then turn this likelihood into a log to get a nice sum over events
+<span class="math inline">\(\ell(\beta) = \sum_{i=1}^K \beta^\top x_i - \log \sum_{j \in R(t_i)}\beta^\top x_j
+;.\)</span></p>
+<p>Then follow some standard optimization process (statisticians like Newton-Raphson) on the parameters <span class="math inline">\(\beta\)</span> to maximize the sum over data of this likelihood.</p>
+<h3 id="comparison-with-the-bradley-terry-model">Comparison with the Bradley Terry model</h3>
+<p>Some of you might have noticed that the likelihood function being optimized looks suspiciously like the Bradley-Terry model used in RLHF. As a reminder, Bradley-Terry is a way of modeling the likelihood of one player beating another in some sort of head-to-head game; it’s agnostic to whether the entities it is modeling are human chess players or LLM essay-writers. In either case, the idea is to estimate some score function <span class="math inline">\(s(x)\)</span> so that the probability that in a head-to-head matchup <span class="math inline">\(x\)</span> beats <span class="math inline">\(y\)</span> is</p>
+<p><span class="math display">\[P(x_w) = \frac{\exp(s(x))}{\exp(s(x)) + \exp(s(y))}\;.\]</span></p>
+<p>Then you can optimize the score function given a bunch of match-ups and results by maximizing the average likelihood under your model that the actual winner in each match will win.</p>
+<p>If you squint, the Cox hazard model can also be interpreted as trying to estimate the winner of a matchup (where ‘winning’ means you die first) using a linear score function. In the case where the population only has two people, you get:</p>
+<p><span class="math display">\[L(\beta) = \frac{\exp(\beta^\top X_w)}{\sum_{j=w, l} \exp(\beta^\top X_j)}\]</span></p>
+<p>So RLHF researchers are already well-equipped to model hazard ratios in epidemiological data, at least when the dataset only has two people.
+The model you use to generalize Bradley-Terry to these multi-player “tournaments” just assumes that instead of there being a score that determines
+<span class="math display">\[p(W(x)) = \frac{s(x)}{s(y) + s(x)}\]</span>
+you instead have a score that gives
+<span class="math display">\[p(D_t(x)|\texttt{DEATH}_t) = \frac{s(x)}{\sum_{y \in R(t)}s(y)}\]</span></p>
+<p>where here you have to condition on the fact that <em>somebody</em> did indeed die / get sick at time <span class="math inline">\(t\)</span>. This is known as the <a href="https://www.statisticshowto.com/plackett-luce-model/">Plackett-Luce model</a>.
+Interestingly, one approach that’s intended to get rid of the non-monotonicity of the naive score function under the Plackett-Luce model does essentially turn the mortality dataset into a giant tournament of 1v1 games, where each participant is pitted against each other participant and `wins’ if they live longer. Using this objective to fit a score function avoids some weird pathologies of the set-valued version that arise because the denominator in the likelihood changes as more people die.</p>
+<h3 id="application-epigenetic-clocks">Application: epigenetic clocks</h3>
+<p>Hazard ratios are used all over the medical literature to quantify the effect of some lifestyle factor or intervention. This <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8651375/">paper</a> contains many such examples, such as risk of heart attack in patients with kidney failure, glaucoma progression, and all-cause mortality in mostly-healthy Italian retirees. Hazard ratios are unit-free, which can be a blessing and a curse in conveying the significance of a finding. Doubling the risk of a 1-in-a-million event vs a 1-in-2 event leads to a very different practical effect size, but the same hazard ratio.</p>
+<p>In general, a hazard ratio associated with an observational study have to be taken with a grain of salt due to the risk of confounding. I discussed this extensively in a previous post, and won’t go into that extensively here. The main point is just that if your Cox regression comes back and says that being rich prevents heart disease, you can be reasonably confident that if you secretly put a billion dollars in a trust fund for Joe Schmoe but didn’t tell him about it, you should not expect his life expectancy to match that of his non-oblivious billionnaire peers.</p>
+<p>One point where this becomes really interesting is in the study of epigenetic clocks. Your epi-genome is a set of molecular tags (mostly methyl groups) that stick to your DNA (in a process called methylation) and can either increase or decrease how much a particular gene is expressed. Over time, researchers have observed that the pattern of which genes are tagged or not changes somewhat predictably. An epigenetic clock uses this fact to estimate your age based on DNA methylation patterns. Interestingly, your predicted epigenetic age can be affected by lifestyle factors and genes that are known to drive faster aging, like smoking and mutations causing progeria. However, it can be difficult to disentangle whether methylation at one site on the genome <em>causes</em> you to age faster, or is a response to some environmental stimulus (e.g. up-regulating DNA repair proteins after radiation exposure).</p>
+<p>The question of which changes cause vs react to cellular damage and disfunction is of huge importance to aging researchers. To the general public who just want to know whether they need to eat better and exercise more, they are irrelevant. What matters from an epidemiological health perspective is not whether their epigenome looks like that of someone five years older, but whether their risk of dying is that of someone five years older. With this goal in mind, the most useful epigenetic clocks will be the ones that tell us the hazard ratio of different population groups’ risk of cancer, heart disease, and all-cause mortality. And for this, we can use a Cox model to fit a linear predictor on methylation data to estimate the hazard ratio of a particular methylation site on mortality. So whereas early epigenetic clocks did standard L2 regression on an individual’s age based on their epigenome, newer generations instead try to predict risk of death using methods like Cox regression.</p>
+<p>The fact that Cox coefficients capture correlation and not causation is important to keep in mind when you see advertisements for “cellular rejuvenation” peptides. You don’t want to accidentally shut off important cellular repair enzymes just because these tend to be most active in sick people. I think epigenetic clocks and epigenetic reporgramming is an enormously interesting research problem, but I am not endorsing taking random peptides on the basis of ‘reinvigorating’ your epigenome.</p>
+</div></div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <ul class="list-inline text-center">
+                        <li>
+                            <a href="https://scholar.google.co.uk/citations?user=_JMpZh0AAAAJ&hl=en">
+                                <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa-brands fa-google-scholar fa-stack-1x fa-inverse"></i>
+                            </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://twitter.com/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://linkedin.com/in/clarelyle">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://github.com/clareification">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-brands fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+
+</body>
+
+</html>
